@@ -9,5 +9,5 @@ hexo.extend.filter.register('before_generate', () => {
     if (typeof use === 'string') {
         use = use.split(',').slice(0,2)
     }
-    themeConfig.comment.use = use.map(item => item.toLowerCase().replace(/\b[a-z]/g, s => s.toUpperCase()))
+    themeConfig.comment.use = use.map(item => item.trim().toLowerCase().replace(/\b[a-z]/g, s => s.toUpperCase()))
 })

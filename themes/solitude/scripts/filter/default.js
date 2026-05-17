@@ -14,7 +14,7 @@ hexo.extend.filter.register("after_post_render", function (data) {
     data.excerpt =
       layout === "post" ? data.description || data.excerpt : data.title;
     data.toc = !!(config.aside.toc[layout] && data.toc !== false);
-    data.aside = layout === "post" ? data.aside || true : data.aside || false;
+    data.aside = data.aside !== undefined ? data.aside : (layout === "post");
   };
 
   if (data.layout === "post" || data.layout === "page") {
