@@ -3,27 +3,38 @@
 
   #menu-mask
     position fixed
-    z-index 1001
+    z-index 1003
     display none
     width 100%
     height 100%
-    background var(--efu-maskbg)
-    -webkit-backdrop-filter saturate(180%) blur(20px)
-    backdrop-filter saturate(180%) blur(20px)
+    background var(--efu-none)
+    -webkit-backdrop-filter none
+    backdrop-filter none
     transform translateZ(0)
     animation .6s ease 0s 1 normal none running to_show
 
   #sidebar-menus
     position fixed
-    top 0
-    right -300px
-    overflow hidden auto
+    top 16px
+    right 8px
+    overflow hidden
     width 300px
-    height 100%
+    max-width 90vw
+    height calc(100% - 32px)
     background var(--efu-maskbgdeep)
-    transition all .5s ease 0s
-    z-index 1001
-    border-left var(--style-border-always)
+    transition transform .3s cubic-bezier(.25, .46, .45, .94), opacity .3s cubic-bezier(.25, .46, .45, .94)
+    z-index 1004
+    border var(--style-border-always)
+    padding-bottom 44px
+    border-radius 12px
+    transform-origin top right
+    transform scale(.9)
+    opacity 0
+    pointer-events none
+    scrollbar-width none
+
+    &::-webkit-scrollbar
+      display none
 
     +minWidth768()
       display none
@@ -49,15 +60,20 @@
 
     / .site-data
       display flex
-      width 100%
-      justify-content space-around
-      margin 12px 0 0 0
-      padding .6rem 16px
+      width calc(100% - 32px)
+      justify-content space-between
+      margin 18px 16px 12px
+      padding 8px 16px
+      gap 12px
+      background var(--efu-card-bg)
+      border var(--style-border-always)
+      border-radius 8px
 
       .data-item
         display flex
         justify-content flex-start
-        margin-right 36px
+        margin-right 0
+        min-width 0
 
         .data-item-link > a
           display flex
@@ -73,6 +89,7 @@
         .data-item-link .headline
           font-size 12px
           color var(--efu-secondtext)
+          white-space nowrap
 
     .menus_items
       padding 0 16px
@@ -128,7 +145,12 @@
       display none
 
     &.open
-      transform translate3d(-100%, 0, 0)
+      transform scale(1)
+      opacity 1
+      pointer-events auto
+      overflow hidden auto
+      -webkit-backdrop-filter blur(20px) saturate(180%)
+      backdrop-filter blur(20px) saturate(180%)
 
     .back-menu-list-groups
       padding 0 16px

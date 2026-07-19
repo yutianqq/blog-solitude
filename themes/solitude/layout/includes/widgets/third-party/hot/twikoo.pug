@@ -52,6 +52,6 @@ script.
         if (typeof twikoo === 'object') {
             fetchCommentsCount();
         } else {
-            utils.getScript('!{url_for(theme.cdn.twikoo)}').then(fetchCommentsCount);
+            Solitude.getScript('!{url_for(theme.cdn.twikoo)}').then(fetchCommentsCount);
         }
     }

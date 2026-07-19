@@ -1,256 +1,285 @@
 .post
   #page-header.post-bg
-    height 20rem
+    height 24rem
     background-color var(--efu-background)
     transition .6s
     overflow hidden
 
-    +minWidth1300()
-      height: 25rem
-
-    +maxWidth768()
-      height 15rem
-      background-color var(--efu-main) !important
-      transition 0s
-      margin-bottom -12px
-
     &::before
-      transition .3s
-      height 20rem
-      background-color var(--efu-main)
-      opacity 1
       position absolute
       top 0
       left 0
       display block
       width 100%
+      height 100%
+      background-color var(--efu-main)
       content ""
+      opacity 1
+      transition .3s
 
-      +minWidth1300()
-        height 25rem
-        opacity 0
-        background-color var(--efu-main)
-        animation slide-in-op .6s 0s forwards
+    +maxWidth768()
+      height 30rem
+      margin-bottom -12px
+      background-color var(--efu-main) !important
+      transition 0s
 
-      +maxWidth768()
+      &::before
         height 15rem
 
-  .post-bg
-    #post-cover
+  .post-cover-aside
+    --post-cover-glow-x 50%
+    --post-cover-glow-y 50%
+    --post-cover-glow-opacity 0
+    --post-cover-img-x 0px
+    --post-cover-img-y 0px
+    --post-cover-rotate-x 0deg
+    --post-cover-rotate-y 0deg
+    --post-cover-scale 1
+    position absolute
+    top 50%
+    right max(calc((100vw - 1400px) / 2 + 30px), 30px)
+    z-index 11
+    display block
+    width 300px
+    aspect-ratio 16 / 9
+    overflow hidden
+    border-radius 16px
+    box-shadow var(--efu-shadow-border)
+    transform translate3d(0, -50%, 0) perspective(900px) rotateX(var(--post-cover-rotate-x)) rotateY(var(--post-cover-rotate-y)) scale3d(var(--post-cover-scale), var(--post-cover-scale), 1)
+    transform-style preserve-3d
+    transition transform .18s ease-out, box-shadow .18s ease-out
+
+    &::before,
+    &::after
+      position absolute
+      inset 0
+      border-radius inherit
+      content ""
+      opacity var(--post-cover-glow-opacity)
+      pointer-events none
+      transition opacity .18s ease-out
+
+    &::before
+      padding 2px
+      background radial-gradient(circle at var(--post-cover-glow-x) var(--post-cover-glow-y), #fff, rgba(255, 255, 255, .7) 20%, rgba(255, 255, 255, .1) 46%, rgba(255, 255, 255, 0) 62%)
+      transform translateZ(26px)
+      -webkit-mask linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)
+      -webkit-mask-composite xor
+      mask linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)
+      mask-composite exclude
+
+    &::after
+      background radial-gradient(circle at var(--post-cover-glow-x) var(--post-cover-glow-y), rgba(255, 255, 255, .22), rgba(255, 255, 255, .08) 22%, rgba(255, 255, 255, 0) 55%)
+      mix-blend-mode screen
+      transform translateZ(25px)
+
+    &:hover
+      --post-cover-glow-opacity 1
+      --post-cover-scale 1.035
+      box-shadow var(--efu-shadow-main)
+
+    +maxWidth1200()
+      display none
+
+    .post-cover-aside-link
+      display block
       width 100%
       height 100%
-      object-fit cover
-      min-width 50vw
-      min-height 20rem
-      opacity .8
+      line-height 0
 
-      +minWidth768()
-        min-height 15rem !important
-        height 70% !important
-        opacity 1 !important
-
-    .coverdiv
-      width 70%
+    .post-cover-aside-img
+      display block
+      width 100%
       height 100%
-      position relative
-      overflow hidden
-      margin 0 -20% 0 auto
-      transform rotate(10deg) translateY(-10%) scale(2)
-      filter blur(10px)
+      border-radius inherit
+      object-fit cover
+      transform translate3d(var(--post-cover-img-x), var(--post-cover-img-y), 24px) scale(1.08)
+      transition transform .18s ease-out
 
-      &:after
-        position absolute
-        content ''
-        width 100%
-        height 100%
-        top 0
-        left 0
-        box-shadow 110px -130px 300px 60px var(--efu-main) inset
+    @media (prefers-reduced-motion: reduce)
+      transition none
 
-      +minWidth768()
-        width 70%
-        height 100%
-        position relative
-        overflow hidden
-        margin 0 -20% 0 auto
-        transform rotate(10deg) translateY(-8%) scale(1.8)
-        filter blur(30px)
-        opacity 0
+      &::before,
+      &::after,
+      .post-cover-aside-img
+        transition none
 
-        &.loaded
-          display block
-          opacity .5
-          animation showCover 1s .3s backwards
-          transform rotate(10deg) translateY(-10%) scale(2)
-
-      +maxWidth768()
-        margin 0 0 0 auto
-        transform rotate(0) translateY(0) scale(1)
-        filter blur(0)
-        width 100%
-        height 15rem
-
-        &:after
-          box-shadow 0 0 205px 59px var(--efu-main) inset
-
-      &.loaded
-        display block
+      &:hover
+        --post-cover-scale 1
 
   #post-info
-    top 0
     position absolute
-    padding 0 3rem
-    margin 0 auto
-    color var(--efu-white)
-    max-width 1400px
+    top 14px
+    z-index 10
     display flex
     flex-direction column
     align-items flex-start
-    height calc(100% + 0px)
     justify-content center
-    animation slide-in .6s 0s backwards
+    gap 16px
     width 100%
-    text-align center
-
-    +minWidth1300()
-      height calc(100% + 0px)
-      top 0
-      display flex
-      justify-content center
-
-    +maxWidth900()
-      bottom 1.5rem
-      text-align left
+    max-width 1400px
+    height calc(100% - 30px)
+    margin 0 auto
+    padding 0 30px
+    color var(--efu-white)
+    animation slide-in .6s 0s backwards
 
     +maxWidth768()
-      padding 0 6%
+      top auto
+      right 0
+      bottom 0
+      left 0
+      align-items center
       justify-content normal
-      padding-top 4rem
+      gap 0
+      width 100%
+      max-width none
+      height fit-content
+      margin 0
+      padding 7rem 1rem 60px
+      background-image linear-gradient(to bottom, transparent, var(--efu-main))
+      text-align center
+
+      &::after
+        position absolute
+        bottom 0
+        left 0
+        z-index 0
+        width 100%
+        height 200%
+        box-shadow 0 -214px 287px 45px var(--efu-main-op) inset
+        content ""
+
+    #post-firstinfo,
+    .post-title,
+    #post-meta
+      width calc(100% - 300px - 80px)
+      max-width none
+      margin-left 40px
+
+    +maxWidth1200()
+      #post-firstinfo,
+      .post-title,
+      #post-meta
+        width calc(100% - 80px)
 
     .post-title
-      color var(--efu-white)
-      font-weight 700
-      font-size 2.3rem
-      line-height 1.2
-      text-align left
-      margin 1rem 0 1rem 0
-      -webkit-line-clamp 2
+      display -webkit-box
+      height calc(2 * 1.38em)
+      min-height calc(2 * 1.38em)
+      margin-top 4px
+      margin-bottom 8px
       padding 0
       overflow hidden
+      color var(--efu-white)
+      font-size 42px
+      font-weight 700
+      line-height 1.38
+      text-align left
+      -webkit-box-orient vertical
+      -webkit-line-clamp 2
 
       +maxWidth768()
-        font-size 1.2rem
-        -webkit-line-clamp 3
-        margin .2rem auto
-        text-align center
         z-index 1
-
-      +minWidth1300()
-        font-size 2.6rem !important
+        width 100%
+        height auto
+        min-height 0
+        margin .2rem auto !important
+        font-size 1.2rem
+        line-height 1.2
+        text-align center
+        -webkit-line-clamp 3
 
     #post-meta
-      margin-top .4rem
-      transition .3s
       display flex
-      user-select none
-      color var(--light-grey)
+      color var(--efu-white)
       font-size 95%
+      user-select none
+      transition .3s
 
       +maxWidth768()
+        z-index 1
+        align-items center
+        justify-content center
+        width 100%
+        margin-left 0
         font-size 90%
-        padding 0 2rem
 
       a
-        color var(--light-grey)
-        transition all .3s ease-out 0s
+        color inherit
+        text-decoration none
+        transition .3s
 
       i
-        font-size 14px
         margin-right 4px
-
-      > div
-        text-align left
+        font-size 16px
+        line-height 1
 
       .meta-secondline
         display flex
         flex-direction row
         flex-wrap wrap
-        justify-content flex-start
         align-items center
+        justify-content flex-start
+        gap 8px
 
         +maxWidth768()
           justify-content center
+          width 100%
+          text-align center
 
-        > span
-          display: flex
+        > span:not(.post-meta-separator),
+        > a.post-meta-pv
+          display inline-flex
           align-items center
+          box-sizing border-box
+          height 32px
+          margin 0
+          padding 0 .5rem
+          border-radius 99px
+          background var(--efu-white-op)
+          color var(--efu-white)
           line-height 1
-          margin 0 .5rem
+          opacity 1
+          transition background .3s ease-out, color .3s ease-out
 
           +maxWidth768()
             line-height 1.5
 
-        > span:first-child
-          margin-left 0
+          &:hover
+            background var(--efu-white)
+            color var(--efu-main)
 
-        .post-meta-date, .post-meta-wordcount, .post-meta-position, .post-meta-pv
-          opacity .6
+            a
+              color inherit
 
         .post-meta-separator
-          margin 0 1rem 0 0
-
-        .post-meta-pv
-          padding 0 8px
-          display flex
-          align-items center
-          border-radius 12px
-
-          &:hover
-            opacity 1
-            background var(--efu-white-op)
-            text-decoration none
-            color var(--efu-white)
-
-        .post-meta-pv-cv
-          margin-left .8rem
-
-          #busuanzi_value_page_pv
-            font-weight 800
+          display none
 
         .post-meta-commentcount
-          opacity .6
-          cursor pointer
-          transition .3s
-          border-radius 12px
-          padding: 8px
-
-          &:hover
-            opacity 1
-            background var(--efu-white-op)
-
-        .post-meta-wechat
-          margin-right .8rem
-          opacity .6
-          transition .3s
           cursor pointer
 
-          &:hover
-            opacity 1
-            background var(--efu-white-op)
+        .word-count,
+        .leancloud-visitors-count,
+        #busuanzi_value_page_pv,
+        #busuanzi_page_pv
+          font-weight 800
 
     #post-firstinfo
-      text-align left
       display flex
+      color var(--efu-white)
+      text-align left
       white-space nowrap
       user-select none
 
       +maxWidth768()
-        white-space nowrap
-        margin 0 auto
         z-index 1
-
-        .tag_share
-          display none
+        align-items center
+        justify-content center
+        width 100%
+        margin 0 auto
+        text-align center
+        white-space normal
 
       .meta-firstline
         display flex
@@ -258,88 +287,87 @@
         height 32px
 
         +maxWidth768()
-          margin-bottom .4rem
+          flex-wrap wrap
+          justify-content center
+          width fit-content
+          max-width 100%
+          height auto
+          margin 0 auto .4rem
+
+        .post-meta-original,
+        span.post-meta-categories
+          height 32px
+          border-radius 99px
+          background var(--efu-white-op)
+          line-height 32px
+          transition .3s
 
         .post-meta-original
-          background var(--efu-white-op)
-          color var(--efu-white)
-          padding 0 .5rem
-          font-size .7rem
-          margin auto
-          border-radius 8px
-          font-weight 700
-          line-height 32px
-          width 100%
-          height 100%
           display flex
+          width auto
+          margin 0
+          padding 0 .5rem
+          color var(--efu-white)
+          font-size .7rem
+          font-weight 700
 
           &:hover
-            color var(--efu-main)
             background var(--efu-white)
-            border-radius 8px
+            color var(--efu-main)
+
+        span.post-meta-categories
+          margin-left 8px
+
+          &:hover
+            background var(--efu-white)
+
+            a.post-meta-categories
+              color var(--efu-main)
+
+          a.post-meta-categories
+            display flex
+            width 100%
+            height 100%
+            padding 0 .5rem
+            color var(--efu-white)
+            font-size .7rem
 
         .tag_share
-          margin-left .5rem
+          margin-left 1rem
+
+          +maxWidth768()
+            display none
 
           .post-meta__tag-list
             display flex
             flex-direction row
             align-items center
 
-            +maxWidth768()
-              display none
-
             &::-webkit-scrollbar
               display none
 
             .post-meta__tags
+              display flex
+              flex-direction row
+              align-items center
+              margin-right 8px
+              padding 0 8px 0 4px
+              border-radius 99px
               color var(--efu-white)
               opacity .8
-              margin-right 8px
-              padding 0 8px
-              border-radius 12px
-              display flex
-              align-items center
-              flex-direction row
 
               &:hover
+                background var(--efu-white-op)
                 color var(--efu-white)
                 opacity 1
-                background var(--efu-white-op)
 
-              +maxWidth768()
-                margin 0 .5rem 0 0
-
-        span.post-meta-categories
-          background-color var(--efu-white-op)
-          border-radius 8px
-          line-height 32px
-          height 32px
-          transition .3s
-
-          &:not(:first-child)
-            margin-left 8px
-
-          &:hover
-            background-color var(--efu-white)
-
-          a.post-meta-categories
-            color var(--efu-white)
-            font-size .7rem
-            width 100%
-            height 100%
-            display flex
-            padding 0 .5rem
-
-            &:hover
-              color var(--efu-main)
-
-#post 
+#post
   #post-info
-    height auto
     position unset
+    height auto
     padding 1rem 2rem
-    background var(--efu-hovertext)
     border-radius 12px 12px 0 0
+    background var(--efu-hovertext)
+
     +minWidth768()
       min-height 250px

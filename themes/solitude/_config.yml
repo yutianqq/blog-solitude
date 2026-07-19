@@ -96,13 +96,15 @@ hometop:
       #   color: "#df5b40"
   group:
     # 热门: /tags/Fire/ || fas fa-fire || linear-gradient(to right,#f65,#ffbf37)
+  # Recommended items are sorted by order; items without order keep their declared order.
+  # 推荐内容按 order 升序排列；未设置 order 时保持声明顺序。
   recommendList:
-    enable: true
-    sup: 置顶
-    title: Solitude 官方文档
-    url: https://solitude.js.org/
-    img: /img/default.avif
-    color: "none"
+    - order: 1
+      sup: 置顶
+      title: Solitude 官方文档
+      url: https://solitude.js.org/
+      img: /img/default.avif
+      color: "none"
 # --------------------------- end ---------------------------
 
 # --------------------------- start ---------------------------
@@ -216,6 +218,10 @@ page:
   # list: Sort List / 1: Follow HomeList
   # list: 排序列表 / 1: 跟随首页列表
   archives: 0
+  # Load friend links from JSON when the total exceeds this value
+  # 友链总数超过此值时通过 JSON 异步加载
+  links:
+    async_threshold: 200
   # Default value
   # 默认值
   default:
@@ -331,6 +337,9 @@ post:
 theme_color:
   dark: "#ffc848" # dark
   light: "#425AEF" # light
+  nav_hover_text:
+    dark: "#1b1c20" # Navigation hover text in dark mode
+    light: "#ffffff" # Navigation hover text in light mode
 # --------------------------- end ---------------------------
 
 # --------------------------- start ---------------------------
@@ -418,7 +427,7 @@ right_menu:
   # 自定义列表
   custom_list:
     # - name: 随机文章
-    #   click: toRandomPost()
+    #   click: Solitude.randomPost()
     #   id: menu-randomPost
     #   class:
     #   icon: fas fa-tower-broadcast

@@ -3,7 +3,7 @@
 script(pjax).
     (async () => {
         const emojiReg = /<img [^>]+ atk-emoticon="[^"]+">/g
-        if (typeof EasyDanmaku === "undefined") await utils.getScript('!{url_for(theme.cdn.envelope_js)}')
+        if (typeof EasyDanmaku === "undefined") await Solitude.getScript('!{url_for(theme.cdn.envelope_js)}')
         const envel = new EasyDanmaku({
             page: '!{theme.envelope.page}',
             el: '#barrage',
@@ -12,7 +12,7 @@ script(pjax).
             hover: !{hover},
             loop: !{loop},
         })
-        const data = utils.saveToLocal.get('enevlope')
+        const data = Solitude.saveToLocal.get('enevlope')
         if (data) {
             envel.batchSend(data, true)
             return
@@ -30,7 +30,7 @@ script(pjax).
                     })
                 }
                 envel.batchSend(ls, true)
-                utils.saveToLocal.set('enevlope', ls, .02)
+                Solitude.saveToLocal.set('enevlope', ls, .02)
             }).catch(error => {
                 console.error("An error occurred while fetching comments: ", error)
             })

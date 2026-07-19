@@ -30,12 +30,12 @@ script.
                     }
                 } else {
                     if (e.key === keyboards[i].key) {
-                        pjax.loadUrl(keyboards[i].url);
+                        Solitude.navigate(keyboards[i].url);
                     }
                 }
             } else if (keyboards[i].sco) {
                 if (e.key === keyboards[i].key) {
-                    sco[keyboards[i].sco]();
+                    Solitude[keyboards[i].sco]?.();
                 }
             } else if (keyboards[i].func) {
                 if (e.key === keyboards[i].key) {

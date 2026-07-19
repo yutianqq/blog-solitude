@@ -34,14 +34,14 @@ script(pjax).
                         <img src='${item.avatar}' alt='${item.nick}'>
                     </div>
                     <div class='content'>
-                        <div class='comment' onclick='pjax.loadUrl("${item.url}")'>${item.content}</div>
+                        <div class='comment' data-solitude-action='navigateTo' data-solitude-url='${item.url}'>${item.content}</div>
                         <time class="datetime" datetime="${item.date}"></time>
                     </div>
                 </div>
             `).join('') : "!{_p('newest_comment.zero')}";
             window.lazyLoadInstance?.update();
-            window.pjax?.refresh();
-            sco?.changeTimeFormat(document.querySelectorAll('.aside-list-item time'));
+            Solitude.pjax?.refresh();
+            Solitude.changeTimeFormat?.(document.querySelectorAll('.aside-list-item time'));
         };
 
         const getSetting = async () => {
@@ -68,7 +68,7 @@ script(pjax).
                     url: e.page_key + `#atk-comment-${e.id}`,
                     date: e.date,
                 })).slice(0, !{limit});
-                utils.saveToLocal.set('artalk-newest-comments', artalk, !{theme.comment.newest_comment.storage});
+                Solitude.saveToLocal.set('artalk-newest-comments', artalk, !{theme.comment.newest_comment.storage});
                 generateHtml(artalk, asideList);
             }).catch(error => {
                 console.error(error);
@@ -78,7 +78,7 @@ script(pjax).
 
         const newestCommentInit = (asideList) => {
             if (!asideList) return;
-            const data = utils.saveToLocal.get('artalk-newest-comments');
+            const data = Solitude.saveToLocal.get('artalk-newest-comments');
             if (data) {
                 generateHtml(data, asideList);
             } else {

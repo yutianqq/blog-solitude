@@ -2,17 +2,17 @@ framework_by: "Framework: "
 theme_by: "Theme: "
 
 more: More
-star: Behold, those who found delight in this piece also perused
+star: You may also like
 random: Random
-upload: "datetime: "
-totalk: You don't need to delete blank lines, just type in your comments.
+upload: "Published: "
+totalk: Type your comment directly; blank lines are fine.
 loading: Loading...
 day: " days"
 hot-tip: Hot
 
 theme:
-  dark: Dark
-  light: Light
+  dark: Dark mode enabled
+  light: Light mode enabled
 
 copy:
   success: Copied
@@ -27,7 +27,7 @@ copy_copyright:
 time:
   day: " days ago"
   hour: " hours ago"
-  just: "just"
+  just: "now"
   min: " minutes ago"
   month: " months ago"
 
@@ -40,30 +40,32 @@ page:
   404: Page not found
 
 home:
-  home: Recommend
+  home: Featured
+  bbtime:
+    text: View all notes
   sticky: Sticky
   new: New
   read: Unread
-  recommend: Recommend
+  recommend: Pick
   recommendmore: More
-  archives: All articles
+  archives: All posts
 
 post:
-  reprint: Reprint
+  reprint: Reposted
   original: Original
-  cc: This article is a ${cc} article, pay attention to the copyright.
-  posted: Posted on
-  updated: Last updated on
-  wordcount: Word count
-  minread: Reading time
-  ip: The author's IP belongs to
-  pv: PV
+  cc: Licensed under ${cc}.
+  posted: Published
+  updated: Updated
+  wordcount: Words
+  minread: Read time
+  ip: Author location
+  pv: Views
   min: min
   comment: Comments
   copyright:
-    reprint: This article is a reproduction or translation, and the copyright belongs to the original author. Please contact the original author for permission to republish this article.
-    original: This piece of writing is an original article, utilizing the
-    original_end: Agreement. For complete reproduction, please acknowledge the source as Courtesy of
+    reprint: This article is reproduced or translated. Copyright remains with the original author; contact them before republishing.
+    original: This original article uses the
+    original_end: license. Please credit
   share:
     qq: Share to QQ
     weibo: Share to Weibo
@@ -71,8 +73,8 @@ post:
     twitter: Share to Twitter
     linkedin: Share to LinkedIn
     facebook: Share to Facebook
-    link: Share to Link
-    qrcode: Share to QR code
+    link: Copy link
+    qrcode: Scan to read
     whatsapp: Share to WhatsApp
   ai:
     title: Article Summary
@@ -88,20 +90,29 @@ nav:
   randompost: Random post
   console: Console
 
+tooltip:
+  home: View all recommended posts
+  archives: View all posts
+  category: "View posts in ${name}"
+  categories: View all categories
+  category_next: Scroll categories
+
 award:
   thanks: Thanks
   tipping: Sponsor
-  title: List of appreciation
+  title: Supporters
 
 search:
-  empty: No results found
-  hit: Found ${query} results for you
-  placeholder: Enter keywords to search
+  empty: No results for ${query}
+  hit: Found ${hits} results in ${time} ms
+  placeholder: Search by keyword
   count: Total <b>${count}</b> results.
   load: Loading...
+  close: Close
+  suggestions: Popular searches
 
 head:
-  noscript: Please enable JavaScript to view the site
+  noscript: Enable JavaScript to view this site
 
 aside:
   postcount: "Posts:"
@@ -110,14 +121,14 @@ aside:
   runtime: "Runtime:"
   updatetime: "Last update:"
   wordcount: "Word count:"
-  toc: Table of contents
+  toc: Contents
   tagmore: View all
   avatar: Avatar
   hello: "Long time no see, "
-  back: Welcome back again,
+  back: "Welcome back, "
   sticker: Mood sticker
-  newpost: New posts
-  newcomment: New comments
+  newpost: Recent posts
+  newcomment: Recent comments
   card:
     posts: "Posts:"
     tags: "Tags:"
@@ -125,16 +136,16 @@ aside:
 
 console:
   comment_tip: Interaction
-  comment_title: Latest comments
+  comment_title: Recent comments
   tag_tip: Tags
-  tag_title: Find interesting areas
-  switch_darkmode: Day and night mode
-  switch_hideAside: Sidebar display control
-  switch_keyboard: Keyboard operation
-  switch_music: Music switch
+  tag_title: Explore topics
+  switch_darkmode: Theme
+  switch_hideAside: Sidebar
+  switch_keyboard: Shortcuts
+  switch_music: Music
   archive_unit: Posts
   archive_all: All posts
-  recent_comment_more: Recent comments
+  recent_comment_more: More comments
   newest_comment:
     image: Image
     link: Link
@@ -155,8 +166,8 @@ footer:
   theme: Theme
 
 cookies:
-  title: Agreement reminder assistant
-  tip: Check out the efforts we make to protect your privacy
+  title: Privacy notice
+  tip: Learn how this site protects your privacy
   privacy: How this site protects your privacy
 
 music:
@@ -166,11 +177,19 @@ music:
   button: Back to home
 
 link:
+  loading: Loading friend links...
+  error: Unable to load friend links. Please try again.
+  retry: Retry
+  default_sort: Default order
+  random_sort: Random order
+  sort_label: Change sort order
+  scroll_left: Scroll left
+  scroll_right: Scroll right
   banner:
-    toComment: Application link
-    random: Random Visit
-  random: "Click the button to visit a random link. The safety and availability of the destination website are not guaranteed. The random link for this visit is: ⌈ ${name} ⌋ "
-  to: To
+    toComment: Apply
+    random: Random link
+  random: "Visit a random friend link. Its safety and availability are not guaranteed. Selected: ⌈ ${name} ⌋"
+  to: Visit
 
 keyboard:
   title: Blog shortcuts
@@ -185,32 +204,34 @@ comment:
 commentBarrage:
   title: Hot
 
-f12: Developer mode is turned on, please follow the GPL.
+f12: Developer mode is enabled. Please follow the GPL.
 
 right_menu:
-  copy: Copy
+  copy: Copy text
   paste: Paste
-  comment: ToTalk
-  new: Open
-  link: Copy
-  img: Copy
+  comment: Quote
+  new: New tab
+  link: Copy link
+  img: Copy image
   downloadImg: Download
   search: Search
   dark: Light
   light: Dark
-  chs_to_cht: 轉為繁體
-  cht_to_chs: 转为简体
+  chs_to_cht: Traditional
+  cht_to_chs: Simplified
+  converted_to_cht: Switched to Traditional Chinese
+  converted_to_chs: Switched to Simplified Chinese
   img_error: This image cannot be copied or downloaded.
   ctrl_original_menu: Hold Ctrl + right-click to open the browser's context menu
   barrage:
-    open: Open Barrage
-    close: Close Barrage
+    open: Show comments
+    close: Hide comments
   music:
     start: Play
     stop: Pause
-    back: Back
-    forward: Forward
-    copyMusicName: Copy Name
+    back: Previous
+    forward: Next
+    copyMusicName: Copy title
 
 pagination:
   prev: Prev
@@ -222,32 +243,32 @@ about:
     oneself:
       map_title: I live in
       info_title1: Born
-      info_title2: Current occupation
+      info_title2: Current role
     tj:
       tip: Data
       title: Access statistics
-      post_tip: "Stats from:"
+      post_tip: "Source:"
   personalities:
     tip1: At
     tip2: "Learn more:"
 
 message:
-  close: Hide message
-  open: Show message
+  close: Hide comments
+  open: Show comments
 
 essay:
-  tip0: "- All expanded -"
-  tip1: "- Recent Exhibitions #{count} Short Articles -"
+  tip0: "- All notes shown -"
+  tip1: "- Showing the latest #{count} notes -"
   link: "Link"
 
 rightside:
   show:
-    gear: Settings
-    toc: Toc
-    comment: Comment
+    gear: Tools
+    toc: Contents
+    comment: Comments
     top: Top
-    barrage: 弹
+    barrage: Live
   hide:
-    translate: 简繁转换
-    mode: Mode
+    translate: Chinese conversion
+    mode: Theme
     aside: Sidebar

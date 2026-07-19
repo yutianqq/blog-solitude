@@ -4,13 +4,13 @@ script(pjax).
     (async () => {
         document.querySelector('!{sel}').textContent = `#{__("loading")}`
         const emojiReg = /:[a-z0-9_\u4e00-\u9fa5]+:/g
-        let cache = utils.saveToLocal.get('!{str_name}')
+        let cache = Solitude.saveToLocal.get('!{str_name}')
         if (cache) {
             setHtml(document.querySelector('!{sel}'), cache)
             return
         }
         let ls = []
-        if (typeof md5 === "undefined") await utils.getScript('!{url_for(theme.cdn.blueimp_md5)}')
+        if (typeof md5 === "undefined") await Solitude.getScript('!{url_for(theme.cdn.blueimp_md5)}')
         await fetch('!{serverURLs}/1.1/classes/Comment?limit=8&order=-createdAt', {
             method: "GET",
             headers: {
@@ -43,12 +43,12 @@ script(pjax).
                 })
             }
             setHtml(document.querySelector('!{sel}'), ls)
-            utils.saveToLocal.set('!{str_name}', ls, !{cache})
+            Solitude.saveToLocal.set('!{str_name}', ls, !{cache})
         })
 
         function setHtml(el, data) {
             el.innerHTML = data.length !== 0 ? data.map(i => `
-                        <div class="comment-card" title="${i.title}" onclick="pjax.loadUrl('${i.url}')">
+                        <div class="comment-card" title="${i.title}" data-solitude-action="navigateTo" data-solitude-url="${i.url}">
                             <div class="comment-info">
                                 <img src="${i.avatar}" class="nolazyload" alt="${i.nick}">
                                 <div>
@@ -62,11 +62,7 @@ script(pjax).
                             ${i.title}</div>
                         </div>
                     `).join('') : `#{__("console.newest_comment.empty")}`
-            if (typeof utils !== 'undefined') utils.diffDateFormat(document.querySelectorAll('.comment-time'))
-            else {
-                document.addEventListener('pjax:complete', () => utils.diffDateFormat(document.querySelectorAll('.comment-time')))
-                document.addEventListener('DOMContentLoaded', () => utils.diffDateFormat(document.querySelectorAll('.comment-time')))
-            }
+            Solitude.diffDateFormat(document.querySelectorAll('.comment-time'))
         }
 
         function formatContent(content) {

@@ -1,4 +1,9 @@
 - page.type = is_post() ? 'post' : page.type
+- const bodyFriendLinksGroups = site.data.links && Array.isArray(site.data.links.links) ? site.data.links.links : []
+- const bodyFriendLinksTotal = bodyFriendLinksGroups.reduce((count, group) => count + (Array.isArray(group.link_list) ? group.link_list.length : 0), 0)
+- const configuredBodyFriendLinksThreshold = Number(theme.page && theme.page.links && theme.page.links.async_threshold)
+- const bodyFriendLinksThreshold = Number.isInteger(configuredBodyFriendLinksThreshold) && configuredBodyFriendLinksThreshold >= 0 ? configuredBodyFriendLinksThreshold : 200
+- const bodyFriendLinksAsync = bodyFriendLinksTotal > bodyFriendLinksThreshold
 
 mixin katex
   if theme.katex.copytex
@@ -6,17 +11,16 @@ mixin katex
       script.
         (() => {
           document.querySelectorAll('.article-container span.katex-display').forEach(item => {
-            utils.wrap(item, 'div', {class: 'katex-wrap'})
+            Solitude.wrap(item, 'div', {class: 'katex-wrap'})
           })
         })();
 
 div
   // Critical scripts loaded synchronously
   script(src=url_for(theme.cdn.utils))
-  script(src=url_for(theme.cdn.main))
   
   // Non-critical scripts loaded asynchronously
-  script(async src=url_for(theme.cdn.waterfall))
+  script(defer src=url_for(theme.cdn.waterfall))
   script(src=url_for(theme.cdn.pjax))
 
   // Feature-specific scripts loaded asynchronously
@@ -39,9 +43,6 @@ div
         if (typeof dark === 'function') dark();
       });
 
-  if theme.translate.enable
-    script(defer src=url_for(theme.cdn.translate_js))
-
   if theme.katex && theme.katex.enable
     if theme.katex.per_page && (is_post() || is_page())
       +katex
@@ -60,9 +61,6 @@ div
   if (theme.brevity.home_mini && theme.brevity.enable)
     script(src=url_for(theme.cdn.swiper_js))
 
-  if theme.post.ai.enable
-    script(defer src=url_for(theme.cdn.post_ai))
-
   // Music player scripts
   if theme.capsule.enable || theme.music.enable || theme.brevity.enable && theme.brevity.music
     script.
@@ -71,24 +69,8 @@ div
     script(defer src=url_for(theme.cdn.meting_js))
 
   // Cover color processing scripts
-  if theme.post.covercolor.enable
-    case theme.post.covercolor.mode
-      when 'local'
-        script(defer src=url_for(theme.cdn.color_thief))
-        script(defer src=url_for(theme.cdn.cover_local))
-      when 'api'
-        script.
-          const coverColorConfig = {
-            api: '!{theme.post.covercolor.api}',
-            time: !{theme.post.covercolor.time}
-          }
-        script(defer src=url_for(theme.cdn.cover_api))
-      when 'ave'
-        script.
-          const coverColorConfig = {
-            time: !{theme.post.covercolor.time}
-          }
-        script(defer src=url_for(theme.cdn.cover_ave))
+  if theme.post.covercolor.enable && theme.post.covercolor.mode === 'local'
+    script(defer src=url_for(theme.cdn.color_thief))
 
   if theme.loading.pace
     include ../mixins/pace.pug
@@ -96,11 +78,9 @@ div
   // Search functionality
   if theme.search.enable && theme.search.type === "algolia"
     script(defer src=url_for(theme.cdn.instantsearch))
-    script(defer src=url_for(theme.cdn.algolia_search))
 
-  // Right menu functionality
-  if theme.right_menu.enable
-    script(defer src=url_for(theme.cdn.right_menu_js))
+  // Main module dynamically imports enabled first-party features.
+  script(type="module" src=url_for(theme.cdn.main))
 
   if theme.extends.body
     each item in theme.extends.body
@@ -109,11 +89,11 @@ div
   .js-pjax
     if is_home() && theme.brevity.enable && theme.brevity.home_mini
       script.
-        sco.initbbtalk()
+        Solitude.initbbtalk()
     if page.type === 'brevity' && theme.brevity.enable
       script.
-        GLOBAL_CONFIG.lightbox && utils.lightbox(document.querySelectorAll(".bber-content-img img"));
-        sco.changeTimeFormat(document.querySelectorAll('.bber-info-time time'))
+        Solitude.config.lightbox && Solitude.lightbox(document.querySelectorAll(".bber-content-img img"));
+        Solitude.changeTimeFormat(document.querySelectorAll('.bber-info-time time'))
     if page.comment
       include ../widgets/third-party/comments/js
     if theme.mermaid
@@ -124,8 +104,6 @@ div
       script(defer pjax src=url_for(theme.cdn.busuanzi_js))
 
 
-if theme.footer.randomlink
-  include ../widgets/randomlink.pug
 
 // pjax
 != partial("includes/widgets/third-party/pjax", {}, {cache: true})

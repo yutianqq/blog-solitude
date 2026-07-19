@@ -1,3 +1,29 @@
+.layout#content-inner.layout--category
+  flex-direction column
+  align-items stretch
+  gap .5rem
+
+  > .home-category-bar
+    width 100%
+    max-width 100%
+    align-self stretch
+    flex-shrink 0
+    animation slide-in .6s .3s backwards
+
+  > .home-layout-row
+    display flex
+    align-items stretch
+    gap .5rem
+    width 100%
+
+    +maxWidth1200()
+      gap 0
+
+    > #category
+      flex 1
+      min-width 0
+      width auto
+
 #category
   #category-bar
     padding .4rem .6rem

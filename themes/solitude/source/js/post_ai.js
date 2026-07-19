@@ -1,3 +1,5 @@
+import { Solitude } from "./core/api.js";
+
 class AIPostRenderer {
   static ANIMATION_DELAY_MS = 30;
   static AI_EXPLANATION_SELECTOR = ".ai-explanation";
@@ -99,8 +101,16 @@ class AIPostRenderer {
     document.dispatchEvent(event);
   }
 
+  cancel() {
+    cancelAnimationFrame(this.animationFrame);
+    this.animationFrame = null;
+    this.fragment = null;
+    this.isAnimating = false;
+    this.tagElement?.classList.remove("loadingAI");
+  }
+
   get aiContent() {
-    return PAGE_CONFIG?.ai_text || "";
+    return Solitude.page?.ai_text || "";
   }
 }
 
@@ -115,4 +125,5 @@ const aiPostRenderer = (() => {
   };
 })();
 
-const ai = aiPostRenderer();
+export const ai = aiPostRenderer();
+export default ai;

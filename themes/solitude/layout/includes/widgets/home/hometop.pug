@@ -1,8 +1,113 @@
-.recent-top-post-group#recent-top-post-group
-    .recent-post-top#recent-post-top
-        #bannerGroup
-            #banners
-                include ./banner.pug
-        if theme.hometop.recommendList.enable
-            .topGroup
-                include ./topGroup.pug
+-
+  const recommendConfig = theme.hometop.recommendList || []
+  const recommendEntries = Array.isArray(recommendConfig)
+    ? recommendConfig
+    : Array.isArray(recommendConfig.list)
+      ? recommendConfig.enable === false ? [] : recommendConfig.list
+      : recommendConfig.enable
+        ? [recommendConfig]
+        : []
+  const hasOrder = item => item.order !== undefined && item.order !== null && item.order !== '' && Number.isFinite(Number(item.order))
+  const configuredItems = recommendEntries
+    .map((item, sourceIndex) => ({ item, sourceIndex }))
+    .filter(({ item }) => item && item.enable !== false && item.title && item.url && (item.img || item.cover))
+    .sort((a, b) => {
+      const aHasOrder = hasOrder(a.item)
+      const bHasOrder = hasOrder(b.item)
+      if (aHasOrder && bHasOrder) return Number(a.item.order) - Number(b.item.order) || a.sourceIndex - b.sourceIndex
+      if (aHasOrder) return -1
+      if (bHasOrder) return 1
+      return a.sourceIndex - b.sourceIndex
+    })
+    .map(({ item }) => ({
+      title: item.title,
+      url: item.url,
+      cover: item.img || item.cover,
+      label: item.sup || item.label || '',
+      color: item.color || ''
+    }))
+  const normalizeUrl = value => String(value || '').replace(/^\/+|\/+$/g, '')
+  const configuredUrls = new Set(configuredItems.map(item => normalizeUrl(item.url)))
+  const recentCoverPosts = site.posts.sort('-date').data
+    .filter(post => post.cover && !configuredUrls.has(normalizeUrl(post.path)))
+    .slice(0, Math.max(0, 5 - configuredItems.length))
+  const postItems = recentCoverPosts.map(post => ({
+    title: post.title,
+    url: post.path,
+    cover: post.cover,
+    label: post.categories && post.categories.data.length ? post.categories.data[0].name : '',
+    color: post.banner_color || post.theme_color || ''
+  }))
+  const homeCenterItems = configuredItems.concat(postItems).slice(0, 5)
+  const fallbackCover = url_for('/img/default.avif')
+  const explicitColor = color => color && !String(color).includes('var(') ? color : ''
+  const initialColor = homeCenterItems.length ? explicitColor(homeCenterItems[0].color) || 'var(--efu-main)' : 'var(--efu-main)'
+  const initialStyle = `--current-theme:${initialColor};--current-theme-op:color-mix(in srgb, ${initialColor} 14%, transparent);--current-theme-op-deep:color-mix(in srgb, ${initialColor} 87%, transparent)`
+
+if homeCenterItems.length
+  .home-center#home_center(style=initialStyle)
+    .home-center-content
+      .home-center-left
+        .home-center-banner(data-mobile-loop='false')
+          each item, index in homeCenterItems
+            - const configuredColor = explicitColor(item.color)
+            - const itemColor = configuredColor || 'var(--efu-main)'
+            - const itemStyle = `--home-center-theme:${itemColor};--home-center-theme-op:color-mix(in srgb, ${itemColor} 14%, transparent);--home-center-theme-op-deep:color-mix(in srgb, ${itemColor} 87%, transparent)`
+            .home-center-banner-item.has-banner-cover(
+              class=index === 0 ? 'active' : ''
+              style=itemStyle
+              role='link'
+              tabindex=index === 0 ? '0' : '-1'
+              aria-hidden=index === 0 ? 'false' : 'true'
+              data-index=index
+              data-link=url_for(item.url)
+              data-title=item.title
+              data-label=item.label || ''
+              data-color=configuredColor
+            )
+              .home-center-cover
+                img.home-center-cover-img.nolazyload(
+                  src=url_for(item.cover)
+                  alt=item.title
+                  loading=index === 0 ? 'eager' : 'lazy'
+                  fetchpriority=index === 0 ? 'high' : 'auto'
+                  data-solitude-fallback=url_for(fallbackCover)
+                )
+              .home-center-mask
+
+        .home-center-title
+          a.home-center-title-link(href=url_for(homeCenterItems[0].url))= homeCenterItems[0].title
+          .home-center-title-tag
+            i.solitude.fas.fa-star
+            span= homeCenterItems[0].label || ''
+          .home-center-indicators(aria-label='推荐内容切换')
+            each item, index in homeCenterItems
+              button.home-center-indicator(
+                class=index === 0 ? 'active' : ''
+                type='button'
+                data-index=index
+                aria-label=`查看第 ${index + 1} 条推荐`
+                aria-current=index === 0 ? 'true' : 'false'
+              )
+
+      if homeCenterItems.length > 1
+        .home-center-right
+          .home-center-list
+            each item, index in homeCenterItems
+              - const itemColor = explicitColor(item.color) || 'var(--efu-main)'
+              - const itemStyle = `--item-theme:${itemColor};--item-theme-op:color-mix(in srgb, ${itemColor} 14%, transparent);--item-theme-op-deep:color-mix(in srgb, ${itemColor} 87%, transparent)`
+              .home-center-item(
+                class=index === 0 ? 'active' : ''
+                style=itemStyle
+                data-index=index
+                aria-current=index === 0 ? 'true' : 'false'
+              )
+                .home-center-item-icon
+                  img.nolazyload(
+                    src=url_for(item.cover)
+                    alt=''
+                    loading='lazy'
+                    data-solitude-fallback=url_for(fallbackCover)
+                  )
+                .home-center-item-title
+                  a(href=url_for(item.url))= item.title

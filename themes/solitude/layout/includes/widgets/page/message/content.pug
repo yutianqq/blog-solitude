@@ -2,8 +2,8 @@
     != page.content
     if theme.envelope.enable
         .switch_message
-            button.open(type='button' onclick="document.getElementById('barrage').classList.remove('hide')")
+            button.open(type='button' data-solitude-action="setTargetClass" data-solitude-target="#barrage" data-solitude-class="hide" data-solitude-enabled="false")
                 span(aria-hidden='true')= __('message.open')
-            button.close(type='button' onclick="document.getElementById('barrage').classList.add('hide')")
+            button.close(type='button' data-solitude-action="setTargetClass" data-solitude-target="#barrage" data-solitude-class="hide" data-solitude-enabled="true")
                 span(aria-hidden='true')= __('message.close')
         #barrage

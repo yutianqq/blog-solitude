@@ -17,18 +17,14 @@ mixin todayCardContent
     .todayCard-cover.nolazyload(style=`background: url('${theme.hometop.recommendList.img}') no-repeat center /cover`)
     if filteredPosts.length > 0
         .banner-button-group
-            a.banner-button(onclick="window.event.cancelBubble=true;sco.hideTodayCard();")
+            a.banner-button(data-solitude-action="hideTodayCard" data-solitude-stop="true")
                 i.solitude.fas.fa-circle-plus
                 span.banner-button-text= _p('home.recommendmore')
 
 case theme.hometop.recommendList.url.startsWith('/')
     when true
-        .todayCard#todayCard(onclick=`pjax.loadUrl('${theme.hometop.recommendList.url}')`)
+        .todayCard#todayCard(data-solitude-action="navigateTo" data-solitude-url=theme.hometop.recommendList.url)
             +todayCardContent()
     when false
-        script.
-            function GoTodayCard() {
-                window.open("#{theme.hometop.recommendList.url}", "_blank");
-            }
-        .todayCard#todayCard(onclick="GoTodayCard()")
+        .todayCard#todayCard(data-solitude-action="openExternal" data-solitude-url=theme.hometop.recommendList.url)
             +todayCardContent()

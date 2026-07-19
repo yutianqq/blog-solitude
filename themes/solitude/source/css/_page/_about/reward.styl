@@ -1,116 +1,234 @@
 #about-page
-  .author-content-item
-    &.single.reward
-      overflow unset
-      .author-content-item
-        .author-content-item-title
-          color var(--efu-red)
+  .author-content-item.single.reward
+    position relative
+    overflow hidden
+    padding 20px 40px
+    border var(--style-border-always)
+    border-radius 12px
+    background var(--efu-card-bg)
+    box-shadow var(--efu-shadow-border)
 
-      .reward-list-updateDate
-        color var(--efu-gray)
-        font-size 14px
+    > *:not(.about-pointer-glow)
+      position relative
+      z-index 2
 
-      .author-content-item-description
-        font-size 16px
-        margin-top .5rem
+    .author-content-item-tips
+      color var(--efu-secondtext)
+      font-size 14px
+      line-height 1.5
 
-      .reward-list-all
+    .author-content-item-title
+      display inline-block
+      margin-top 8px
+      color var(--efu-fontcolor)
+      font-size 36px
+      font-weight 700
+      line-height 1.4
+
+    .author-content-item-description
+      max-width calc(100% - 160px)
+      margin-top 8px
+      color var(--efu-fontcolor)
+      font-size 16px
+      line-height 1.8
+
+    .post-reward
+      position absolute
+      z-index 4
+      top 40px
+      right 40px
+
+      .reward-button
         display flex
-        flex-wrap wrap
-        flex-direction row
-        margin 1rem -.125rem .5rem
+        align-items center
+        gap 8px
+        width fit-content
+        height 48px
+        padding 8px 16px
+        border-radius 24px
+        background var(--efu-red)
+        box-shadow none
+        color var(--efu-white)
+        cursor pointer
+        font-size 16px
+        line-height 32px
+        transition filter .3s ease, transform .3s ease, box-shadow .3s ease
 
-        .post-reward
-          position absolute
-          right 1rem
-          top 1rem
+        i
+          margin 0
+          color inherit
+          font-size 18px
 
-          .reward-main
-            top 60px
-            right 0
-            left auto
-            bottom auto
-            width fit-content
+        &:hover,
+        &:focus-visible
+          filter brightness(1.08)
+          transform translateY(-2px)
+          box-shadow var(--efu-shadow-red)
+          outline none
 
-            .reward-all::before
-              bottom auto
-              top -16px
+      .reward-main
+        top 60px
+        right 0
+        bottom auto
+        left auto
+        width fit-content
 
-          .reward-button
-            padding 8px 12px
-            background var(--efu-red)
-            border-radius 12px
-            z-index 1
-            box-shadow initial
-            width fit-content
-            height fit-content
-            line-height 2
+        .reward-all::before
+          top -16px
+          bottom auto
 
-            +maxWidth768()
-              display none
+    .reward-list-all
+      display grid
+      grid-template-columns repeat(6, minmax(0, 1fr))
+      gap 8px
+      margin 24px 0 0
 
-          &:hover
-            .reward-button
-              filter brightness(1.1)
+    .reward-list-item
+      display flex
+      flex-direction column
+      justify-content space-between
+      min-width 0
+      height 96px
+      padding 20px
+      overflow hidden
+      border var(--style-border-always)
+      border-radius 12px
+      background var(--efu-card-bg)
+      box-shadow var(--efu-shadow-border)
+      color var(--efu-fontcolor)
+      transition border-color .3s ease, box-shadow .3s ease, transform .3s ease, background-color .3s ease
 
-        .reward-list-item
-          padding 1rem
-          border-radius 12px
-          border var(--style-border-always)
-          width calc((100% / 6) - .25rem)
-          margin 0 .125rem .5rem .125rem
-          box-shadow var(--efu-shadow-border)
-          display flex
-          flex-direction column
-          justify-content space-between
+      &:hover,
+      &:focus-visible
+        border-color var(--efu-red)
+        box-shadow var(--efu-shadow-red)
+        transform translateY(-2px)
+        outline none
 
-          +maxWidth1200()
-            width calc((100% / 4) - .25rem)
+    .reward-list-item-name
+      overflow hidden
+      margin-bottom 8px
+      font-size 18px
+      font-weight 700
+      line-height 1.2
+      text-overflow ellipsis
+      white-space nowrap
 
-          +maxWidth900()
-            width calc((100% / 2) - .25rem)
+    .reward-list-bottom-group
+      display flex
+      align-items center
+      justify-content space-between
+      gap 8px
+      min-width 0
 
-          +maxWidth768()
-            width calc((100% / 2) - .25rem)
+    .reward-list-item-money
+      display flex
+      flex 0 0 auto
+      align-items center
+      justify-content center
+      min-height 24px
+      padding 4px 6px
+      border-radius 4px
+      color var(--efu-white)
+      font-size 12px
+      line-height 1
+      white-space nowrap
 
-          .reward-list-item-name
-            font-size 1rem
-            font-weight 700
-            line-height 1
-            margin-bottom .25rem
-            white-space nowrap
-            overflow hidden
-            text-overflow ellipsis
+      &.reward-list-item-money-low
+        background #303033
 
-          .reward-list-bottom-group
-            display flex
-            align-items center
-            justify-content space-between
+      &.reward-list-item-money-medium
+        background #f0aa00
 
-          .reward-list-item-money
-            padding 4px
-            background var(--efu-fontcolor)
-            color var(--efu-card-bg)
-            font-size 12px
-            line-height 1
-            display flex
-            align-items center
-            justify-content center
-            border-radius 4px
-            margin-right 2px
-            white-space nowrap
+      &.reward-list-item-money-high
+        background var(--efu-red)
 
-            .solitude
-              font-size 14px
-              margin-right 2px
-              color var(--efu-card-bg)
+      .solitude
+        margin-right 3px
+        color inherit
+        font-size 13px
 
-          .reward-list-item-time
-            font-size 12px
-            color var(--efu-secondtext)
-            white-space nowrap
+    .reward-list-item-time
+      min-width 0
+      overflow hidden
+      color var(--efu-secondtext)
+      font-size 12px
+      line-height 1
+      text-overflow ellipsis
+      white-space nowrap
+
+    .reward-list-item-more
+      justify-content space-between
+      border-color transparent
+      background var(--efu-red)
+      box-shadow var(--efu-shadow-red)
+      color var(--efu-white)
+      font-size 18px
+      font-weight 700
+      line-height 1
+
+      i
+        display flex
+        align-items center
+        justify-content center
+        width 32px
+        height 32px
+        border-radius 50%
+        background var(--efu-white)
+        color var(--efu-red)
+        font-size 14px
+        transition transform .3s ease
+
+      &:hover,
+      &:focus-visible
+        border-color transparent
+        filter brightness(1.06)
+        color var(--efu-white)
+
+        i
+          transform translateX(3px)
 
     .reward-list-tips
+      margin-top 24px
+
       p
+        margin 0
+        color var(--efu-secondtext)
         font-size 12px
-        color var (--efu-secondtext)
+
+  +maxWidth1200()
+    .author-content-item.single.reward
+      .reward-list-all
+        grid-template-columns repeat(4, minmax(0, 1fr))
+
+  +maxWidth900()
+    .author-content-item.single.reward
+      .reward-list-all
+        grid-template-columns repeat(2, minmax(0, 1fr))
+
+  +maxWidth768()
+    .author-content-item.single.reward
+      padding 20px
+
+      .author-content-item-title
+        font-size 30px
+
+      .author-content-item-description
+        max-width none
+        font-size 15px
+
+      .post-reward
+        display none
+
+      .reward-list-all
+        margin-top 20px
+
+      .reward-list-item
+        height 92px
+        padding 16px
+
+      .reward-list-item-name
+        font-size 16px
+
+      .reward-list-tips
+        margin-top 20px

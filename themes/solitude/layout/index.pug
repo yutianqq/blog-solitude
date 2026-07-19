@@ -34,13 +34,15 @@ mixin postsList()
 
 //- 首页主内容组件
 mixin homeContent()
-  main.layout#content-inner
-    #home
+  main.layout.layout--home#content-inner
+    .home-category-bar.category-in-bar
       +categoryBar()
-      +postsList()
-    
-    //- 侧边栏
-    include ./includes/widgets/aside/aside
+    .home-layout-row
+      #home
+        +postsList()
+
+      //- 侧边栏
+      include ./includes/widgets/aside/aside
 
 block content
   +homeTop()

@@ -194,6 +194,43 @@ div#banners
   overflow hidden
   padding 1rem 2rem
 
+  &.about-glow-host
+    --about-glow-x 50%
+    --about-glow-y 50%
+    --about-glow-opacity 0
+
+  &.about-glow-host.is-about-glow-active
+    --about-glow-opacity 1
+
+  .about-pointer-glow
+    position absolute
+    inset 0
+    border-radius inherit
+    pointer-events none
+    z-index 1
+
+    &::before,
+    &::after
+      content ''
+      position absolute
+      inset 0
+      border-radius inherit
+      pointer-events none
+      opacity var(--about-glow-opacity, 0)
+      transition opacity .18s ease-out
+
+    &::before
+      padding 2px
+      background radial-gradient(circle at var(--about-glow-x, 50%) var(--about-glow-y, 50%), #fff, rgba(255, 255, 255, .7) 20%, rgba(255, 255, 255, .1) 46%, rgba(255, 255, 255, 0) 62%)
+      -webkit-mask linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)
+      -webkit-mask-composite xor
+      mask linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)
+      mask-composite exclude
+
+    &::after
+      background radial-gradient(circle at var(--about-glow-x, 50%) var(--about-glow-y, 50%), rgba(255, 255, 255, .22), rgba(255, 255, 255, .08) 22%, rgba(255, 255, 255, 0) 55%)
+      mix-blend-mode screen
+
   &.single
     width 100%
 

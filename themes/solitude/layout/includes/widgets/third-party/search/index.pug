@@ -2,10 +2,8 @@ if theme.search.enable
     case theme.search.type
         when 'algolia'
             include algolia-search
-            script(src=url_for(theme.cdn.algolia_js))
         when 'local'
             include local-search
-            script(src=url_for(theme.cdn.local_search))
         when 'docsearch'
             include docsearch
             link(rel="stylesheet" href=url_for(theme.cdn.docsearch_css))

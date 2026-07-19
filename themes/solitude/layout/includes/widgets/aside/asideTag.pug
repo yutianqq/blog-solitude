@@ -8,7 +8,7 @@
             a(href=url_for(tag.path))= tag.name
                 sup= tag.length
 if site.tags.length >= theme.aside.tags.limit
-    span#more-tags-btn(onclick="sco.openAllTags()")= __('aside.tagmore')
+    span#more-tags-btn(data-solitude-action="openAllTags")= __('aside.tagmore')
 else
     style.
         .card-tag-cloud::after {

@@ -26,13 +26,16 @@ hexo.extend.filter.register(
           icon: null,
         },
         group: null,
-        recommendList: {
-          sup: "Recommend",
-          title: "Solitude Docs",
-          url: "https://solitude.js.org/",
-          img: "/img/default.avif",
-          color: "none",
-        },
+        recommendList: [
+          {
+            order: 1,
+            sup: "Recommend",
+            title: "Solitude Docs",
+            url: "https://solitude.js.org/",
+            img: "/img/default.avif",
+            color: "none",
+          },
+        ],
       },
       aside: {
         home: { noSticky: "about", Sticky: "allInfo" },
@@ -82,6 +85,7 @@ hexo.extend.filter.register(
         tags: true,
         categories: true,
         archives: 0,
+        links: { async_threshold: 200 },
         default: { cover: ["/img/default.avif"] },
       },
       post: {
@@ -136,6 +140,10 @@ hexo.extend.filter.register(
       theme_color: {
         dark: "#ffc848",
         light: "#425AEF",
+        nav_hover_text: {
+          dark: "#1b1c20",
+          light: "#ffffff",
+        },
       },
       display_mode: {
         type: "auto",

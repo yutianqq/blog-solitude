@@ -1,13 +1,40 @@
 if hexo-config('hometop.enable') || hexo-config('brevity.enable')
   #home_top
-    max-width 1400px
     width 100%
-    margin 0 auto
-    padding .5rem 1.5rem
 
-    +maxWidth768()
-      padding 0 1rem
-      margin-top 0
+.layout#content-inner.layout--home
+  flex-direction column
+  align-items stretch
+  gap .5rem
+  margin-top 0
+
+  > .home-category-bar
+    width 100%
+    max-width 100%
+    align-self stretch
+    flex-shrink 0
+    animation slide-in .6s .3s backwards
+
+.home-layout-row
+  display flex
+  width 100%
+
+  > #home
+    width calc(100% - 300px)
+
+    .hide-aside &
+      width 100%
+
+    +maxWidth1200()
+      width 100%
+
+  +maxWidth1200()
+    display block
+
+@media (max-width: 768px)
+  .layout#content-inner.layout--home
+    padding 0
+    gap .5rem
 
 if hexo-config('hometop.enable')
   @import "home-top.styl"

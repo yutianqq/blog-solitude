@@ -25,7 +25,7 @@ div#sidebar(style="zoom: 1;")
                             include ./widgets/sidebar/comment
         span.sidebar-menu-item-title= __('sidebar.function')
         div.sidebar-menu-item
-            span.darkmode_switchbutton.menu-child(onclick="sco.switchDarkMode()")
+            span.darkmode_switchbutton.menu-child(data-solitude-action="toggleTheme")
                 i.solitude.fas.fa-circle-half-stroke
                 span= __('sidebar.darkmode')
         include ./widgets/nav/group

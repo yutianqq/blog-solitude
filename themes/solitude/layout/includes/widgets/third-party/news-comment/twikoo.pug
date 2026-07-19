@@ -21,15 +21,15 @@ script.
                         <img src='${item.avatar}' alt='${item.nick}'>
                     </div>
                     <div class='content'>
-                        <div class='comment' onclick='pjax.loadUrl("${item.url}")'>${item.content}</div>
+                        <div class='comment' data-solitude-action='navigateTo' data-solitude-url='${item.url}'>${item.content}</div>
                         <time class="datetime" datetime="${item.date}"></time>
                     </div>
                 </div>
             `).join('')
             document.querySelector('.card-recent-comment .aside-list').innerHTML = array.length ? html : "!{_p('newest_comment.zero')}"
             window.lazyLoadInstance?.update()
-            window.pjax?.refresh()
-            sco?.changeTimeFormat(document.querySelectorAll('.aside-list-item time'))
+            Solitude.pjax?.refresh()
+            Solitude.changeTimeFormat?.(document.querySelectorAll('.aside-list-item time'))
         }
         const getComment = async () => {
             const runTwikoo = () => {
@@ -46,7 +46,7 @@ script.
                         url: `${e.url}#${e.id}`,
                         date: new Date(e.created).toString()
                     })).slice(0, 6)
-                    utils.saveToLocal.set('twikoo-newest-comment', twikooArray, !{theme.comment.newest_comment.storage})
+                    Solitude.saveToLocal.set('twikoo-newest-comment', twikooArray, !{theme.comment.newest_comment.storage})
                     generateHtml(twikooArray)
                 }).catch((err) => {
                     console.error(err);
@@ -56,12 +56,12 @@ script.
             if (typeof twikoo === 'object') {
                 runTwikoo()
             } else {
-                utils.getScript('!{url_for(theme.cdn.twikoo)}').then(runTwikoo)
+                Solitude.getScript('!{url_for(theme.cdn.twikoo)}').then(runTwikoo)
             }
         }
         const newestCommentInit = () => {
             if (!document.querySelector('.card-recent-comment')) return
-            const data = utils.saveToLocal.get('twikoo-newest-comment')
+            const data = Solitude.saveToLocal.get('twikoo-newest-comment')
             data ? generateHtml(data) : getComment()
         }
         window.addEventListener('DOMContentLoaded', newestCommentInit, false)

@@ -1,14 +1,14 @@
-framework_by: 框架：
+framework_by: 架構：
 theme_by: 主題：
 
 more: 更多
-star: 喜歡這篇的人也看了
+star: 喜歡這篇文章的人也看了
 random: 隨便逛逛
-upload: 發佈時間：
+upload: 發布時間：
 totalk: 無需刪除空行，直接輸入評論即可
-loading: 加載中...
+loading: 載入中…
 day: " 天"
-hot-tip: 多人互動
+hot-tip: 熱門互動
 
 # Language: 繁體中文 (台灣)
 theme:
@@ -21,7 +21,7 @@ copy:
 
 copy_copyright:
   author: 作者
-  link: 鏈結
+  link: 連結
   source: 來源
   info: 著作權歸作者所有。商業轉載請聯繫作者獲得授權，非商業轉載請註明出處。
 
@@ -38,18 +38,27 @@ page:
   tags: 全部標籤
   categories: 全部分類
   archives: 文章
-  404: 頁面沒有找到
+  404: 找不到頁面
 
 nav:
-  site_name_title: 返回博客主頁
+  site_name_title: 返回部落格首頁
   backtop: 返回頂部
-  travellings: 開往-友鏈接力
+  travellings: 開往 - 友鏈接力
   search: 搜尋
   randompost: 隨機一篇文章
   console: 主控台
 
+tooltip:
+  home: 查看所有推薦文章
+  archives: 查看所有文章
+  category: "查看 ${name} 分類下的文章"
+  categories: 查看所有分類
+  category_next: 捲動分類列
+
 home:
   home: 推薦
+  bbtime:
+    text: 查看全部短文
   sticky: 置頂
   new: 最新
   read: 未讀
@@ -60,19 +69,19 @@ home:
 post:
   reprint: 轉載或翻譯
   original: 原創
-  cc: 該文章為${cc}文章，注意版權協議
+  cc: 本文採用 ${cc} 授權條款
   posted: 發布於
   updated: 最後更新於
   wordcount: 文章字數
-  minread: 閱讀耗時
-  ip: 作者IP歸屬地為
-  pv: 文章熱度
+  minread: 閱讀時間
+  ip: 作者 IP 所在地
+  pv: 瀏覽量
   min: 分
   comment: 評論數
   copyright:
     reprint: 本文是轉載或翻譯文章，版權歸原作者所有。轉載本文請聯繫原作者。
     original: 本文是原創文章，採用
-    original_end: 協議，完整轉載請註明來自
+    original_end: 授權條款，完整轉載請註明來自
   share:
     qq: 分享到QQ
     weibo: 分享到微博
@@ -80,8 +89,8 @@ post:
     twitter: 分享到Twitter
     linkedin: 分享到LinkedIn
     facebook: 分享到Facebook
-    link: 複製文章鏈接
-    qrcode: 使用手機掃碼閱讀這篇文章
+    link: 複製文章連結
+    qrcode: 手機掃碼閱讀
     whatsapp: 分享到WhatsApp
   ai:
     title: 文章摘要
@@ -97,40 +106,42 @@ award:
 search:
   empty: 找不到你查詢的內容：${query}
   hit: 找到 ${hits} 條結果，用時 ${time} 毫秒
-  placeholder: 輸入關鍵詞快速查找
-  count: 共 <b>${count}<b> 條結果。
-  load: 加載中...
+  placeholder: 輸入關鍵字搜尋
+  count: 共 <b>${count}</b> 筆結果。
+  load: 搜尋中…
+  close: 關閉搜尋
+  suggestions: 熱門搜尋
 
 head:
-  noscript: 開啟JavaScript才能訪問本站哦~
+  noscript: 啟用 JavaScript 後才能瀏覽本站
 
 aside:
   postcount: "文章數："
   pv: "瀏覽量："
   uv: "訪客數："
-  runtime: "運行時間："
+  runtime: "建站天數："
   updatetime: "最後更新："
   wordcount: "字數統計："
   toc: 文章目錄
   tagmore: 查看全部
   avatar: 頭像
   hello: 好久不見，
-  back: 歡迎再次回來，
+  back: 歡迎回來，
   sticker: 心情貼紙
-  newpost: 最近發佈
+  newpost: 最近發布
   newcomment: 最近評論
   card:
-    posts: "累計文章數:"
-    tags: "標籤總數:"
-    categories: "分類總數:"
+    posts: "累計文章數："
+    tags: "標籤總數："
+    categories: "分類總數："
 
 console:
   comment_tip: 互動
-  comment_title: 評論
+  comment_title: 最新評論
   tag_tip: 標籤
-  tag_title: 尋找感興趣的領域
+  tag_title: 探索感興趣的內容
   switch_darkmode: 晝夜切換
-  switch_hideAside: 側邊欄顯示控制
+  switch_hideAside: 側邊欄顯示
   switch_keyboard: 鍵盤快捷鍵
   switch_music: 音樂開關
   archive_unit: 篇
@@ -138,15 +149,15 @@ console:
   recent_comment_more: 最近評論
   newest_comment:
     image: 圖片
-    link: 鏈結
-    code: 代碼
+    link: 連結
+    code: 程式碼
     emoji: 表情
-    empty: 暫無評論...
+    empty: 尚無評論…
 
 sidebar:
   function: 功能
   darkmode: 顯示模式
-  siteinfo: 網站信息
+  siteinfo: 網站資訊
 
 footer:
   description: 來自${title}的文章
@@ -156,9 +167,9 @@ footer:
   theme: 主題
 
 cookies:
-  title: 協議提醒助手
-  tip: 查看本站為你的個人隱私做出的努力
-  privacy: 本站如何保護你的隱私
+  title: 隱私權提醒
+  tip: 查看本站如何保護你的個人隱私
+  privacy: 本站如何保護你的隱私權
 
 music:
   hit: 音樂已暫停
@@ -167,15 +178,25 @@ music:
   button: 返回首頁
 
 link:
+  loading: 正在載入友鏈…
+  error: 友鏈載入失敗，請稍後重試。
+  retry: 重新載入
+  default_sort: 預設排序
+  random_sort: 隨機排序
+  sort_label: 切換排序方式
+  scroll_left: 向左捲動
+  scroll_right: 向右捲動
   banner:
     toComment: 申請友鏈
-    random: 點擊前往按鈕進入隨機一個友鏈，不保證跳轉網站的安全性和可用性。本次隨機到的是本站友鏈：⌈ ${name} ⌋
-    to: 前往
+    random: 隨機造訪
+  random: 隨機造訪一個友鏈；不保證目的網站的安全性與可用性。本次選中：⌈ ${name} ⌋
+  to: 前往
+
 keyboard:
-  title: 博客快捷鍵
+  title: 部落格快捷鍵
 
 newest_comment:
-  error: 無法獲取評論，請確認相關配置是否正確。
+  error: 無法取得評論，請檢查相關設定。
   zero: 沒有評論
 
 comment:
@@ -184,37 +205,39 @@ comment:
 commentBarrage:
   title: 熱評
 
-f12: 開發者模式已打開，請遵循GPL協定。
+f12: 開發者模式已開啟，請遵守 GPL 授權條款。
 
 right_menu:
-  copy: 複製選中文本
-  paste: 貼上文本
-  comment: 引用到評論
-  new: 新窗口打開
-  link: 複製鏈結位址
+  copy: 複製選取文字
+  paste: 貼上文字
+  comment: 引用至評論
+  new: 在新視窗開啟
+  link: 複製連結位址
   img: 複製此圖片
   downloadImg: 下載此圖片
-  search: 站內搜索
+  search: 站內搜尋
   dark: 淺色模式
   light: 深色模式
   chs_to_cht: 轉為繁體
-  cht_to_chs: 转为简体
+  cht_to_chs: 轉為簡體
+  converted_to_cht: 已切換為繁體中文
+  converted_to_chs: 已切換為簡體中文
   img_error: 此圖片無法複製與下載
-  ctrl_original_menu: 按住Ctrl+右鍵可打開瀏覽器右鍵選單
+  ctrl_original_menu: 按住 Ctrl 並按一下右鍵，可開啟瀏覽器右鍵選單
   barrage:
     open: 顯示熱評
     close: 關閉熱評
   music:
     start: 播放音樂
     stop: 暫停音樂
-    back: 切換到上一首
-    forward: 切換到下一首
+    back: 上一首
+    forward: 下一首
     copyMusicName: 複製歌名
 
 pagination:
   prev: 上一頁
   next: 下一頁
-  to: 跳轉到指定頁面
+  to: 前往指定頁面
 
 about:
   other:
@@ -223,9 +246,9 @@ about:
       info_title1: 生於
       info_title2: 現在職業
     tj:
-      tip: 數據
-      title: 訪問統計
-      post_tip: 統計信息來自
+      tip: 資料
+      title: 瀏覽統計
+      post_tip: "統計資料來源："
   personalities:
     tip1: 在
     tip2: 瞭解更多關於
@@ -237,11 +260,11 @@ message:
 essay:
   tip0: "- 已展開所有短文 -"
   tip1: "- 只展示最近 #{count} 條短文 -"
-  link: "鏈結"
+  link: "連結"
 
 rightside:
   show:
-    gear: 擴展
+    gear: 工具
     toc: 目錄
     comment: 評論
     top: 返回頂部

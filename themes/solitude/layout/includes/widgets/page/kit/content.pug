@@ -11,7 +11,7 @@
                             .equipment-item-content-item-cover
                                 img.equipment-item-content-item-image(src=item.image, alt=item.name)
                             .equipment-item-content-item-info
-                                .equipment-item-content-item-name(onclick='utils.copy("' + item.name + '")')= item.name
+                                .equipment-item-content-item-name(data-solitude-action='copy' data-solitude-value=item.name)= item.name
                                 .equipment-item-content-item-specification= item.specification
                                 .equipment-item-content-item-description= item.description
                                 .equipment-item-content-item-toolbar
@@ -21,5 +21,5 @@
                                         else
                                             a.equipment-item-content-item-link(href=item.link) 查看文章
                                     if theme.comment.use
-                                        a.bber-reply(onclick=`sco.toTalk('${item.description}')`)
+                                        a.bber-reply(data-solitude-action="toTalk" data-solitude-value=item.description)
                                             i.solitude.fas.fa-comment(style="font-size: 1rem;")

@@ -1,0 +1,412 @@
+.layout.layout--archive
+  flex-direction column
+  align-items stretch
+  gap 12px
+
+  > .home-category-bar
+    width 100%
+    max-width 100%
+    flex-shrink 0
+
+.archive-layout-row
+  display flex
+  align-items flex-start
+  gap 8px
+  width 100%
+
+  > #page
+    flex 1
+    min-width 0
+    width auto
+    padding 0
+
+.archive-page-shell
+  overflow hidden
+  margin-top 0
+  background var(--efu-card-bg)
+  border var(--style-border)
+  border-radius 20px
+  box-shadow var(--efu-shadow-border)
+
+.archive-page-section
+  padding 18px 24px
+
+  & + &
+    border-top var(--style-border)
+
+.archive-page-section-toolbar
+  padding-top 14px
+  padding-bottom 14px
+
+.archive-page-section-list
+  padding 0
+
+.archive-page-toolbar,
+.archive-page-years
+  display flex
+  align-items center
+  flex-wrap nowrap
+  overflow-x auto
+  -webkit-overflow-scrolling touch
+  scrollbar-width none
+
+  &::-webkit-scrollbar
+    display none
+
+.archive-page-toolbar
+  justify-content space-between
+  gap 16px
+
+.archive-page-years
+  gap 10px
+
+#archives-year-filter-list
+  display contents
+
+.archive-year-button
+  display inline-flex
+  align-items center
+  justify-content center
+  flex-shrink 0
+  min-height 32px
+  padding 6px 16px
+  color var(--efu-fontcolor)
+  font-size 14px
+  font-weight 700
+  line-height 1
+  white-space nowrap
+  background var(--efu-secondbg)
+  border 0
+  border-radius 999px
+  cursor pointer
+  transition .3s
+
+  &:hover
+    color var(--efu-main)
+
+  &.is-active
+    color var(--efu-card-bg)
+    background var(--efu-main)
+    box-shadow var(--efu-shadow-main)
+
+.archive-page-list
+  display grid
+  gap 0
+
+.archive-page-item
+  display flex
+  align-items center
+  gap 18px
+  padding 22px 24px
+  color var(--efu-fontcolor)
+  border-bottom var(--style-border)
+  transition .3s
+
+  &:last-child
+    border-bottom 0
+
+  &:hover
+    color var(--efu-fontcolor)
+    background var(--efu-secondbg)
+
+.archive-page-thumb
+  position relative
+  flex-shrink 0
+  width 151px
+  min-width 151px
+  height 80px
+  overflow hidden
+  background var(--efu-secondbg)
+  border-radius 12px
+
+  img
+    display block
+    width 100%
+    height 100%
+    object-fit cover
+    transition transform .6s ease
+
+  &.is-fallback img
+    display none
+
+.archive-page-item:hover .archive-page-thumb img
+  transform scale(1.04)
+
+.archive-page-thumb-fallback
+  position absolute
+  inset 0
+  display none
+  align-items center
+  justify-content center
+  color var(--efu-secondtext)
+  font-size 20px
+  font-weight 800
+
+.archive-page-thumb.is-fallback .archive-page-thumb-fallback
+  display flex
+
+.archive-page-item-main
+  flex 1
+  min-width 0
+
+.archive-page-item-title
+  display -webkit-box
+  overflow hidden
+  margin-bottom 8px
+  color var(--efu-fontcolor)
+  font-size 20px
+  font-weight 700
+  line-height 1.5
+  word-break break-word
+  -webkit-box-orient vertical
+  -webkit-line-clamp 2
+
+.archive-page-item-meta
+  display flex
+  align-items center
+  flex-wrap wrap
+  gap 8px
+  color var(--efu-secondtext)
+  font-size 14px
+
+.archive-page-item-category
+  font-weight 700
+
+.archive-page-item-arrow
+  flex-shrink 0
+  color var(--efu-secondtext)
+  font-size 14px
+
+  i.solitude
+    font-size 14px
+
+.archive-page-state
+  padding 32px 20px
+  color var(--efu-secondtext)
+  font-weight 600
+  text-align center
+
+.archive-page-section-pagination
+  padding-top 14px
+
+  &:empty
+    display none
+
+  nav#pagination
+    width 100%
+    margin 0
+
+  .pagination
+    position relative
+    display flex
+    align-items center
+    justify-content center
+    gap 8px
+
+  .archive-page-number
+    display block
+    flex 0 0 40px
+    width 40px
+    min-width 40px
+    height 40px
+    padding 0
+    color var(--efu-fontcolor)
+    line-height 38px
+    background var(--efu-card-bg)
+    border var(--style-border)
+    border-radius 99px
+    box-shadow var(--efu-shadow-border)
+    cursor pointer
+    transition .3s
+
+    &:hover
+      color var(--efu-theme)
+      border-color var(--efu-theme)
+      box-shadow var(--efu-shadow-main)
+
+    &.is-current
+      color var(--efu-nav-hover-text)
+      background var(--efu-theme)
+      border-color var(--efu-theme)
+      box-shadow var(--efu-shadow-theme)
+      cursor default
+
+      &:hover
+        color var(--efu-nav-hover-text)
+        background var(--efu-theme)
+        border-color var(--efu-theme)
+        box-shadow var(--efu-shadow-theme)
+
+  .archive-page-extend
+    position absolute
+    display flex
+    align-items center
+    justify-content center
+    width 80px
+    min-width 80px
+    height 40px
+    padding 0
+    color var(--efu-fontcolor)
+    line-height 38px
+    background var(--efu-card-bg)
+    border var(--style-border)
+    border-radius 99px
+    box-shadow var(--efu-shadow-border)
+    cursor pointer
+    overflow hidden
+    transition .3s
+
+    &.prev
+      left 0
+
+    &.next
+      right 0
+
+    &:hover:not(:disabled)
+      color var(--efu-theme)
+      background var(--efu-card-bg)
+      border-color var(--efu-theme)
+      box-shadow var(--efu-shadow-main)
+
+    &:disabled
+      opacity .35
+      pointer-events none
+
+    span
+      max-width 0
+      opacity 0
+      overflow hidden
+      white-space nowrap
+      transition .3s
+
+    &.prev:hover span
+      max-width 48px
+      margin-left 4px
+      opacity 1
+
+    &.next:hover span
+      max-width 48px
+      margin-right 4px
+      opacity 1
+
+  .archive-page-space
+    display block
+    flex 0 0 16px
+    width 16px
+    height 40px
+    color var(--efu-fontcolor)
+    line-height 32px
+
+  button:focus-visible
+    outline 2px solid var(--efu-theme)
+    outline-offset 2px
+
+@media (max-width: 1200px)
+  .archive-layout-row
+    flex-direction column
+
+    > #page,
+    > #aside-content
+      width 100%
+
+@media (max-width: 768px)
+  .layout.layout--archive
+    gap 8px
+    padding 0
+
+  .archive-layout-row
+    width 100%
+
+    > #page
+      width 100%
+      padding 0
+
+  .archive-page-shell
+    margin 0 16px
+    border-radius 12px
+
+  .archive-page-section-toolbar,
+  .archive-page-section-pagination
+    padding-left 12px
+    padding-right 12px
+
+  .archive-page-toolbar
+    gap 0
+
+  .archive-page-years
+    width 100%
+    gap 6px
+
+  .archive-year-button
+    background transparent
+
+    &.is-active
+      color var(--efu-white)
+      background var(--efu-main)
+      box-shadow none
+
+  .archive-page-item
+    gap 12px
+    padding 18px 12px
+
+    &:hover
+      background transparent
+
+  .archive-page-thumb
+    width 80px
+    min-width 80px
+    height 80px
+
+  .archive-page-item-title
+    margin-bottom 6px
+    font-size 14px
+    line-height 1.4
+
+  .archive-page-item-meta
+    gap 5px
+    font-size 12px
+
+  .archive-page-item-arrow
+    display none
+
+  .archive-page-section-pagination .pagination
+    gap 10px
+
+  .archive-page-section-pagination
+    .archive-page-number,
+    .archive-page-space
+      display none
+
+    .archive-page-extend
+      position static
+      display flex
+      flex 1 1 0
+      width 100%
+      min-width 0
+      height 50px
+      margin 0
+      padding 0
+      color var(--efu-fontcolor)
+      line-height 50px
+      background var(--efu-card-bg)
+      border var(--style-border-always)
+      border-radius 12px
+      box-shadow var(--efu-shadow-border)
+
+      &:hover:not(:disabled)
+        color var(--efu-nav-hover-text)
+        background var(--efu-theme)
+        border-color var(--efu-theme)
+
+      &:disabled
+        display none
+
+      i
+        display none
+
+      span
+        display inline
+        max-width none
+        margin 0
+        opacity 1
+        overflow visible

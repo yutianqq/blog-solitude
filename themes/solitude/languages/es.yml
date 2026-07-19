@@ -2,17 +2,17 @@ framework_by: "Framework: "
 theme_by: "Tema: "
 
 more: Más
-star: Mira, quienes disfrutaron de esto también leyeron
+star: También te puede gustar
 random: Aleatorio
-upload: "fecha y hora: "
-totalk: No necesitas borrar líneas en blanco, solo escribe tus comentarios.
+upload: "Publicado: "
+totalk: Escribe tu comentario; las líneas en blanco están permitidas.
 loading: Cargando...
 day: " días"
 hot-tip: Popular
 
 theme:
-  dark: Oscuro
-  light: Claro
+  dark: Modo oscuro activado
+  light: Modo claro activado
 
 copy:
   success: Copiado
@@ -40,30 +40,32 @@ page:
   404: Página no encontrada
 
 home:
-  home: Recomendado
+  home: Destacados
+  bbtime:
+    text: Ver todas las notas
   sticky: Fijado
   new: Nuevo
   read: No leído
-  recommend: Recomendar
+  recommend: Elegido
   recommendmore: Más
-  archives: Todos los artículos
+  archives: Artículos
 
 post:
-  reprint: Reimpresión
+  reprint: Republicado
   original: Original
-  cc: Este artículo es un artículo ${cc}, presta atención al copyright.
-  posted: Publicado el
-  updated: Última actualización el
-  wordcount: Conteo de palabras
-  minread: Tiempo de lectura
-  ip: La IP del autor pertenece a
-  pv: PV
+  cc: Publicado bajo la licencia ${cc}.
+  posted: Publicado
+  updated: Actualizado
+  wordcount: Palabras
+  minread: Lectura
+  ip: Ubicación del autor
+  pv: Visitas
   min: min
   comment: Comentarios
   copyright:
-    reprint: Este artículo es una reproducción o traducción, y el copyright pertenece al autor original. Por favor contacta al autor original para permiso de republicación.
-    original: Este escrito es un artículo original, utilizando el
-    original_end: Acuerdo. Para reproducción completa, por favor reconoce la fuente como Cortesía de
+    reprint: Este artículo es una reproducción o traducción. Los derechos pertenecen al autor original; contáctalo antes de republicarlo.
+    original: Este artículo original usa la
+    original_end: licencia. Al reproducirlo, cita a
   share:
     qq: Compartir en QQ
     weibo: Compartir en Weibo
@@ -72,7 +74,7 @@ post:
     linkedin: Compartir en LinkedIn
     facebook: Compartir en Facebook
     link: Compartir enlace
-    qrcode: Compartir código QR
+    qrcode: Escanear para leer
     whatsapp: Compartir en WhatsApp
   ai:
     title: Resumen del artículo
@@ -88,36 +90,45 @@ nav:
   randompost: Publicación aleatoria
   console: Consola
 
+tooltip:
+  home: Ver todos los artículos recomendados
+  archives: Ver todos los artículos
+  category: "Ver artículos en ${name}"
+  categories: Ver todas las categorías
+  category_next: Desplazar categorías
+
 award:
   thanks: Gracias
   tipping: Patrocinar
   title: Lista de agradecimientos
 
 search:
-  empty: No se encontraron resultados
-  hit: Encontramos ${query} resultados para ti
-  placeholder: Ingresa palabras clave para buscar
+  empty: Sin resultados para ${query}
+  hit: ${hits} resultados en ${time} ms
+  placeholder: Buscar por palabra clave
   count: Total <b>${count}</b> resultados.
   load: Cargando...
+  close: Cerrar
+  suggestions: Búsquedas populares
 
 head:
-  noscript: Por favor habilita JavaScript para ver el sitio
+  noscript: Activa JavaScript para ver este sitio
 
 aside:
-  postcount: "Publicaciones:"
+  postcount: "Artículos:"
   pv: "PV:"
   uv: "UV:"
-  runtime: "Tiempo en línea:"
-  updatetime: "Última actualización:"
-  wordcount: "Conteo de palabras:"
-  toc: Tabla de contenidos
+  runtime: "Días en línea:"
+  updatetime: "Actualizado:"
+  wordcount: "Palabras:"
+  toc: Contenido
   tagmore: Ver todo
   avatar: Avatar
   hello: "Cuánto tiempo sin verte, "
   back: Bienvenido de nuevo,
   sticker: Sticker de ánimo
-  newpost: Nuevas publicaciones
-  newcomment: Nuevos comentarios
+  newpost: Artículos recientes
+  newcomment: Comentarios recientes
   card:
     posts: "Publicaciones:"
     tags: "Etiquetas:"
@@ -125,16 +136,16 @@ aside:
 
 console:
   comment_tip: Interacción
-  comment_title: Últimos comentarios
+  comment_title: Comentarios recientes
   tag_tip: Etiquetas
-  tag_title: Encuentra áreas interesantes
-  switch_darkmode: Modo día y noche
-  switch_hideAside: Control de barra lateral
-  switch_keyboard: Operación con teclado
-  switch_music: Interruptor de música
-  archive_unit: Publicaciones
-  archive_all: Todas las publicaciones
-  recent_comment_more: Comentarios recientes
+  tag_title: Explorar temas
+  switch_darkmode: Tema
+  switch_hideAside: Barra lateral
+  switch_keyboard: Atajos
+  switch_music: Música
+  archive_unit: Artículos
+  archive_all: Todos los artículos
+  recent_comment_more: Más comentarios
   newest_comment:
     image: Imagen
     link: Enlace
@@ -155,8 +166,8 @@ footer:
   theme: Tema
 
 cookies:
-  title: Asistente de acuerdo de recordatorio
-  tip: Mira los esfuerzos que hacemos para proteger tu privacidad
+  title: Aviso de privacidad
+  tip: Consulta cómo protegemos tu privacidad
   privacy: Cómo este sitio protege tu privacidad
 
 music:
@@ -166,11 +177,19 @@ music:
   button: Volver al inicio
 
 link:
+  loading: Cargando enlaces de amigos...
+  error: No se pueden cargar los enlaces. Inténtalo de nuevo.
+  retry: Reintentar
+  default_sort: Orden predeterminado
+  random_sort: Orden aleatorio
+  sort_label: Cambiar orden
+  scroll_left: Desplazar a la izquierda
+  scroll_right: Desplazar a la derecha
   banner:
-    toComment: Enlace de solicitud
-    random: Visita aleatoria
-  random: "Haz clic en el botón para visitar un enlace aleatorio. No se garantiza la seguridad ni disponibilidad del sitio de destino. El enlace aleatorio para esta visita es: ⌈ ${name} ⌋ "
-  to: A
+    toComment: Solicitar
+    random: Enlace aleatorio
+  random: "Visita un enlace amigo al azar. No se garantizan su seguridad ni disponibilidad. Selección: ⌈ ${name} ⌋"
+  to: Visitar
 
 keyboard:
   title: Atajos del blog
@@ -185,36 +204,38 @@ comment:
 commentBarrage:
   title: Popular
 
-f12: El modo desarrollador está activado, por favor sigue la GPL.
+f12: El modo desarrollador está activado. Respeta la GPL.
 
 right_menu:
-  copy: Copiar
+  copy: Copiar texto
   paste: Pegar
-  comment: Comentar
-  new: Abrir
-  link: Copiar
-  img: Copiar
+  comment: Citar
+  new: Nueva pestaña
+  link: Copiar enlace
+  img: Copiar imagen
   downloadImg: Descargar
   search: Buscar
   dark: Claro
   light: Oscuro
-  chs_to_cht: Convertir a tradicional
-  cht_to_chs: Convertir a simplificado
+  chs_to_cht: A tradicional
+  cht_to_chs: A simplificado
+  converted_to_cht: Chino tradicional activado
+  converted_to_chs: Chino simplificado activado
   img_error: Esta imagen no puede ser copiada o descargada.
   ctrl_original_menu: Mantén Ctrl + clic derecho para abrir el menú contextual del navegador
   barrage:
-    open: Abrir Barrage
-    close: Cerrar Barrage
+    open: Mostrar comentarios
+    close: Ocultar comentarios
   music:
     start: Reproducir
     stop: Pausar
-    back: Atrás
-    forward: Adelante
-    copyMusicName: Copiar nombre
+    back: Anterior
+    forward: Siguiente
+    copyMusicName: Copiar título
 
 pagination:
-  prev: Anterior
-  next: Siguiente
+  prev: Ant.
+  next: Sig.
   to: Ir a la página
 
 about:
@@ -222,32 +243,32 @@ about:
     oneself:
       map_title: Vivo en
       info_title1: Nacimiento
-      info_title2: Ocupación actual
+      info_title2: Ocupación
     tj:
       tip: Datos
       title: Estadísticas de acceso
-      post_tip: "Estadísticas de:"
+      post_tip: "Fuente:"
   personalities:
     tip1: En
     tip2: "Saber más:"
 
 message:
-  close: Ocultar mensaje
-  open: Mostrar mensaje
+  close: Ocultar comentarios
+  open: Mostrar comentarios
 
 essay:
-  tip0: "- Todo expandido -"
-  tip1: "- Exposiciones recientes #{count} artículos cortos -"
+  tip0: "- Todas las notas visibles -"
+  tip1: "- Últimas #{count} notas -"
   link: "Enlace"
 
 rightside:
   show:
-    gear: Configuración
-    toc: Índice
-    comment: Comentario
+    gear: Herramientas
+    toc: Contenido
+    comment: Comentarios
     top: Arriba
-    barrage: 弹
+    barrage: En vivo
   hide:
-    translate: simplificado/tradicional
-    mode: Modo
+    translate: Conversión de chino
+    mode: Tema
     aside: Barra lateral

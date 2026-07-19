@@ -12,7 +12,7 @@ script.
                 pageKey: location.pathname,
                 darkMode: document.documentElement.getAttribute('data-theme') === 'dark'
             }, !{JSON.stringify(option)})
-            if (GLOBAL_CONFIG.lightbox === 'null') return
+            if (Solitude.config.lightbox === 'null') return
             artalkItem.on('list-loaded', () => {
                 const array = []
                 artalkItem.ctx.get('list').getCommentNodes().forEach(comment => {
@@ -22,13 +22,13 @@ script.
                         mailMd5: comment.data.email_encrypted,
                     })
                     const $content = comment.getRender().$content
-                    GLOBAL_CONFIG.lightbox && utils.lightbox($content.querySelectorAll('img:not([atk-emoticon])'))
+                    Solitude.config.lightbox && Solitude.lightbox($content.querySelectorAll('img:not([atk-emoticon])'))
                 })
-                sco.owoBig({body: '.atk-grp', item: '.atk-item'})
+                Solitude.owoBig({body: '.atk-grp', item: '.atk-item'})
                 !{commentBarrage} && barrageArtalk(array)
             })
             const destroyArtalk = () => artalkItem.destroy()
-            utils.addGlobalFn('pjax', destroyArtalk, 'destroyArtalk')
+            Solitude.addGlobalFn('pjax', destroyArtalk, 'destroyArtalk')
             document.addEventListener('pjax:complete', function () {
                 artalkItem.update({
                     pageKey: window.location.pathname,
@@ -40,8 +40,8 @@ script.
         const loadArtalk = async () => {
             if (typeof Artalk === 'object') initArtalk()
             else {
-                await utils.getCSS('!{theme.cdn.artalk_css}')
-                await utils.getScript('!{theme.cdn.artalk_js}').then(initArtalk)
+                await Solitude.getCSS('!{theme.cdn.artalk_css}')
+                await Solitude.getScript('!{theme.cdn.artalk_js}').then(initArtalk)
             }
         }
         const artalkChangeMode = theme => {
@@ -50,9 +50,9 @@ script.
             const isDark = theme === 'dark'
             artalkItem.setDarkMode(isDark)
         }
-        utils.addGlobalFn('themeChange', artalkChangeMode, 'artalk')
+        Solitude.addGlobalFn('themeChange', artalkChangeMode, 'artalk')
         if ('!{use[0]}' === 'Artalk' || !{lazyload}) {
-            if (!{lazyload}) utils.loadComment(document.getElementById('artalk-wrap'), loadArtalk)
+            if (!{lazyload}) Solitude.loadComment(document.getElementById('artalk-wrap'), loadArtalk)
             else loadArtalk()
         } else {
             window.loadTwoComment = loadArtalk
@@ -63,6 +63,6 @@ if commentBarrage
     script.
         async function barrageArtalk(array) {
             const init = () => initializeCommentBarrage(array)
-            if (typeof initializeCommentBarrage === "undefined") await utils.getScript('!{url_for(theme.cdn.commentBarrage)}').then(init)
+            if (typeof initializeCommentBarrage === "undefined") await Solitude.getScript('!{url_for(theme.cdn.commentBarrage)}').then(init)
             else init()
         }

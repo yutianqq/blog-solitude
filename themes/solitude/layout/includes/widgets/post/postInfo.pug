@@ -16,6 +16,10 @@
     h1.post-title= page.title
     #post-meta
         .meta-secondline
+            if theme.wordcount && theme.post.meta.wordcount
+                span.post-meta-wordcount
+                    i.post-meta-icon.solitude.fas.fa-file-word(title=_p('post.wordcount'))
+                    span.word-count= wordcount(page.content)
             if theme.post.meta.date
                 span.post-meta-date(title=_p('post.posted') + ' ' + full_date(page.date))
                     i.post-meta-icon.solitude.fas.fa-calendar-days
@@ -24,15 +28,10 @@
                 span.post-meta-date(title=_p('post.updated') + ' ' + full_date(page.updated))
                     i.post-meta-icon.solitude.fas.fa-arrows-rotate
                     time(datetime=date_xml(page.updated))= date_xml(page.updated)
-            if theme.wordcount
-                span.post-meta-wordcount
-                    if theme.post.meta.wordcount
-                        i.post-meta-icon.solitude.fas.fa-file-word(title=_p('post.wordcount'))
-                        span.word-count= wordcount(page.content)
-                    span.post-meta-separator
-                    if theme.post.meta.readtime
-                        i.post-meta-icon.solitude.fas.fa-clock(title=_p('post.minread'))
-                        span= min2read(page.content) + ' ' + _p('post.min')
+            if theme.wordcount && theme.post.meta.readtime
+                span.post-meta-readtime
+                    i.post-meta-icon.solitude.fas.fa-clock(title=_p('post.minread'))
+                    span= min2read(page.content) + ' ' + _p('post.min')
             if theme.post.meta.locate
                 span.post-meta-position(title=_p('post.ip') + page.locate)
                     i.post-meta-icon.solitude.fas.fa-location-dot
@@ -64,7 +63,7 @@
                                 span#busuanzi_page_pv
                                     i.solitude.fas.fa-spinner.fa-spin
             if theme.post.meta.comment && page.comment && theme.comment.count && theme.comment.use
-                span.post-meta-commentcount(title=_p('post.comment'), onclick="sco.scrollTo('post-comment')")
+                span.post-meta-commentcount(title=_p('post.comment') data-solitude-action="scrollTo" data-solitude-target="post-comment")
                     i.solitude.fas.fa-comment
                     a(href=url_for(page.path) + "#post-comment")
                         case theme.comment.use[0]

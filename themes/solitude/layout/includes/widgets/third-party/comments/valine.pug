@@ -19,18 +19,18 @@ script.
                 visitor: #{visitor},
                 ...!{JSON.stringify(option)}
             })
-            GLOBAL_CONFIG.lightbox && utils.lightbox(document.querySelectorAll('#comment .vcontent img:not(.vemoji)'))
-            sco.owoBig({body: '.vwrap', item: '.vemojis i'})
+            Solitude.config.lightbox && Solitude.lightbox(document.querySelectorAll('#comment .vcontent img:not(.vemoji)'))
+            Solitude.owoBig({body: '.vwrap', item: '.vemojis i'})
         }
         const loadValine = async () => {
             if (typeof Valine === 'function') setTimeout(initValine, 0)
             else {
-                await utils.getScript('!{url_for(theme.cdn.valine)}').then(initValine)
+                await Solitude.getScript('!{url_for(theme.cdn.valine)}').then(initValine)
             }
             !{commentBarrage} && barrageValine()
         }
         if ('!{use[0]}' === 'Valine' || !{lazyload}) {
-            if (!{lazyload}) utils.loadComment(document.getElementById('vcomment'), loadValine)
+            if (!{lazyload}) Solitude.loadComment(document.getElementById('vcomment'), loadValine)
             else loadValine()
         } else {
             window.loadTwoComment = loadValine
@@ -65,8 +65,8 @@ if commentBarrage
                             mailMd5: md5(item.mail),
                             id: item.objectId
                         })))
-                if (typeof md5 === "undefined") await utils.getScript('!{url_for(theme.cdn.blueimp_md5)}')
-                if (typeof initializeCommentBarrage === "undefined") await utils.getScript('!{url_for(theme.cdn.commentBarrage)}').then(init)
+                if (typeof md5 === "undefined") await Solitude.getScript('!{url_for(theme.cdn.blueimp_md5)}')
+                if (typeof initializeCommentBarrage === "undefined") await Solitude.getScript('!{url_for(theme.cdn.commentBarrage)}').then(init)
                 else init()
             }).catch(error => console.error("An error occurred while fetching comments: ", error))
         }

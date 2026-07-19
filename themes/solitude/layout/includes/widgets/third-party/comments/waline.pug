@@ -16,9 +16,9 @@ script.
                 ...!{JSON.stringify(option)}
             }
             const walineInstance = initFn(walineOptions)
-            utils.addGlobalFn('pjax', () => walineInstance.destroy(), 'destroyWaline')
-            GLOBAL_CONFIG.lightbox && utils.lightbox(document.querySelectorAll('#comment .wl-content img:not(.wl-emoji)'))
-            sco.owoBig({
+            Solitude.addGlobalFn('pjax', () => walineInstance.destroy(), 'destroyWaline')
+            Solitude.config.lightbox && Solitude.lightbox(document.querySelectorAll('#comment .wl-content img:not(.wl-emoji)'))
+            Solitude.owoBig({
                 body: '.wl-emoji-popup',
                 item: '.wl-tab-wrapper button'
             })
@@ -27,7 +27,7 @@ script.
         async function loadWaline() {
             if (walineInitFunction) initWaline(walineInitFunction)
             else {
-                await utils.getCSS('!{url_for(theme.cdn.waline_css)}')
+                await Solitude.getCSS('!{url_for(theme.cdn.waline_css)}')
                 const {init} = await import('!{url_for(theme.cdn.waline_js)}')
                 walineInitFunction = init || Waline.init
                 initWaline(walineInitFunction)
@@ -37,7 +37,7 @@ script.
         }
 
         if (!{use[0] === 'Waline'} || !{lazyload}) {
-            if (!{lazyload}) utils.loadComment(document.getElementById('waline-wrap'), loadWaline)
+            if (!{lazyload}) Solitude.loadComment(document.getElementById('waline-wrap'), loadWaline)
             else loadWaline()
         } else window.loadTwoComment = loadWaline
     })()
@@ -61,7 +61,7 @@ if commentBarrage
                             id: item.objectId
                         })))
                 }
-                if (typeof initializeCommentBarrage === "undefined") await utils.getScript('!{url_for(theme.cdn.commentBarrage)}').then(init)
+                if (typeof initializeCommentBarrage === "undefined") await Solitude.getScript('!{url_for(theme.cdn.commentBarrage)}').then(init)
                 else init()
             }).catch(error => console.error("An error occurred while fetching comments: ", error))
         }

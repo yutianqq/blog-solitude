@@ -4,11 +4,14 @@
 
 include ./mixins/common.pug
 
+- var disableMenuTooltips = true
+
 //- 网站名称渲染mixin
 mixin siteName()
   +link('/', '', { 
     id: 'site-name', 
-    title: _p('nav.site_name_title') 
+    title: _p('nav.site_name_title'),
+    heotip: _p('nav.site_name_title')
   })
     case theme.site.name.class
       when 'i_class'
@@ -19,7 +22,7 @@ mixin siteName()
         span.title= theme.site.name.custom
     +icon('fas fa-home')
 
-nav#nav.show
+nav#nav.show(data-solitude-action="onNavBlankClickCloseConsole" data-solitude-event="true")
     #nav-group
         #blog_name
             //- 分组导航按钮
@@ -34,7 +37,7 @@ nav#nav.show
         //- 页面名称遮罩
         #page-name-mask
             #page-name
-                a#page-name-text(onclick="sco.toTop()")= title || config.title
+                a#page-name-text(data-solitude-action="toTop" title=_p('nav.backtop') heotip=_p('nav.backtop'))= title || config.title
         
         //- 主菜单
         #menus

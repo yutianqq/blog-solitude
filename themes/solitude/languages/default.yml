@@ -1,5 +1,3 @@
-repo: https://github.com/everfu/hexo-theme-solitude
-hexo: https://hexo.io/
 framework_by: 框架：
 theme_by: 主题：
 
@@ -8,9 +6,9 @@ star: 喜欢这篇的人也看了
 random: 随便逛逛
 upload: 发布时间：
 totalk: 无需删除空行，直接输入评论即可
-loading: 加载中...
+loading: 加载中…
 day: " 天"
-hot-tip: 多人互动
+hot-tip: 热门互动
 
 # Language: 简体中文
 theme:
@@ -25,7 +23,7 @@ copy_copyright:
   author: 作者
   link: 链接
   source: 来源
-  info: 著作权归作者所有。 商业转载请联系作者获得授权，非商业转载请注明出处。
+  info: 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 time:
   day: "天前"
@@ -40,18 +38,27 @@ page:
   tags: 全部标签
   categories: 全部分类
   archives: 文章
-  404: 页面没有找到
+  404: 页面未找到
 
 nav:
   site_name_title: 返回博客主页
   backtop: 返回顶部
-  travellings: 开往-友链接力
+  travellings: 开往 - 友链接力
   search: 搜索
   randompost: 随机一篇文章
   console: 中控台
 
+tooltip:
+  home: 查看所有推荐文章
+  archives: 查看所有文章
+  category: "查看 ${name} 分类下的文章"
+  categories: 查看所有分类
+  category_next: 分类条翻页
+
 home:
   home: 推荐
+  bbtime:
+    text: 查看全部短文
   sticky: 置顶
   new: 最新
   read: 未读
@@ -62,19 +69,19 @@ home:
 post:
   reprint: 转载或翻译
   original: 原创
-  cc: 该文章为${cc}文章，注意版权协议
+  cc: 本文采用 ${cc} 许可协议
   posted: 发布于
   updated: 最后更新于
   wordcount: 文章字数
-  minread: 阅读耗时
-  ip: 作者IP归属地为
-  pv: 文章热度
+  minread: 阅读时长
+  ip: 作者 IP 属地
+  pv: 阅读量
   comment: 评论数
   min: 分钟
   copyright:
     reprint: 本文是转载或翻译文章，版权归原作者所有。转载本文请联系原作者。
     original: 本文是原创文章，采用
-    original_end: 协议，完整转载请注明来自
+    original_end: 许可协议，完整转载请注明来自
   share:
     qq: 分享到QQ
     weibo: 分享到微博
@@ -83,7 +90,7 @@ post:
     linkedin: 分享到LinkedIn
     facebook: 分享到Facebook
     link: 复制文章链接
-    qrcode: 使用手机扫码阅读这篇文章
+    qrcode: 手机扫码阅读
     whatsapp: 分享到WhatsApp
   ai:
     title: 文章摘要
@@ -101,38 +108,40 @@ search:
   hit: 找到 ${hits} 条结果，用时 ${time} 毫秒
   placeholder: 输入关键词快速查找
   count: 共 <b>${count}</b> 条结果。
-  load: 搜索中...
+  load: 搜索中…
+  close: 关闭搜索
+  suggestions: 热门搜索
 
 head:
-  noscript: 开启JavaScript才能访问本站哦~
+  noscript: 开启 JavaScript 后才能访问本站
 
 aside:
-  postcount: "文章总数 :"
-  pv: "总访问数 :"
-  uv: "总访客数 :"
-  runtime: "建站天数 :"
-  updatetime: "最后更新 :"
-  wordcount: "全站字数 :"
+  postcount: "文章总数："
+  pv: "总访问量："
+  uv: "总访客数："
+  runtime: "建站天数："
+  updatetime: "最后更新："
+  wordcount: "全站字数："
   toc: 文章目录
   tagmore: 查看全部
   avatar: 头像
   hello: 好久不见，
-  back: 欢迎再次回来，
+  back: 欢迎回来，
   sticker: 心情贴纸
   newpost: 最近发布
   newcomment: 最近评论
   card:
-    posts: "累计文章数:"
-    tags: "标签总数:"
-    categories: "分类总数:"
+    posts: "累计文章数："
+    tags: "标签总数："
+    categories: "分类总数："
 
 console:
   comment_tip: 互动
   comment_title: 最新评论
   tag_tip: 标签
-  tag_title: 寻找感兴趣的领域
+  tag_title: 探索感兴趣的内容
   switch_darkmode: 昼夜切换
-  switch_hideAside: 边栏显示控制
+  switch_hideAside: 侧边栏显示
   switch_keyboard: 键盘快捷键
   switch_music: 音乐开关
   archive_unit: 篇
@@ -143,7 +152,7 @@ console:
     link: 链接
     code: 代码
     emoji: 表情
-    empty: 暂无评论...
+    empty: 暂无评论…
 
 sidebar:
   function: 功能
@@ -158,8 +167,8 @@ footer:
   theme: 主题
 
 cookies:
-  title: 协议提醒助手
-  tip: 查看本站为你的个人隐私做出的努力
+  title: 隐私提醒
+  tip: 了解本站如何保护你的隐私
   privacy: 本站如何保护你的隐私
 
 music:
@@ -169,6 +178,14 @@ music:
   button: 返回首页
 
 link:
+  loading: 正在加载友链…
+  error: 友链加载失败，请稍后重试。
+  retry: 重新加载
+  default_sort: 默认排序
+  random_sort: 随机排序
+  sort_label: 切换排序方式
+  scroll_left: 向左滚动
+  scroll_right: 向右滚动
   banner:
     toComment: 申请友链
     random: 随机访问
@@ -188,23 +205,25 @@ comment:
 commentBarrage:
   title: 热评
 
-f12: 开发者模式已打开，请遵循GPL协议。
+f12: 开发者模式已开启，请遵守 GPL 协议。
 
 right_menu:
-  copy: 复制选中文本
-  paste: 粘贴文本
+  copy: 复制选中文字
+  paste: 粘贴文字
   comment: 引用到评论
-  new: 新窗口打开
+  new: 在新窗口打开
   link: 复制链接地址
   img: 复制此图片
   downloadImg: 下载此图片
   search: 站内搜索
   dark: 浅色模式
   light: 深色模式
-  chs_to_cht: 轉為繁體
+  chs_to_cht: 转为繁体
   cht_to_chs: 转为简体
+  converted_to_cht: 已切换为繁体中文
+  converted_to_chs: 已切换为简体中文
   img_error: 此图片无法复制与下载
-  ctrl_original_menu: 按住Ctrl+右键可打开浏览器右键菜单
+  ctrl_original_menu: 按住 Ctrl 并单击右键，可打开浏览器右键菜单
   barrage:
     open: 显示热评
     close: 关闭热评
@@ -229,6 +248,7 @@ about:
     tj:
       tip: 数据
       title: 访问统计
+      post_tip: "统计来源："
   personalities:
     tip1: 在
     tip2: 了解更多关于

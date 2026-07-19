@@ -32,20 +32,24 @@ hexo.extend.filter.register("before_generate", () => {
     waterfall: { name, file: "js/third_party/waterfall.min.js", version },
     universe_js: { name, file: "js/third_party/universe.min.js", version },
     post_ai: { name, file: "js/post_ai.js", version },
+    friend_links: { name, file: "js/friend_links.js", version },
     envelope_js: { name, file: "js/third_party/envelope.min.js", version },
   };
 
   const minFile = (file) =>
     file.replace(/(?<!\.min)\.(js|css)$/g, (ext) => `.min${ext}`);
 
+  const formatCDN = (format, value) =>
+    (format || "").replace(/\$\{(.+?)}/g, (match, key) => value[key]);
+
   const createCDNLink = (data, type, cond = "") => {
     Object.keys(data).forEach((key) => {
-      let { name, version, file, other_name } = data[key];
+      let { name, version, file, other_name, cdnjs_format } = data[key];
       const cdnjs_name = other_name || name;
       const cdnjs_file = file.replace(/^[lib|dist]*\/|browser\//g, "");
       const min_cdnjs_file = minFile(cdnjs_file);
       if (cond === "internal") file = `source/${file}`;
-      const min_file = minFile(file);
+      const min_file = cond === "internal" ? file : minFile(file);
       const verType = CDN.version
         ? type === "local"
           ? `?v=${version}`
@@ -69,11 +73,12 @@ hexo.extend.filter.register("before_generate", () => {
             : `/pluginsSrc/${name}/${file + verType}`,
         jsdelivr: `https://cdn.jsdelivr.net/npm/${name}${verType}/${min_file}`,
         unpkg: `https://unpkg.com/${name}${verType}/${file}`,
-        cdnjs: `https://cdnjs.cloudflare.com/ajax/libs/${cdnjs_name}/${version}/${min_cdnjs_file}`,
-        custom: (CDN.custom_format || "").replace(
-          /\$\{(.+?)}/g,
-          (match, $1) => value[$1]
+        cdnjs: formatCDN(
+          cdnjs_format ||
+            "https://cdnjs.cloudflare.com/ajax/libs/${cdnjs_name}/${version}/${min_cdnjs_file}",
+          value
         ),
+        custom: formatCDN(CDN.custom_format, value),
       };
 
       data[key] = cdnSource[type];

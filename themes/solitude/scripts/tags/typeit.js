@@ -19,7 +19,7 @@ const typeit = ([tag], content) => {
           .go();
       }
       document.addEventListener("DOMContentLoaded", typeit);
-      utils.addEventListenerPjax(document, "pjax:complete", typeit);
+      Solitude.addEventListenerPjax(document, "pjax:complete", typeit);
     }()
     </script>
   </div>`

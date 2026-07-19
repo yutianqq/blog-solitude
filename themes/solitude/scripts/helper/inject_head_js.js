@@ -7,6 +7,16 @@
 
 hexo.extend.helper.register("inject_head_js", function () {
   const createJS = () => `
+        const parseConfig = (id) => {
+            const element = document.getElementById(id)
+            if (!element) return {}
+            try {
+                return JSON.parse(element.content?.textContent || element.textContent || '{}')
+            } catch (error) {
+                console.error('Invalid Solitude config:', error)
+                return {}
+            }
+        }
         const saveToLocal = {
             set: function setWithExpiry(key, value, ttl) {
                 if (ttl === 0)
@@ -25,7 +35,13 @@ hexo.extend.helper.register("inject_head_js", function () {
                 if (!itemStr) {
                     return undefined
                 }
-                const item = JSON.parse(itemStr)
+                let item
+                try {
+                    item = JSON.parse(itemStr)
+                } catch (error) {
+                    localStorage.removeItem(key)
+                    return undefined
+                }
                 const now = new Date()
 
                 if (now.getTime() > item.expiry) {
@@ -35,40 +51,62 @@ hexo.extend.helper.register("inject_head_js", function () {
                 return item.value
             }
         };
-        window.utils = {
+        const resourceRequests = new Map()
+        const loadResource = (url, create) => {
+            const absoluteUrl = new URL(url, document.baseURI).href
+            if (resourceRequests.has(absoluteUrl)) return resourceRequests.get(absoluteUrl)
+            const request = new Promise((resolve, reject) => {
+                const element = create(absoluteUrl)
+                element.addEventListener('load', () => resolve(element), {once: true})
+                element.addEventListener('error', () => {
+                    resourceRequests.delete(absoluteUrl)
+                    reject(new Error('Unable to load ' + absoluteUrl))
+                }, {once: true})
+                document.head.appendChild(element)
+            })
+            resourceRequests.set(absoluteUrl, request)
+            return request
+        }
+        const api = window.Solitude || {}
+        window.Solitude = api
+        api.installLegacyAdapter = () => {
+            const aliases = {
+                utils: api,
+                sco: api,
+                GLOBAL_CONFIG: api.config
+            }
+            Object.entries(aliases).forEach(([name, value]) => {
+                if (name in window) return
+                Object.defineProperty(window, name, {
+                    configurable: true,
+                    enumerable: false,
+                    value
+                })
+            })
+        }
+        Object.defineProperties(api, {
+            config: {configurable: true, get: () => parseConfig('site-config')},
+            page: {configurable: true, get: () => parseConfig('config-diff')}
+        })
+        Object.assign(api, {
             saveToLocal: saveToLocal,
-            getCSS: (url, id = false) => new Promise((resolve, reject) => {
-              const link = document.createElement('link')
-              link.rel = 'stylesheet'
-              link.href = url
-              if (id) link.id = id
-              link.onerror = reject
-              link.onload = link.onreadystatechange = function() {
-                const loadState = this.readyState
-                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-                link.onload = link.onreadystatechange = null
-                resolve()
-              }
-              document.head.appendChild(link)
+            loadStyle: (url, options = {}) => loadResource(url, href => {
+                const link = document.createElement('link')
+                link.rel = 'stylesheet'
+                link.href = href
+                if (options.id) link.id = options.id
+                return link
             }),
-            getScript: (url, attr = {}) => new Promise((resolve, reject) => {
-              const script = document.createElement('script')
-              script.src = url
-              script.async = true
-              script.onerror = reject
-              script.onload = script.onreadystatechange = function() {
-                const loadState = this.readyState
-                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-                script.onload = script.onreadystatechange = null
-                resolve()
-              }
-
-              Object.keys(attr).forEach(key => {
-                script.setAttribute(key, attr[key])
+            loadScript: (url, options = {}) => {
+              if (url.includes('barrage')) api.installLegacyAdapter()
+              return loadResource(url, src => {
+                const script = document.createElement('script')
+                script.src = src
+                script.async = options.async !== false
+                Object.entries(options.attributes || {}).forEach(([key, value]) => script.setAttribute(key, value))
+                return script
               })
-
-              document.head.appendChild(script)
-            }),
+            },
             addGlobalFn: (key, fn, name = false, parent = window) => {
                 const globalFn = parent.globalFn || {}
                 const keyObj = globalFn[key] || {}
@@ -82,7 +120,7 @@ hexo.extend.helper.register("inject_head_js", function () {
             },
             addEventListenerPjax: (ele, event, fn, option = false) => {
               ele.addEventListener(event, fn, option)
-              utils.addGlobalFn('pjax', () => {
+              api.addGlobalFn('pjax', () => {
                   ele.removeEventListener(event, fn, option)
               })
             },
@@ -92,7 +130,15 @@ hexo.extend.helper.register("inject_head_js", function () {
                     item.textContent = (date.getMonth() + 1).toString()+'/'+date.getDate().toString();
                 });
             },
+        })
+        api.getCSS = (url, id = false) => api.loadStyle(url, {id})
+        api.getScript = (url, attr = {}) => api.loadScript(url, {attributes: attr})
+        api.on = (name, handler) => {
+            const eventName = 'solitude:' + name
+            document.addEventListener(eventName, handler)
+            return () => document.removeEventListener(eventName, handler)
         }
+        api.navigate = url => api.pjax?.loadUrl ? api.pjax.loadUrl(url) : window.location.assign(url)
     `;
   return `<script>(()=>{${createJS()}})()</script>`;
 });

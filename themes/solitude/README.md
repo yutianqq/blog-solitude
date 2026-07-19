@@ -51,6 +51,16 @@
 
 前往 [文档](https://solitude.js.org/) 获取更多信息。
 
+## 浏览器扩展 API
+
+主题浏览器脚本使用原生 ES 模块，并通过 `window.Solitude` 提供稳定扩展入口：
+
+- `navigate(url)`、`refresh()`、`copy(text)`、`toggleTheme()`
+- `loadScript(url, options)`、`loadStyle(url, options)`
+- `on(event, handler)`，支持 `ready`、`beforeNavigate`、`afterNavigate`、`themeChange`
+
+`on` 返回取消订阅函数。旧版的 `sco`、`utils`、`pjax`、`GLOBAL_CONFIG` 和 `PAGE_CONFIG` 不再作为公开 API；自定义脚本应迁移到 `window.Solitude`。
+
 ## 社区
 
 [![Discord](https://img.shields.io/discord/1266610921942548553?logo=discord&label=discord&logoColor=white)](https://discord.gg/HZXAnK4Sut)

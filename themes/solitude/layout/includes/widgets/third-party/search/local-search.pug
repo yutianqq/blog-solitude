@@ -1,16 +1,16 @@
 #local-search
-    div.search-dialog
+    div.search-dialog(role="dialog" aria-modal="true" aria-labelledby="local-search-title")
         nav.search-nav
-            span.search-dialog-title=__('nav.search')
-            button.search-close-button
+            span.search-dialog-title#local-search-title=__('nav.search')
+            button.search-close-button(type="button" aria-label=__('search.close'))
                 i.solitude.fas.fa-xmark
         div.search-wrap
             div.search-box
-                input.search-box-input#search-input(type="text", autocomplete="off", spellcheck="false", autocorrect="off", autocapitalize="off", placeholder=__('search.placeholder'))
-            div#search-results
-                #search-hits
-                    each tag in theme.search.tags || []
-                        a.tag-list(href='javascript:void(0);' onclick="pjax.loadUrl('" + url_for('/tags/' + tag) + "/')")=tag
+                input.search-box-input#search-input(type="search" autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="off" placeholder=__('search.placeholder') aria-label=__('search.placeholder'))
+            div#search-suggestions(aria-label=__('search.suggestions'))
+                each tag in theme.search.tags || []
+                    button.tag-list(type="button" data-query=tag)=tag
+            ul#search-results(hidden)
             div#search-pagination
             div#search-tips
     div#search-mask

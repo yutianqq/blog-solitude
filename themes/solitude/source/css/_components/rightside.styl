@@ -4,298 +4,154 @@
   bottom: 20px
   z-index: 1000
   opacity: 0
-  transition: all .5s cubic-bezier(0.4, 0, 0.2, 1)
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15))
+  transition: opacity 0.3s, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)
 
   &.needEndHide
-    display block !important
+    display: block !important
 
   &.hide.needEndHide
-    bottom 0 !important
+    bottom: 0 !important
     transform: none !important
 
-  button
-    display: block
-    margin-bottom: 8px
-    width: 2rem
-    height: 2rem
-    border-radius: 50%
-    background: var(--efu-card-bg)
-    color: var(--font-color)
-    text-align: center
-    font-size: 16px
-    border: 1px solid var(--border-color)
-    cursor: pointer
-    position: relative
+  .rs_show,
+  .rs_hide
+    width: 46px
+    padding: 2px
     overflow: hidden
-    transition: all .3s cubic-bezier(0.4, 0, 0.2, 1)
-    backdrop-filter: blur(10px) saturate(180%)
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.1)
+    background: linear-gradient(to bottom, var(--efu-maskbg), var(--efu-maskbgdeep))
+    border: var(--style-border)
+    border-radius: 24px
+    box-shadow: var(--efu-shadow-glass-inset), var(--efu-shadow-border)
+    backdrop-filter: saturate(180%) blur(20px)
+    -webkit-backdrop-filter: saturate(180%) blur(20px)
+    transform: translateZ(0)
 
-    // 悬停效果
-    &:hover
-      transform: translateY(-2px) scale(1.05)
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.1)
-      background: var(--btn-hover-bg, var(--card-bg))
-      border-color: var(--theme-color)
-      color: var(--theme-color)
-      
-      &::before
-        transform: scale(1)
-        opacity: 0.1
+  .rs_show
+    display: flex
+    flex-direction: column
+    position: relative
 
-    // 按下效果
+  button
+    display: flex
+    align-items: center
+    justify-content: center
+    position: relative
+    flex: 0 0 40px
+    width: 40px
+    height: 40px
+    margin: 0
+    padding: 0
+    overflow: hidden
+    color: var(--efu-fontcolor)
+    background: transparent
+    border: 0
+    border-radius: 20px
+    font-size: 16px
+    line-height: 1
+    text-align: center
+    cursor: pointer
+    transition: color 0.2s, background 0.2s, transform 0.2s, box-shadow 0.2s
+
+    &:hover,
+    &:focus-visible
+      color: var(--efu-white)
+      background: var(--efu-main)
+      box-shadow: 0 4px 12px var(--efu-main-op)
+
     &:active
-      transform: translateY(0) scale(0.95)
-      transition: all .1s
+      transform: scale(0.88)
 
-    // 涟漪效果
-    &::before
-      content: ''
-      position: absolute
-      top: 50%
-      left: 50%
-      width: 0
-      height: 0
-      background: currentColor
-      border-radius: 50%
-      transform: translate(-50%, -50%) scale(0)
-      transition: transform .3s, opacity .3s
-      opacity: 0
-      pointer-events: none
+    &:focus-visible
+      outline: 2px solid var(--efu-main)
+      outline-offset: -2px
 
-    // 图标样式优化
-    i
+    i,
+    span
       position: relative
       z-index: 1
-      transition: all .3s ease
+      pointer-events: none
 
-    // PC端显示
+    i
+      font-size: 16px
+      transition: transform 0.25s
+
     &.pc
-      display: block
+      display: flex
+
       +maxWidth1200()
         display: none
 
-    // 移动端显示
     &.mobile
       display: none
 
       +maxWidth1200()
-        display: block
+        display: flex
 
-    // 返回顶部按钮特殊样式
     &.top
-      background: linear-gradient(135deg, var(--efu-card-bg), var(--theme-color-alpha-10))
-      border: 1px solid var(--theme-color-alpha-20)
-      
-      &:hover
-        background: linear-gradient(135deg, var(--theme-color-alpha-10), var(--theme-color-alpha-20))
-        border-color: var(--theme-color)
-        color: var(--theme-color)
-        
+      #percent
+        display: block
+        font-size: 12px
+        font-weight: 600
+        line-height: 1
+
+      i
+        display: none
+
+      &:hover,
+      &:focus-visible
         #percent
           display: none
 
         i
           display: block
-          transition: all .3s ease
-          transform: scale(1.2) rotate(-5deg)
 
-      i
-        transition: all .3s ease
-        display: none
+    &.barrage span
+      font-size: 12px
+      font-weight: 600
 
-        &.show
-          display: block
+    &.translate
+      font-size: 14px
+      font-weight: 600
 
-      #percent
-        font-size: 12px
-        font-weight: 600
-        line-height: 1
+    &.config:hover i,
+    &.config:focus-visible i
+      transform: rotate(90deg)
 
-    // 评论按钮
-    &.comment
-      &:hover
-        animation: pulse 1.5s infinite
-
-    // 弹幕按钮
-    &.barrage
-      span
-        font-size: 12px
-        font-weight: 500
-
-    // 配置按钮
-    &.config
-      &:hover
-        i
-          animation: spin 2s linear infinite
-
-  // 隐藏面板优化
   .rs_hide
-    position: absolute
-    right: 0
-    bottom: 100%
-    margin-bottom: 8px
-    transform: translate(60px, 0)
-    transition: all .4s cubic-bezier(0.4, 0, 0.2, 1)
-    opacity: 0
-    filter: blur(2px)
-    pointer-events: none
     display: flex
     flex-direction: column-reverse
+    position: absolute
+    right: 0
+    bottom: calc(100% + 8px)
+    opacity: 0
+    pointer-events: none
+    transform: translateX(58px) scale(0.96)
+    transform-origin: right bottom
+    transition: opacity 0.25s, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)
 
     &.show
       opacity: 1
-      transform: translate(0, 0)
-      filter: blur(0)
       pointer-events: auto
+      transform: translateX(0) scale(1)
 
-    button
-      display: block
-      margin-top: 8px
-      margin-bottom: 0
-      width: 2rem
-      height: 2rem
-      border-radius: 50%
-      background: var(--efu-card-bg)
-      color: var(--font-color)
-      border: 1px solid var(--border-color)
-      cursor: pointer
-      transition: all .3s cubic-bezier(0.4, 0, 0.2, 1)
-      backdrop-filter: blur(10px) saturate(180%)
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.1)
-      
-      &:hover
-        transform: translateY(-2px) scale(1.05)
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.1)
-        background: var(--btn-hover-bg, var(--efu-card-bg))
-        border-color: var(--theme-color)
-        color: var(--theme-color)
-
-      &:active
-        transform: translateY(0) scale(0.95)
-        transition: all .1s
-
-      // 翻译按钮特殊样式
-      &.translate
-        font-weight: 600
-        font-size: 14px
-        
-        &:hover
-          color: var(--theme-color)
-          background: var(--theme-color-alpha-10)
-
-      // 深色模式切换按钮
-      &.mode
-        &:hover
-          i
-            animation: rotate-y 0.6s ease-in-out
-
-      // 侧边栏切换按钮
-      &.aside
-        &:hover
-          i
-            animation: expand 0.6s ease-in-out
-
-      // 键盘快捷键按钮
-      &.keyboard
-        &:hover
-          i
-            animation: bounce 0.6s ease-in-out
-
-      i
-        position: relative
-        z-index: 1
-        transition: all .3s ease
-
-// 动画定义
-@keyframes pulse
-  0%, 100%
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
-  50%
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3)
-
-@keyframes spin
-  from
-    transform: rotate(0deg)
-  to
-    transform: rotate(360deg)
-
-@keyframes rotate-y
-  0%
-    transform: rotateY(0deg)
-  50%
-    transform: rotateY(180deg)
-  100%
-    transform: rotateY(360deg)
-
-@keyframes expand
-  0%, 100%
-    transform: scaleX(1)
-  50%
-    transform: scaleX(1.3)
-
-@keyframes bounce
-  0%, 20%, 50%, 80%, 100%
-    transform: translateY(0)
-  40%
-    transform: translateY(-3px)
-  60%
-    transform: translateY(-1px)
-
-// 响应式优化
-+maxWidth768()
-  #rightside
-    right: -2.5rem
-    bottom: 15px
-    
-    button
-      width: 2rem
-      height: 2rem
-      margin-bottom: 6px
-      font-size: 14px
-
-    .rs_hide      
-      button
-        width: 2rem
-        height: 2rem
-
-// 暗色模式优化
 [data-theme='dark']
   #rightside
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4))
-    
-    button
-      background: var(--efu-card-bg)
-      opacity: 0.9
-      border-color: rgba(255, 255, 255, 0.1)
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)
-      
-      &:hover
-        background: var(--efu-card-bg)
-        opacity: 1
-        border-color: var(--theme-color)
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)
-
-      &.top
-        background: linear-gradient(135deg, var(--efu-card-bg), var(--theme-color-alpha-10))
-        border-color: var(--theme-color-alpha-30)
-        opacity: 0.9
-        
-        &:hover
-          background: linear-gradient(135deg, var(--theme-color-alpha-15), var(--theme-color-alpha-25))
-          border-color: var(--theme-color)
-          opacity: 1
-
+    .rs_show,
     .rs_hide
-      button
-        background: var(--efu-card-bg)
-        opacity: 0.9
-        border-color: rgba(255, 255, 255, 0.1)
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)
-        
-        &:hover
-          background: var(--efu-card-bg)
-          opacity: 1
-          border-color: var(--theme-color)
-          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)
+      border-color: var(--efu-none)
+      box-shadow: var(--efu-shadow-glass-inset), 0 8px 20px -8px rgba(0, 0, 0, 0.55)
+
++maxWidth768()
+  #rightside
+    bottom: 15px
+
+    .rs_show,
+    .rs_hide
+      width: 44px
+
+    button
+      flex-basis: 38px
+      width: 38px
+      height: 38px
+      border-radius: 19px
+      font-size: 14px

@@ -38,9 +38,9 @@
     copy: async (text) => {
       const message = await navigator.clipboard
         .writeText(text)
-        .then(() => GLOBAL_CONFIG.lang.copy.success)
-        .catch(() => GLOBAL_CONFIG.lang.copy.error);
-      utils.snackbarShow(message, false, 2000);
+        .then(() => Solitude.config.lang.copy.success)
+        .catch(() => Solitude.config.lang.copy.error);
+      Solitude.snackbarShow(message, false, 2000);
     },
     getEleTop: (ele) => {
       let actualTop = ele.offsetTop;
@@ -113,11 +113,11 @@
         elements_selector: "img",
         threshold: 0,
         data_src: "lazy-src",
-        callback_error: (img) => (img.src = GLOBAL_CONFIG.lazyload.error),
+        callback_error: (img) => (img.src = Solitude.config.lazyload.error),
       });
     },
     lightbox: function (selector) {
-      const lightboxType = GLOBAL_CONFIG.lightbox;
+      const lightboxType = Solitude.config.lightbox;
       const options = {
         class: "fancybox",
         "data-fancybox": "gallery",
@@ -131,30 +131,42 @@
           if (i.parentNode.tagName !== "A") {
             options.href = options["data-thumb"] = i.dataset.lazySrc || i.src;
             options["data-caption"] = i.title || i.alt || "";
-            utils.wrap(i, "a", options);
+            Solitude.wrap(i, "a", options);
           }
         });
 
         if (!window.fancyboxRun) {
           Fancybox.bind("[data-fancybox]", {
             Hash: false,
-            animated: true,
-            Thumbs: { showOnStart: false },
-            Images: { Panzoom: { maxScale: 4 } },
-            Carousel: { transition: "slide" },
-            Toolbar: {
-              display: {
-                left: ["infobar"],
-                middle: [
-                  "zoomIn",
-                  "zoomOut",
-                  "toggle1to1",
-                  "rotateCCW",
-                  "rotateCW",
-                  "flipX",
-                  "flipY",
-                ],
-                right: ["slideshow", "thumbs", "close"],
+            Carousel: {
+              transition: "slide",
+              Thumbs: { showOnStart: false },
+              Zoomable: { Panzoom: { maxScale: 4 } },
+              Toolbar: {
+                display: {
+                  left: ["counter"],
+                  middle: [],
+                  right: ["thumbs", "close"],
+                },
+              },
+              breakpoints: {
+                "(min-width: 768px)": {
+                  Toolbar: {
+                    display: {
+                      left: ["counter"],
+                      middle: [
+                        "zoomIn",
+                        "zoomOut",
+                        "toggle1to1",
+                        "rotateCCW",
+                        "rotateCW",
+                        "flipX",
+                        "flipY",
+                      ],
+                      right: ["autoplay", "thumbs", "close"],
+                    },
+                  },
+                },
               },
             },
           });
@@ -170,7 +182,7 @@
       const hour = 3600000;
       const day = 86400000;
       const month = 2592000000;
-      const { time } = GLOBAL_CONFIG.lang;
+      const { time } = Solitude.config.lang;
 
       const dayCount = Math.floor(dateDiff / day);
       if (!more) return dayCount;
@@ -214,5 +226,5 @@
           }[m])
       ),
   };
-  window.utils = { ...window.utils, ...utilsFn };
+  Object.assign(window.Solitude, utilsFn);
 })();

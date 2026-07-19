@@ -1,277 +1,323 @@
-#home_top
-  .recent-top-post-group
-    border-radius 12px
-    overflow hidden
-    width 100%
-    margin-bottom 0
-    user-select none
+#home_center
+  max-width 1400px
+  width 100%
+  margin .5rem auto
+  padding 0 30px
+  user-select none
 
-    +maxWidth768()
-      border-radius 0
-
-    .recent-post-top
-      display flex
-      flex-direction row
-      flex-wrap nowrap
-      width 100%
-      gap .5rem
-
-      +maxWidth1200()
-        flex-direction column
-
-      &::-webkit-scrollbar
-        display none
-
-      .top-post-group
-        display flex
-        flex-direction row
-        justify-content start
-        flex-wrap wrap
-        align-content space-between
-        width 100%
-        gap .5rem
-
-        +maxWidth1200()
-          flex-wrap nowrap
-
-      / #bannerGroup
-        display flex
-        +minWidth1201()
-          flex 1 1 0
-          height calc(328px + .5rem)
-          display flex
-          flex-direction column
-          justify-content space-between
-
-        .tags-group-wrapper
-          margin-top 0
-          display flex
-          flex-wrap wrap
-          animation rowup 60s linear infinite
-          width 300px
-          margin-left auto
-
-        .tags-group-icon-pair
-          display flex
-
-          .tags-group-icon:nth-child(even)
-            margin-left 4rem
-
-  /.topGroup
-    display flex
-    gap .5rem
-    +maxWidth1200()
-      overflow-x auto
-
-      &::-webkit-scrollbar
-        display none
-
-    +minWidth1201()
-      display flex
-      flex-direction row
-      flex-wrap wrap
-      flex 1 1 0
-      justify-content flex-start
-      height calc(328px + 0.5rem)
-      align-content space-between
-      position relative
-      animation slide-in .6s .1s backwards
-
-    .top-post-item
-      display flex
-      flex-direction column
-      flex 1 1 30%
-      align-items flex-start
-      background var(--efu-card-bg)
-      border-radius 12px
-      overflow hidden
-      height 164px
-      max-height 164px
-      border var(--style-border-always)
-      transition .3s
-      position relative
-      box-shadow var(--efu-shadow-border)
-
-      +maxWidth1200()
-        width 200px
-        min-width 200px
-
-      &:hover .post_cover a .top-post-top-text
-        left 0
-
-      .post_cover
-        width 100%
-
-        a
-          height 100px
-          overflow hidden
-          display flex
-
-          img
-            object-fit cover
-            width 100%
-            background var(--efu-secondbg)
-
-          .top-post-top-text
-            position absolute
-            top 0
-            left -50px
-            display flex
-            z-index 1
-            background var(--efu-theme)
-            color var(--efu-white)
-            padding 2px 8px
-            font-size .6rem
-            border-radius 0 0 12px 0
-            transition .3s
-            cursor pointer
-            if $language == 'en-US'
-              left -90px
-
-      /.top-post-info
-        padding .3rem .5rem .3rem .5rem
-        transition .3s
-
-        .article-title
-          -webkit-line-clamp 2
-          overflow hidden
-          display -webkit-box
-          -webkit-box-orient vertical
-          line-height 1.5
-          justify-content center
-          align-items flex-end
-          align-content center
-          font-weight 700
-          font-size .8rem
-          padding 0
-
-          &:hover
-            color var(--efu-fontcolor)
-
-    .todayCard
-      display none
-
-      +minWidth1201()
-        position absolute
-        width 100%
-        z-index 3
-        height 100%
-        top 0
-        right 0
-        background var(--efu-card-bg)
-        border-radius 12px
-        overflow hidden
-        transition .3s
-        display flex
-        cursor pointer
-        pointer-events all
-
-        &::after
-          position: absolute
-          content: ''
-          width: 100%
-          height: 100%
-          top: 0
-          left: 0
-          box-shadow 0 -109px 133px -9px $todayCardColor inset
-
-        &.hide
-          opacity: 0
-          pointer-events: none
-
-        .todayCard-info
-          position: absolute
-          bottom: 2rem
-          left: 2rem
-          z-index: 2
-          color: var(--efu-white)
-          max-width: 60%
-          transition: .3s
-
-          .todayCard-tips
-            opacity: .8
-            font-size: .6rem
-
-          .todayCard-title
-            font-size: 28px
-            font-weight: 700
-            line-height: 36px
-
-        .todayCard-cover
-          position: absolute
-          min-width: 100%
-          min-height: 100%
-          top: 0
-          left: 0
-          background-size: cover
-          z-index: -1
-          transition: .3s
-
-        .banner-button-group
-          position: absolute
-          right: 2rem
-          bottom: 2rem
-          display: flex
-          transition: .3s
-
-        .banner-button
-          background: var(--efu-white-op)
-          border-radius: 20px
-          color: var(--efu-white)
-          display: flex
-          align-items: center
-          z-index: 1
-          transition: .3s
-          cursor: pointer
-          backdrop-filter: saturate(180%) blur(20px)
-          transform: translateZ(0)
-          height: 40px
-          width: 118px
-          justify-content: center
-
-          i
-            margin-right: 8px
-            font-size: 22px
-
-          &:hover
-            background: var(--efu-theme)
-            color: var(--efu-white)
-
-        &.hide
-          .todayCard-info
-            bottom: 1rem
-            opacity: 0
-
-          .todayCard-cover
-            transform: scale(1.2)
-
-          .banner-button-group
-            bottom: 1rem
-
-.banners-links
+.home-center-content
+  width 100%
   display flex
-  position absolute
-  bottom 20px
-  left 40px
-  flex-direction column
-  justify-content space-between
-  flex-wrap wrap
-  height 120px
+  height 340px
+  overflow hidden
+  background var(--efu-card-bg)
+  border var(--style-border-always)
+  border-radius 12px
+  box-shadow var(--efu-shadow-border)
+  animation slide-in .6s .1s backwards
 
-.banners-link-btn
-  display flex
-  flex-direction row
-  align-items center
-  padding 8px 18px 8px 14px
-  border-radius 60px
-  margin-bottom 12px
-  color var(--efu-white)
+.home-center-left
+  flex 1
   position relative
-  background-size 200%
-  margin-right 10px
+  height 100%
+  min-width 0
+  overflow hidden
+
+.home-center-banner
+  position relative
+  width 100%
+  height 100%
+  overflow hidden
+
+.home-center-banner-item
+  position absolute
+  inset 0
+  display flex
+  flex-direction column
+  align-items center
+  justify-content center
+  width 100%
+  height 100%
+  padding 2rem
+  opacity 0
+  visibility hidden
+  cursor pointer
+  background-color var(--efu-card-bg)
+  transition none
+
+  &.active
+    opacity 1
+    visibility visible
+    z-index 1
+
+  &.has-banner-cover
+    padding 0
+
+    .home-center-cover
+      width 100%
+      max-width 100%
+      height 100%
+
+    .home-center-cover-img
+      width 100%
+      height 100%
+      max-width 100%
+      max-height 100%
+      object-fit cover
+      mask-image none
+
+  &:focus-visible
+    outline 2px solid var(--efu-white)
+    outline-offset -3px
+
+.home-center-cover
+  width 80%
+  max-width 80%
+  flex-shrink 0
+  overflow visible
+  display flex
+  align-items center
+  justify-content center
+
+.home-center-cover-img
+  max-width 100%
+  width auto
+  height auto
+  max-height 100%
+  object-fit contain
+  border-radius 0
+  filter blur(0)
+  mask-image radial-gradient(ellipse 60% 60% at center, #000 0, rgba(0, 0, 0, .8) 30%, rgba(0, 0, 0, .4) 50%, transparent 80%)
+  mask-size 100% 100%
+  mask-repeat no-repeat
+  mask-position center
+  transition filter .5s ease
+
+.home-center-mask
+  position absolute
+  left 0
+  bottom 0
+  z-index 2
+  width 100%
+  height 120px
+  background linear-gradient(to top, var(--home-center-theme, var(--efu-theme)) 0, transparent 100%)
+  backdrop-filter blur(16px) saturate(1.2)
+  mask-image linear-gradient(to top, #000 0, transparent 100%)
+  pointer-events none
+
+.home-center-title
+  position absolute
+  left 32px
+  bottom 32px
+  z-index 10
+  width 80%
+  max-width 80%
+  text-align left
+  pointer-events none
+
+  a
+    display -webkit-box
+    overflow hidden
+    color var(--efu-white)
+    font-size 28px
+    font-weight 700
+    line-height 1.4
+    -webkit-line-clamp 2
+    -webkit-box-orient vertical
+    pointer-events auto
+    transition color .3s
+
+    &:hover
+      color var(--efu-white)
+
+.home-center-title-tag
+  display flex
+  align-items center
+  gap 4px
+  margin-top 2px
+  color var(--efu-white)
+  font-size 12px
+  line-height 24px
+  opacity .8
+  text-shadow 0 2px 20px rgba(0, 0, 0, .15)
+
+  i
+    font-size 12px
+
+.home-center-indicators
+  display none
+
+.home-center-indicator
+  display block
+  width 8px
+  height 8px
+  padding 0
+  border 0
+  border-radius 50%
+  background rgba(255, 255, 255, .4)
+  cursor pointer
+  transition .3s
+
+  &.active
+    width 24px
+    border-radius 4px
+    background rgba(255, 255, 255, .9)
+
+.home-center-right
+  display flex
+  flex-shrink 0
+  flex-direction column
+  width 30%
+  height 100%
+  background var(--current-theme, var(--efu-theme))
+  transition background-color .2s
+
+.home-center-list
+  display flex
+  flex 1
+  flex-direction column
+
+.home-center-item
+  display flex
+  align-items center
+  gap 15px
+  max-height 20%
+  padding 16px
+  cursor pointer
+  background rgba(0, 0, 0, .12)
+  transition .2s
 
   &:hover
-    background-position 100% 0
+    background rgba(0, 0, 0, .06)
 
-.banners-link-title
-  margin 0 .1rem 0 .5rem
+  &.active
+    background rgba(255, 255, 255, .14)
+
+.home-center-item-icon
+  position relative
+  display flex
+  align-items center
+  justify-content center
+  flex-shrink 0
+  width 36px
+  min-width 36px
+  height 36px
+  overflow hidden
+  border-radius 8px
+  background var(--efu-card-bg)
+
+  &::before
+    content ''
+    position absolute
+    inset 0
+    z-index 1
+    border var(--style-border-always)
+    border-width 2px
+    border-radius 8px
+    box-shadow var(--efu-shadow-white)
+    opacity .2
+    pointer-events none
+
+  img
+    width 100%
+    height 100%
+    object-fit cover
+
+.home-center-item-title
+  flex 1
+  min-width 0
+  overflow hidden
+
+  a
+    display -webkit-box
+    overflow hidden
+    color var(--efu-white)
+    font-size 16px
+    line-height 1.5
+    opacity .85
+    text-overflow ellipsis
+    white-space nowrap
+    -webkit-line-clamp 1
+    -webkit-box-orient vertical
+    transition color .2s
+
+    &:hover, &:focus-visible
+      color var(--efu-white)
+
+@media (max-width: 768px)
+  #home_center
+    margin-top 0
+    padding 0 16px
+
+  .home-center-content
+    flex-direction column
+    height auto
+    border-radius 12px
+
+  .home-center-left
+    width 100%
+
+  .home-center-banner
+    display flex
+    height 200px
+    overflow-x auto
+    overflow-y hidden
+    scroll-snap-type x mandatory
+    scrollbar-width none
+    -webkit-overflow-scrolling touch
+
+    &::-webkit-scrollbar
+      display none
+
+  .home-center-banner-item
+    position relative
+    min-width 100%
+    width 100%
+    flex-shrink 0
+    padding 16px
+    opacity 1
+    visibility visible
+    scroll-snap-align start
+
+    &.has-banner-cover .home-center-cover-img
+      object-position 70% center
+
+  .home-center-title
+    left 16px
+    bottom 16px
+    width calc(100% - 32px)
+    max-width calc(100% - 32px)
+
+    a
+      font-size 18px
+      pointer-events none
+
+  .home-center-title-tag
+    display none
+
+  .home-center-indicators
+    display flex
+    align-items center
+    justify-content flex-start
+    gap 6px
+    margin-top 8px
+    pointer-events none
+
+  .home-center-indicator
+    width 6px
+    height 6px
+    pointer-events auto
+
+    &.active
+      width 20px
+
+  .home-center-right
+    display none
+
+@media (prefers-reduced-motion: reduce)
+  .home-center-content,
+  .home-center-cover-img,
+  .home-center-indicator,
+  .home-center-item
+    animation none
+    transition none

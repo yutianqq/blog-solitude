@@ -43,13 +43,13 @@ script.
             });
         }
 
-        utils.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+        Solitude.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
 
         if ('!{use[0]}' === 'Giscus' || !!{lazyload}) {
             if (!{lazyload}) {
                 const giscusWrap = document.getElementById('giscus-wrap')
                 if (giscusWrap) {
-                    utils.loadComment(giscusWrap, loadGiscus)
+                    Solitude.loadComment(giscusWrap, loadGiscus)
                 }
             } else {
                 loadGiscus()

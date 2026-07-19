@@ -1,6 +1,6 @@
 .bbTimeList.container#bbTimeList(class=is_home_first_page() ? '' : 'more-page')
-    i.bber-logo.solitude.fas.fa-newspaper(onclick=`pjax.loadUrl('${url_for(theme.brevity.page)}')`)
-    .swiper-container.swiper-no-swiping.swiper-container-initialized.swiper-container-vertical.swiper-container-pointer-events#bbtalk(tabindex="-1" onclick=`pjax.loadUrl('${url_for(theme.brevity.page)}')`)
+    i.bber-logo.solitude.fas.fa-newspaper(data-solitude-action="navigateTo" data-solitude-url=url_for(theme.brevity.page))
+    .swiper-container.swiper-no-swiping#bbtalk(tabindex="-1" data-solitude-action="navigateTo" data-solitude-url=url_for(theme.brevity.page))
         .swiper-wrapper#bber-talk
             each item, i in site.data.brevity.slice(0, 10)
                 .li-style.swiper-slide
@@ -13,4 +13,4 @@
                         i.solitude.fas.fa-video
                     else if item.link
                         i.solitude.fas.fa-link
-    i.bber-gotobb.solitude.fas.fa-circle-chevron-right(title=_p('home.bbtime.text') onclick=`pjax.loadUrl('${url_for(theme.brevity.page)}')`)
+    i.bber-gotobb.solitude.fas.fa-circle-chevron-right(title=_p('home.bbtime.text') data-solitude-action="navigateTo" data-solitude-url=url_for(theme.brevity.page))

@@ -10,16 +10,25 @@ if games
             .author-content-item.game(class=`game-${index}`, style=`background: url(${game.img}) no-repeat top; background-size: cover;`)
                 .card-content
                     .author-content-item-tips= game.title
-                    span.author-content-item-title= game.subtitle
+                    if game.mode
+                        .author-content-item-title
+                            span.author-content-item-title-text= game.subtitle
+                            img.mode-img(src=game.mode.img, alt=game.mode.name, title=game.mode.tip, heotip=game.mode.tip)
+                    else
+                        span.author-content-item-title= game.subtitle
                     .content-bottom
-                        if game.icon_group
+                        if game.heroes
+                            .hero-group
+                                each hero, heroIndex in game.heroes
+                                    img.hero-group-item(src=hero.img, alt=hero.name, title=`擅长英雄：${hero.name}`, heotip=`擅长英雄：${hero.name}`, style=`--index: ${heroIndex};`)
+                        else if game.icon_group
                             .icon-group
                                 each icon in game.icon_group
                                     i(style=`background-image: url(${icon})`)
                         else if game.tips_left
                             .tips= game.tips_left
                         if game.tips_right
-                            .tips= game.tips_right
+                            .tips(title=game.tips_right_tip, heotip=game.tips_right_tip)= game.tips_right
 
 if site.data.about.likes
   - const likes = site.data.about.likes

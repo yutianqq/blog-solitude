@@ -1,39 +1,68 @@
-- award = site.data.about.award
+- const award = site.data.about.award
+- const rewardList = Array.isArray(site.data.about.rewardList) ? site.data.about.rewardList.slice() : []
+- const sortedRewards = rewardList.sort((a, b) => new Date(b.time) - new Date(a.time))
+- const visibleRewards = sortedRewards.slice(0, 11)
+- const sum = rewardList.reduce((total, reward) => total + Number(reward.money || 0), 0)
+- const rewardConfig = theme.post && theme.post.award ? theme.post.award : {}
+- const rewardMethods = Array.isArray(rewardConfig.list) ? rewardConfig.list.filter(item => item && item.name && item.qcode) : []
+- const showRewardButton = rewardConfig.enable && rewardMethods.length > 0
+- const appreciators = rewardConfig.appreciators
 
-- var sum = 0
-if site.data.about.rewardList && site.data.about.award.enable
-    .author-content
-        .author-content-item.single.reward
-            .author-content-item-tips= _p('award.thanks')
-            span.author-content-item-title= _p('award.title')
-            .author-content-item-description
-                != award.description
-            .reward-list-all
-                each reward in site.data.about.rewardList.sort((a, b) => b.time - a.time) || []
-                    - sum += reward.money
-                    .reward-list-item
-                        .reward-list-item-name= reward.name
-                        .reward-list-bottom-group
-                            .reward-list-item-money(style="background-color:" + reward.color)
-                                if reward.icon
-                                    i.solitude(class=reward.icon)
-                                | ¥ #{reward.money}
-                            time.datetime.reward-list-item-time(datetime=moment(reward.time).format())
-                if theme.post.award.enable
-                    .post-reward
-                        .post-reward(onclick="AddRewardMask()")
-                        .reward-button(title=_p('award.tipping'))
-                            i.solitude.fas.fa-heart
-                            = _p('award.tipping')
-                        .reward-main
-                            ul.reward-all
-                                span.reward-title= theme.post.award.title
-                                ul.reward-group
-                                    - var rewards = theme.post.award.list
-                                    each reward in rewards
-                                        li.reward-item
-                                            a(href=url_for(reward.url))
-                                                img.post-qr-code-img(alt=reward.name, src=reward.qcode, style="border-color:" + reward.color)
-                                            .post-qr-code-desc= reward.name
-            .reward-list-tips
-                p= award.tips.replace('{sum}', sum.toFixed(2))
+if rewardList.length && award && award.enable
+  .author-content
+    .author-content-item.single.reward
+      .author-content-item-tips= _p('award.thanks')
+      span.author-content-item-title= _p('award.title')
+      .author-content-item-description!= award.description
+
+      if showRewardButton
+        .post-reward
+          .reward-button(
+            role='button'
+            tabindex='0'
+            title=_p('award.tipping')
+            aria-label=_p('award.tipping')
+            data-solitude-action='showReward'
+          )
+            i.solitude.fas.fa-heart(aria-hidden='true')
+            = _p('award.tipping')
+          .reward-main
+            ul.reward-all
+              span.reward-title= rewardConfig.title
+              ul.reward-group
+                each method in rewardMethods
+                  li.reward-item
+                    a(href=url_for(method.url))
+                      img.post-qr-code-img.nolazyload(
+                        alt=method.name
+                        src=method.qcode
+                        style=method.color ? 'border-color:' + method.color : null
+                      )
+                    .post-qr-code-desc= method.name
+
+      .reward-list-all
+        each reward in visibleRewards
+          - const amount = Number(reward.money || 0)
+          - const amountTier = amount >= 100 ? 'reward-list-item-money-high' : amount >= 20 ? 'reward-list-item-money-medium' : 'reward-list-item-money-low'
+          .reward-list-item(tabindex='0')
+            .reward-list-item-name(title=reward.name)= reward.name
+            .reward-list-bottom-group
+              .reward-list-item-money(
+                class=amountTier
+                style=reward.color ? 'background-color:' + reward.color : null
+              )
+                if reward.icon
+                  i.solitude(class=reward.icon aria-hidden='true')
+                | ¥ #{reward.money}
+              time.datetime.reward-list-item-time(datetime=moment(reward.time).format())= moment(reward.time).format('YYYY-MM-DD')
+
+        if appreciators
+          a.reward-list-item.reward-list-item-more(
+            href=url_for(appreciators)
+            aria-label='查看全部打赏名单'
+          )
+            span 查看全部
+            i.solitude.fas.fa-arrow-right(aria-hidden='true')
+
+      .reward-list-tips
+        p= award.tips.replace('{sum}', sum.toFixed(2))

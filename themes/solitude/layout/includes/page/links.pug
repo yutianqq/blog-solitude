@@ -1,16 +1,28 @@
 - var $data = page.data
+- const linksPageData = site.data[$data]
+- const linksGroups = linksPageData && Array.isArray(linksPageData.links) ? linksPageData.links : []
+- const linksTotal = linksGroups.reduce((count, group) => count + (Array.isArray(group.link_list) ? group.link_list.length : 0), 0)
+- const configuredLinksThreshold = Number(theme.page && theme.page.links && theme.page.links.async_threshold)
+- const linksThreshold = Number.isInteger(configuredLinksThreshold) && configuredLinksThreshold >= 0 ? configuredLinksThreshold : 200
+- const asyncLinks = linksTotal > linksThreshold
 if page.banner
     .flink#banners
         include ../widgets/page/links/banner
 .flink.article-container
-    each data in site.data[$data].links
-        h2= data.class_name + " (" + data.link_list.length + ")"
-        .flink-desc= data.descr
-        case data.type
-            when 'card'
-                include ../widgets/page/links/linksCard
-            when 'item'
-                include ../widgets/page/links/linksItem
-            when 'discn'
-                include ../widgets/page/links/linksDiscn
+    if asyncLinks
+        .friend-links-dynamic(data-friend-links-list)
+            .flink-loading-skeleton(role="status" aria-label=_p('link.loading'))
+                each item in [0, 1, 2, 3, 4, 5]
+                    .flink-loading-item
+    else
+        each data in linksGroups
+            h2= data.class_name + " (" + data.link_list.length + ")"
+            .flink-desc= data.descr
+            case data.type
+                when 'card'
+                    include ../widgets/page/links/linksCard
+                when 'item'
+                    include ../widgets/page/links/linksItem
+                when 'discn'
+                    include ../widgets/page/links/linksDiscn
     != page.content

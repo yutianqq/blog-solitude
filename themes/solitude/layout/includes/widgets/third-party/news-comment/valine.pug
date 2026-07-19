@@ -22,7 +22,7 @@ script.
         const $asideList = document.querySelector('.card-recent-comment .aside-list')
         const newestCommentInit = () => {
             if (!document.querySelector('.card-recent-comment')) return
-            const data = utils.saveToLocal.get('valine-newest-comment')
+            const data = Solitude.saveToLocal.get('valine-newest-comment')
             if (data) {
                 generateHtml(data)
             } else {
@@ -39,7 +39,7 @@ script.
                     "Content-Type": "application/json"
                 },
             }
-            if (typeof md5 === "undefined") await utils.getScript('!{url_for(theme.cdn.blueimp_md5)}')
+            if (typeof md5 === "undefined") await Solitude.getScript('!{url_for(theme.cdn.blueimp_md5)}')
             await fetch('!{theme.valine.serverURLs}/1.1/classes/Comment?limit=8&order=-createdAt', settings).then(res => res.json())
                 .then(async result => {
                     let ls = []
@@ -53,7 +53,7 @@ script.
                             date: i.updatedAt || i.createdAt
                         })
                     }
-                    utils.saveToLocal.set('valine-newest-comment', ls, !{theme.comment.newest_comment.storage})
+                    Solitude.saveToLocal.set('valine-newest-comment', ls, !{theme.comment.newest_comment.storage})
                     generateHtml(ls)
                 }).catch(error => {
                     console.error(error);
@@ -65,19 +65,19 @@ script.
             const $dom = document.querySelector('.card-recent-comment .aside-list')
             $dom.innerHTML = array.length ? array.map(item => `
                         <div class='aside-list-item'>
-                          <div onclick='pjax.loadUrl(\"${item.url}\")' class='thumbnail'>
+                          <div data-solitude-action='navigateTo' data-solitude-url='${item.url}' class='thumbnail'>
                             <img src='${item.avatar}' alt='${item.nick}'>
                             <div class='name'><span>${item.nick}</span></div>
                           </div>
                           <div class='content'>
-                            <div class='comment' onclick='pjax.loadUrl("${item.url}")'>${item.content}</div>
+                            <div class='comment' data-solitude-action='navigateTo' data-solitude-url='${item.url}'>${item.content}</div>
                             <time class="datetime" datetime="${item.date}"></time>
                           </div>
                         </div>
                       `).join('') : "!{_p('newest_comment.zero')}"
             window.lazyLoadInstance?.update()
-            window.pjax?.refresh()
-            sco?.changeTimeFormat(document.querySelectorAll('.aside-list-item time'))
+            Solitude.pjax?.refresh()
+            Solitude.changeTimeFormat?.(document.querySelectorAll('.aside-list-item time'))
         }
 
         window.addEventListener('DOMContentLoaded', newestCommentInit, false)

@@ -11,6 +11,7 @@
       height 100%
       top 0
       left 0
+      pointer-events none
 
     .card-content
       position absolute
@@ -22,3 +23,58 @@
       display flex
       flex-direction column
       padding 1rem 2rem
+
+    .author-content-item-title
+      display flex
+      align-items center
+      justify-content space-between
+      gap 1rem
+
+    .author-content-item-title-text
+      min-width 0
+
+    .mode-img
+      flex 0 0 40px
+      width 40px
+      height 40px
+      border-radius 8px
+      object-fit cover
+
+    .hero-group
+      display flex
+      align-items center
+
+    .hero-group-item
+      position relative
+      z-index calc(100 - var(--index))
+      flex 0 0 40px
+      width 40px
+      height 40px
+      border 2px solid #357358
+      border-radius 50%
+      object-fit cover
+
+      &:not(:first-child)
+        margin-left -10px
+
+    +maxWidth768()
+      min-height 260px
+
+      .card-content
+        padding 1rem
+
+      .author-content-item-title
+        font-size 30px
+
+      .mode-img
+        flex-basis 36px
+        width 36px
+        height 36px
+
+      .hero-group-item
+        flex-basis 36px
+        width 36px
+        height 36px
+
+        &:not(:first-child)
+          margin-left -9px

@@ -1,19 +1,65 @@
 extends includes/layout.pug
 
 block content
-    main.layout#content-inner
+  case theme.page.archives
+    when 0
+      -
+        const archivePosts = site.posts.find({ parent: { $exists: false } }).sort('-date').data
+        const fallbackCovers = theme.page.default.cover || theme.post.default.cover || ['/img/default.avif']
+        const fallbackCover = fallbackCovers.length ? fallbackCovers[0] : '/img/default.avif'
+        const archiveData = archivePosts.map(post => {
+          const categories = post.categories && post.categories.data ? post.categories.data : []
+          return {
+            title: post.title,
+            url: url_for(post.path),
+            cover: url_for(post.cover || fallbackCover),
+            primaryCategory: categories.length ? categories[0].name : '未分类',
+            dateLabel: post.date.format('YYYY年M月D日'),
+            year: String(post.date.year())
+          }
+        })
+        const archiveJson = JSON.stringify(archiveData).replace(/</g, '\\u003c')
+        const archivePageSize = Math.max(Number(config.per_page) || 10, 1)
+        const initialArchiveYear = page.year ? String(page.year) : 'all'
+        const initialArchivePage = Math.max(Number(page.current) || 1, 1)
+
+      main.layout.layout--archive#content-inner
+        .home-category-bar.category-in-bar
+          #category-bar
+            include ./includes/widgets/home/categoryBar
+
+        .archive-layout-row
+          #page
+            .archive-page-shell#archives-page(
+              data-per-page=archivePageSize
+              data-initial-year=initialArchiveYear
+              data-initial-page=initialArchivePage
+            )
+              .archive-page-section.archive-page-section-toolbar
+                .archive-page-toolbar
+                  .archive-page-years(role='tablist' aria-label='年份筛选')
+                    button.archive-year-button.is-active(type='button' data-year='all' aria-pressed='true') 全部
+                    #archives-year-filter-list
+
+              .archive-page-section.archive-page-section-list
+                .archive-page-list#archives-page-list
+                  .archive-page-state 文章列表加载中...
+
+              .archive-page-section.archive-page-section-pagination
+                nav#pagination(aria-label='归档分页')
+                  .pagination
+
+            template#archive-page-data!= archiveJson
+
+          include includes/widgets/aside/aside
+
+    when 1
+      main.layout#content-inner
         #archive
-            .article-sort-title #{__('page.archives')}<sup>#{site.posts.find({parent: {$exists: false}}).length}</sup>
-            case theme.page.archives
-                when 0
-                    .article-sort
-                        include includes/mixins/articleSort
-                    include includes/mixins/pagination
-                when 1
-                    .recent-posts#recent-posts
-                        each post,index in page.posts.find({ parent: { $exists: false } }).data
-                            include includes/widgets/home/postList
-                        include includes/mixins/pagination
-                    if theme.comment.hot_tip.enable
-                        include ./includes/widgets/third-party/hot/index.pug
+          .recent-posts#recent-posts
+            each post,index in page.posts.find({ parent: { $exists: false } }).data
+              include includes/widgets/home/postList
+            include includes/mixins/pagination
+          if theme.comment.hot_tip.enable
+            include ./includes/widgets/third-party/hot/index.pug
         include includes/widgets/aside/aside

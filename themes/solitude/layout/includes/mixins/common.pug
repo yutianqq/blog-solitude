@@ -16,14 +16,18 @@ mixin link(url, text, options)
   - var target = options.target
   - var className = options.class
   - var id = options.id
-  - var onclick = options.onclick
+  - var action = options.action
+  - var stop = options.stop
+  - var heotip = options.heotip
   a(
     href=url_for(url)
     title=title
     target=target
     class=className
     id=id
-    onclick=onclick
+    data-solitude-action=action
+    data-solitude-stop=stop
+    heotip=heotip
   )
     if text
       = text
@@ -93,7 +97,7 @@ mixin postMeta(post, options)
     if showTags && post.tags && post.tags.length > 0
       span.article-meta.tags
         each tag in post.tags.data
-          - var linkOptions = { class: 'article-meta__tags', onclick: 'event.stopPropagation();' }
+          - var linkOptions = { class: 'article-meta__tags', action: 'noop', stop: 'true' }
           +link(tag.path, '', linkOptions)
             span.tags-punctuation
               +icon('fas fa-hashtag')

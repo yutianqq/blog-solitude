@@ -11,13 +11,13 @@
 
     #nav
       transition .3s
-      background var(--efu-card-bg)
+      background linear-gradient(to bottom, rgba(255, 255, 255, .3), var(--efu-none))
 
       a
         color var(--efu-fontcolor)
 
         &:hover
-          color var(--efu-card-bg)
+          color var(--efu-nav-hover-text)
 
   &:not(.nav-fixed)
     #nav
@@ -88,20 +88,25 @@
       z-index 102
       display flex
       flex-direction row
-      height 100%
       align-items center
       margin-right 1.5rem
       overflow hidden
+      padding 4px
+      gap 6px
+      border var(--style-border-always)
+      border-color var(--efu-none)
+      border-radius 99px
+      transition box-shadow .3s, border-color .3s, backdrop-filter .3s, background-color .3s, width .3s, max-width .3s, height .3s, max-height .3s, padding .3s, margin .3s
 
       +maxWidth768()
         margin-right 12px
 
       div
         padding 0
-        margin-left .5rem
+        margin-left 0
 
       .nav-button
-        margin-left .5rem
+        margin-left 0
         cursor pointer
 
         a
@@ -113,17 +118,18 @@
           border-radius 40px
 
           i
-            font-size 20px
+            font-size 22px
+            line-height 1
 
           &.totopbtn
-            width 25px
-            height 25px
+            width 30px
+            height 30px
             border-radius 40px
             background var(--efu-fontcolor)
             color var(--efu-card-bg)
             position absolute
-            top 5px
-            right 5px
+            top 2px
+            right 2px
             transition .3s
 
           &.console_switchbutton
@@ -188,10 +194,8 @@
         &:not(.long):hover
           a
             &.totopbtn
-              width 35px
-              height 35px
-              top 0
-              right 0
+              transform scale(1.167)
+              transform-origin center center
 
   &.nav-fixed
     #nav
@@ -199,8 +203,25 @@
       top 0
       transition .3s
       box-shadow none
-      background var(--efu-card-bg)
-      outline 1px solid var(--efu-card-border)
+      background var(--efu-none)
+      outline 1px solid var(--efu-none)
+
+      #blog_name
+        box-shadow var(--efu-shadow-border)
+        -webkit-backdrop-filter blur(20px)
+        backdrop-filter blur(20px)
+
+      #nav-right
+        box-shadow var(--efu-shadow-glass)
+        -webkit-backdrop-filter blur(20px)
+        backdrop-filter blur(20px)
+
+      #blog_name,
+      #nav-right
+        background linear-gradient(to bottom, var(--efu-maskbg), var(--efu-maskbgdeep))
+
+        [data-theme="dark"] &
+          box-shadow var(--efu-shadow-glass-inset)
 
       #menus
         +minWidth900()
@@ -208,8 +229,8 @@
 
         & > div
           &.menus_items
-            transition .3s
-            height 40px
+            transition top .3s, transform .3s, opacity .3s, box-shadow .3s, backdrop-filter .3s, background-color .3s
+            height 44px
             margin auto 0
 
       #menus[style*="padding-right: 300px;"]
@@ -219,8 +240,21 @@
       #page-name
         +minWidth900()
           z-index 101
-          transition .3s
-          top 10px
+          top 8px
+          transform scale(1)
+          opacity 1
+          max-width calc(100dvw - 420px)
+          pointer-events auto
+          border-radius 99px
+          box-shadow var(--efu-shadow-glass)
+          -webkit-backdrop-filter blur(20px)
+          backdrop-filter blur(20px)
+
+          [data-theme="dark"] &
+            box-shadow var(--efu-shadow-glass-inset)
+
+          &::before
+            opacity 1
 
         &-text
           +minWidth900()
@@ -228,7 +262,7 @@
             opacity 1
             transition .3s
             line-height 1
-            width 70%
+            max-width 100%
             overflow hidden
             text-overflow ellipsis
             white-space nowrap
@@ -244,6 +278,8 @@
           transition .15s
           position relative
           top -60px
+          transform scale(0)
+          opacity 0
 
     &.nav-visible
       #nav
@@ -251,7 +287,10 @@
           +minWidth900()
             z-index 100
             top 60px
-            transition .3s
+            transform scale(0)
+            opacity 0
+            pointer-events none
+            transition .15s
 
           &-text
             +minWidth900()
@@ -264,6 +303,12 @@
             transition .15s
             position relative
             top: 0
+            transform scale(1)
+            border-radius 99px
+            box-shadow var(--efu-shadow-glass)
+            -webkit-backdrop-filter blur(20px)
+            backdrop-filter blur(20px)
+            background linear-gradient(to bottom, var(--efu-maskbg), var(--efu-maskbgdeep))
 
         #menus
           +minWidth900()
@@ -276,7 +321,7 @@
   &.no-top-img
     margin-bottom 0
 
-  &:not(.nav-fixed)
+  &.nav-at-top
     #percent
       transition .3s
 
@@ -286,6 +331,12 @@
       margin-left 0
       overflow hidden
       transition .3s
+
+    &:not(.not-top-img)
+      #nav #menus > .menus_items > .menus_item:hover > .site-page
+        background var(--efu-none)
+        box-shadow none
+        color var(--efu-white)
 
 #nav
   padding 0
@@ -316,11 +367,22 @@
 
   #toggle-menu
     display none
-    padding .1rem 0 0 .3rem
+    padding 0
     vertical-align top
+    width 35px
+    height 35px
 
     +maxWidth768()
       display inline-block
+
+      .site-page
+        width 35px
+        height 35px
+        padding 0
+        display flex
+        align-items center
+        justify-content center
+        border-radius 40px
 
     &:hover
       color var(--efu-white)
@@ -339,7 +401,7 @@
     &:hover
       @media (hover: hover)
         i, span, img
-          color var(--efu-card-bg)
+          color var(--efu-nav-hover-text)
           transition .3s
 
       +minWidth900()
@@ -359,7 +421,7 @@
       justify-content center
       font-size 22px
       line-height 1
-      color var(--efu-card-bg)
+      color var(--efu-nav-hover-text)
 
     if hexo-config('site.name.class') == i_class
       i
@@ -392,11 +454,21 @@
 
   #blog_name
     flex-wrap nowrap
-    height 60px
+    height 44px
     display flex
     align-items center
     z-index 102
-    transition .3s
+    position absolute
+    left 1.5rem
+    padding 2px 6px
+    border var(--style-border-always)
+    border-color var(--efu-none)
+    border-radius 99px
+    transition box-shadow .3s, border-color .3s, backdrop-filter .3s, background-color .3s, width .3s, max-width .3s, height .3s, max-height .3s, padding .3s, margin .3s
+
+    +maxWidth768()
+      left 12px
+      padding 0
 
   a
     transition .3s
@@ -438,9 +510,18 @@
     display flex
     flex-direction row
     justify-content center
+    gap 8px
+    padding 0 4px
+    height 44px
+    margin auto 0
+    border-radius 99px
+    box-sizing border-box
+    transform scale(1)
+    opacity 1
+    transition top .5s, transform .5s, opacity .5s, box-shadow .5s, backdrop-filter .5s, background-color .5s
 
     .menus_item
-      padding 0 .4rem
+      padding 0
       display flex
       flex-direction column
       align-items center
@@ -448,13 +529,14 @@
       position relative
 
       .menus_item_child
-        padding 6px 4px 8px 4px
+        padding 6px 3.5px
         border-radius 100px
         background-color var(--efu-maskbgdeep)
         box-shadow var(--efu-shadow-black)
         border var(--style-border)
         transition .3s
-        backdrop-filter blur(20px)
+        -webkit-backdrop-filter none
+        backdrop-filter none
         top 35px
         position absolute
         margin-top 8px
@@ -480,7 +562,7 @@
 
             &:hover
               background var(--efu-lighttext)
-              color var(--efu-card-bg)
+              color var(--efu-nav-hover-text)
               box-shadow var(--efu-shadow-main)
               margin 0 auto
               transform scale(1)
@@ -488,7 +570,7 @@
 
             i
               &:not(.fa-brands)
-                font-size 16px
+                font-size 22px
                 margin-right 8px
                 line-height 1
 
@@ -503,7 +585,30 @@
         &:before
           top -10px
 
+      &:first-child
+        .menus_item_child::after
+          position absolute
+          top -60px
+          left 0
+          width 50%
+          height 60px
+          content ""
+
+      &:last-child
+        .menus_item_child::after
+          position absolute
+          top -60px
+          right 0
+          width 50%
+          height 60px
+          content ""
+
       &:hover
+        > .site-page
+          background var(--efu-main)
+          color var(--efu-nav-hover-text)
+          box-shadow var(--efu-shadow-main)
+
         .menus_item_child
           display block
           border var(--style-border-hover)
@@ -511,6 +616,8 @@
           opacity 1
           pointer-events all
           transform translateY(0) scale(1)
+          -webkit-backdrop-filter blur(20px)
+          backdrop-filter blur(20px)
 
         i
           &.expand
@@ -634,6 +741,9 @@ if hexo-config('nav.group')
     transition .3s
     border-radius 40px
 
+    +minWidth768()
+      position relative
+
     +maxWidth768()
       display: none
 
@@ -642,7 +752,7 @@ if hexo-config('nav.group')
 
     &:hover
       background var(--efu-main)
-      color var(--efu-card-bg)
+      color var(--efu-nav-hover-text)
 
       .back-menu-list-groups
         display flex
@@ -651,6 +761,9 @@ if hexo-config('nav.group')
         pointer-events auto
         left 1.5rem
         transform scale(1)
+
+        +minWidth768()
+          left 0
 
         +maxWidth768()
           padding-bottom 8px
@@ -688,6 +801,12 @@ if hexo-config('nav.group')
       backdrop-filter blur(20px)
       -webkit-backdrop-filter blur(20px)
 
+      +minWidth768()
+        left 0
+        background-color var(--efu-card-bg)
+        backdrop-filter none
+        -webkit-backdrop-filter none
+
       +maxWidth768()
         left 0
 
@@ -698,6 +817,12 @@ if hexo-config('nav.group')
       .back-menu-item
         width 150px
 
+        +minWidth768()
+          gap 8px
+
+          .back-menu-item-text
+            margin-left 0
+
 .nav-fixed
   #nav
     a
@@ -706,7 +831,7 @@ if hexo-config('nav.group')
 
       &:hover
         background var(--efu-lighttext)
-        color var(--efu-card-bg)
+        color var(--efu-nav-hover-text)
         transition .3s
 
     #site-name
@@ -720,7 +845,7 @@ if hexo-config('nav.group')
 
         &:hover
           background var(--efu-lighttext)
-          color var(--efu-card-bg)
+          color var(--efu-nav-hover-text)
 
     .menus_item
       &:hover
@@ -741,6 +866,13 @@ if hexo-config('nav.group')
           background var(--efu-white-op)
           color var(--efu-white)
           cursor pointer
+
+  #page-header
+    #nav
+      .menus_item_child
+        .site-page.child
+          &:hover
+            color var(--efu-card-bg)
 
   #nav
     #site-name
@@ -796,7 +928,7 @@ if hexo-config('nav.group')
     background var(--efu-lighttext)
 
     .back-menu-item-text
-      color var(--efu-card-bg)
+      color var(--efu-nav-hover-text)
 
   .back-menu-item-icon
     width 24px
@@ -817,7 +949,7 @@ if hexo-config('nav.group')
   #nav
     a
       &:hover
-        color var(--efu-card-bg)
+        color var(--efu-nav-hover-text)
         background var(--efu-main)
         transition .3s
         box-shadow var(--efu-shadow-main)
@@ -825,13 +957,13 @@ if hexo-config('nav.group')
     #site-name
       &:hover
         i
-          color var(--efu-card-bg)
+          color var(--efu-nav-hover-text)
 
   .menus_item
     &:hover
       & > a.site-page
         +minWidth768()
-          color var(--efu-card-bg) !important
+          color var(--efu-nav-hover-text) !important
           background var(--efu-main)
           box-shadow var(--efu-shadow-main)
 
@@ -851,23 +983,30 @@ if hexo-config('nav.group')
     &.menus_items
       & > div
         & > a
-          letter-spacing .3rem
-          padding-left .7rem
+          max-width 10rem
+          padding-left 12px
+          padding-right 12px
           font-weight 700
           padding-top 0
           padding-bottom 0
           height 35px
           line-height 35px
           border-radius 40px
-          if $language == 'en-US'
-            letter-spacing normal
+          letter-spacing 0
+
+          > span
+            display block
+            min-width 0
+            overflow hidden
+            text-overflow ellipsis
+            white-space nowrap
 
 #page-name
   +minWidth900()
     align-items center
     display flex
     border-radius 12px
-    height 40px
+    height 44px
     position absolute
     top 62px
     left 0
@@ -875,16 +1014,68 @@ if hexo-config('nav.group')
     margin auto
     justify-content center
     animation-timing-function ease-out
+    transform scale(1.1)
+    width fit-content
+    padding 0 12px
+    opacity 0
+    pointer-events none
+    transition top .3s, transform .3s, opacity .3s, box-shadow .3s, border-color .3s, backdrop-filter .3s
+
+    &::before
+      content ""
+      position absolute
+      inset 0
+      border-radius inherit
+      background linear-gradient(to bottom, var(--efu-maskbg), var(--efu-maskbgdeep))
+      opacity 0
+      transition opacity .3s
+      pointer-events none
+
+    > *
+      position relative
+      z-index 1
 
 #page-name-mask
   +minWidth900()
     width 100%
-    height 100%
+    height 60px
     position absolute
-    overflow hidden
     left 0
+    pointer-events none
+
+#page-header.nav-fixed
+  #menus > .menus_items:hover,
+  #page-name:hover
+    +minWidth900()
+      transform scale(1.05)
 
 if hexo-config('console.enable')
+  #page-header.console-open
+    #nav
+      z-index 10000
+
+      #nav-right
+        #nav-console
+          .console_switchbutton.console-open
+            label
+              i
+                width 100%
+                height .2rem
+                top calc(50% - .1rem)
+                bottom auto
+                left 0
+                right auto
+
+                &.left
+                  transform rotate(45deg)
+
+                &.center
+                  opacity 0
+                  transform scale(0)
+
+                &.right
+                  transform rotate(-45deg)
+
   #nav-console
     +maxWidth768()
       display none

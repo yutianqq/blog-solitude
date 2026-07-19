@@ -1,5 +1,5 @@
 .post-reward
-    .reward-button(title=_p('award.tipping') onclick="AddRewardMask()")
+    .reward-button(title=_p('award.tipping') heotip=_p('award.tipping') data-solitude-action="showReward")
         i.solitude.fas.fa-heart
         =_p('award.tipping')
     .reward-main
@@ -15,30 +15,3 @@
             a.reward-main-btn(href=url_for(theme.post.award.appreciators))
                 .reward-text= _p('award.title')
                 .reward-dec=theme.post.award.desc
-
-script.
-    function RemoveRewardMask() {
-        let rewardMainElements = document.querySelectorAll(".reward-main");
-        let quitBoxElement = document.querySelector("#quit-box");
-
-        rewardMainElements.forEach(element => {
-            element.style.display = "none";
-        });
-
-        if (quitBoxElement) {
-            quitBoxElement.style.display = "none";
-        }
-    }
-
-    function AddRewardMask() {
-        let rewardMainElements = document.querySelectorAll(".reward-main");
-        let quitBoxElement = document.querySelector("#quit-box");
-
-        rewardMainElements.forEach(element => {
-            element.style.display = "flex";
-        });
-
-        if (quitBoxElement) {
-            quitBoxElement.style.display = "flex";
-        }
-    }

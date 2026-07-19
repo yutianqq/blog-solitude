@@ -2,7 +2,7 @@
     .card-content
         .card-info-avatar.is-center
             .top-group
-                .sayhi#sayhi(onclick="sco.changeWittyWord()")
+                .sayhi#sayhi(data-solitude-action="changeWittyWord")
         .avatar
             img(alt=_p('aside.avatar'), src=theme.aside.my_card.author.img)
             if theme.aside.my_card.author.sticker
@@ -16,5 +16,5 @@
             .social-icons.is-center
                 each value, label in theme.aside.my_card.information || {}
                     - var array = value.split('||')
-                    a.social-icon(href=url_for(trim(array[0])), title=label)
+                    a.social-icon(href=url_for(trim(array[0])), title=label, heotip=label)
                         i.solitude(class=array[1])

@@ -21,7 +21,7 @@ script.
         const $asideList = document.querySelector('.card-recent-comment .aside-list')
         const newestCommentInit = () => {
             if (!document.querySelector('.card-recent-comment')) return
-            const data = utils.saveToLocal.get('waline-newest-comment')
+            const data = Solitude.saveToLocal.get('waline-newest-comment')
             if (data) {
                 generateHtml(data)
             } else {
@@ -41,7 +41,7 @@ script.
                         'date': new Date(e.time || e.insertedAt)
                     }
                 })
-                utils.saveToLocal.set('waline-newest-comment', walineArray, !{theme.comment.newest_comment.storage})
+                Solitude.saveToLocal.set('waline-newest-comment', walineArray, !{theme.comment.newest_comment.storage})
                 generateHtml(walineArray)
             }).catch(error => {
                 console.error(error)
@@ -53,19 +53,19 @@ script.
             const $dom = document.querySelector('.card-recent-comment .aside-list')
             $dom.innerHTML = array.length ? array.map(item => `
                 <div class='aside-list-item'>
-                  <div onclick='pjax.loadUrl("${item.url}")' class='thumbnail'>
+                  <div data-solitude-action='navigateTo' data-solitude-url='${item.url}' class='thumbnail'>
                     <img src='${item.avatar}' alt='${item.nick}'>
                     <div class='name'><span>${item.nick}</span></div>
                   </div>
                   <div class='content'>
-                    <div class='comment' onclick='pjax.loadUrl("${item.url}")'>${item.content}</div>
+                    <div class='comment' data-solitude-action='navigateTo' data-solitude-url='${item.url}'>${item.content}</div>
                     <time class="datetime" datetime="${item.date}"></time>
                   </div>
                 </div>
               `).join('') : "!{_p('newest_comment.zero')}"
             window.lazyLoadInstance?.update()
-            window.pjax?.refresh()
-            sco?.changeTimeFormat(document.querySelectorAll('.aside-list-item time'))
+            Solitude.pjax?.refresh()
+            Solitude.changeTimeFormat?.(document.querySelectorAll('.aside-list-item time'))
         }
 
         window.addEventListener('DOMContentLoaded', newestCommentInit, false)

@@ -11,70 +11,70 @@ div#rightMenu
         div.rightMenu-item#menu-top
             i.solitude.fas.fa-arrow-up
     div.rightMenu-group.rightMenu-line.rightMenuPlugin
-        div.rightMenu-item#menu-copytext
+        div.rightMenu-item#menu-copytext(title=_p('right_menu.copy') heotip=_p('right_menu.copy'))
             i.solitude.fas.fa-clone
             span= _p('right_menu.copy')
-        div.rightMenu-item#menu-pastetext
+        div.rightMenu-item#menu-pastetext(title=_p('right_menu.paste') heotip=_p('right_menu.paste'))
             i.solitude.fas.fa-clipboard
             span= _p('right_menu.paste')
         if theme.comment.use
-            div.rightMenu-item#menu-commenttext
+            div.rightMenu-item#menu-commenttext(title=_p('right_menu.comment') heotip=_p('right_menu.comment'))
                 i.solitude.fas.fa-comment-medical
                 span= _p('right_menu.comment')
-        div.rightMenu-item#menu-newwindow
+        div.rightMenu-item#menu-newwindow(title=_p('right_menu.new') heotip=_p('right_menu.new'))
             i.solitude.far.fa-window-maximize
             span= _p('right_menu.new')
-        div.rightMenu-item#menu-copylink
+        div.rightMenu-item#menu-copylink(title=_p('right_menu.link') heotip=_p('right_menu.link'))
             i.solitude.fas.fa-link
             span= _p('right_menu.link')
-        div.rightMenu-item#menu-copyimg
+        div.rightMenu-item#menu-copyimg(title=_p('right_menu.img') heotip=_p('right_menu.img'))
             i.solitude.fas.fa-clone
             span= _p('right_menu.img')
-        div.rightMenu-item#menu-downloadimg
+        div.rightMenu-item#menu-downloadimg(title=_p('right_menu.downloadImg') heotip=_p('right_menu.downloadImg'))
             i.solitude.fas.fa-cloud-arrow-down
             span= _p('right_menu.downloadImg')
         if theme.search.enable
-            div.rightMenu-item#menu-search
+            div.rightMenu-item#menu-search(title=_p('right_menu.search') heotip=_p('right_menu.search'))
                 i.solitude.fas.fa-magnifying-glass
                 span= _p('right_menu.search')
         if theme.capsule.enable
-            div.rightMenu-item#menu-music-toggle
+            div.rightMenu-item#menu-music-toggle(title=_p('right_menu.music.start') heotip=_p('right_menu.music.start'))
                 i.solitude.fas.fa-play
                 span= _p('right_menu.music.start')
-            div.rightMenu-item#menu-music-back
+            div.rightMenu-item#menu-music-back(title=_p('right_menu.music.back') heotip=_p('right_menu.music.back'))
                 i.solitude.fas.fa-backward
                 span= _p('right_menu.music.back')
-            div.rightMenu-item#menu-music-forward
+            div.rightMenu-item#menu-music-forward(title=_p('right_menu.music.forward') heotip=_p('right_menu.music.forward'))
                 i.solitude.fas.fa-forward
                 span= _p('right_menu.music.forward')
-            div.rightMenu-item#menu-music-copyMusicName
+            div.rightMenu-item#menu-music-copyMusicName(title=_p('right_menu.music.copyMusicName') heotip=_p('right_menu.music.copyMusicName'))
                 i.solitude.fas.fa-clone
                 span= _p('right_menu.music.copyMusicName')
     if custom_list.length > 0
         div.rightMenu-group.rightMenu-line.rightMenuOther
             each item,index in custom_list
-                div.rightMenu-item(id=item.id class=item.class onclick=item.click+'||rm.hideRightMenu()')
+                div.rightMenu-item(id=item.id class=item.class data-solitude-action="runConfiguredAction" data-solitude-value=item.click title=item.name heotip=item.name)
                     i.solitude(class=item.icon)
                     span= item.name
     div.rightMenu-group.rightMenu-line.rightMenuOther
         if theme.right_menu.commentBarrage && theme.comment.use && theme.comment.commentBarrage
-            div.rightMenu-item#menu-commentBarrage(onclick="sco.switchCommentBarrage()")
+            div.rightMenu-item#menu-commentBarrage(data-solitude-action="switchCommentBarrage" title=_p('right_menu.barrage.close') heotip=_p('right_menu.barrage.close'))
                 i.solitude.fas.fa-comment
                 span.menu-commentBarrage-text= _p('right_menu.barrage.close')
-        div.rightMenu-item#menu-darkmode(onclick="sco.switchDarkMode()")
+        div.rightMenu-item#menu-darkmode(data-solitude-action="switchDarkMode")
             i.solitude.fas.fa-circle-half-stroke
             case theme.display_mode.type
                 when 'auto'
                 when 'light'
-                    span.menu-darkmode-text= _p('right_menu.light')
+                    span.menu-darkmode-text(title=_p('right_menu.light') heotip=_p('right_menu.light'))= _p('right_menu.light')
                 when 'dark'
-                    span.menu-darkmode-text= _p('right_menu.dark')
+                    span.menu-darkmode-text(title=_p('right_menu.dark') heotip=_p('right_menu.dark'))= _p('right_menu.dark')
         if theme.right_menu.translate
             div.rightMenu-item#menu-translate
                 i.solitude.fas.fa-language
                 case theme.translate.defaultEncoding
                     when 2
-                        span= _p('right_menu.chs_to_cht')
+                        span(title=_p('right_menu.chs_to_cht') heotip=_p('right_menu.chs_to_cht'))= _p('right_menu.chs_to_cht')
                     when 1
-                        span= _p('right_menu.cht_to_chs')
+                        span(title=_p('right_menu.cht_to_chs') heotip=_p('right_menu.cht_to_chs'))= _p('right_menu.cht_to_chs')
 div#rightmenu-mask

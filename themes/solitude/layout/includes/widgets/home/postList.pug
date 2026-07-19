@@ -80,8 +80,7 @@ mixin adsenseCard()
           (adsbygoogle = window.adsbygoogle || []).push({});
 
 //- 主文章项组件
-- var onclickAttr = "pjax.loadUrl('" + url_for(post.path) + "')"
-.recent-post-item(onclick=onclickAttr)
+.recent-post-item(data-solitude-action="navigateTo" data-solitude-url=url_for(post.path))
   if direction === 'column'
     +columnLayout()
   else

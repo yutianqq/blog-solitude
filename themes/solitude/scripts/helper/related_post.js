@@ -12,23 +12,22 @@ hexo.extend.helper.register('related_posts', function (currentPost, allPosts) {
     const headlineLang = this._p('star');
 
     const relatedPostsMap = new Map();
+    const currentTags = new Set((currentPost.tags || []).map(tag => tag.name));
 
-    currentPost.tags.forEach(tag => {
-        allPosts.forEach(post => {
-            if (isTagRelated(tag.name, post.tags) && currentPost.path !== post.path) {
-                if (!relatedPostsMap.has(post.path)) {
-                    relatedPostsMap.set(post.path, {
-                        title: post.title,
-                        path: post.path,
-                        cover: post.cover || 'var(--default-bg-color)',
-                        weight: 1,
-                        updated: post.updated,
-                        created: post.date
-                    });
-                } else {
-                    relatedPostsMap.get(post.path).weight += 1;
-                }
-            }
+    allPosts.forEach(post => {
+        if (currentPost.path === post.path) return;
+        const weight = (post.tags || []).reduce(
+            (count, tag) => count + Number(currentTags.has(tag.name)),
+            0
+        );
+        if (!weight) return;
+        relatedPostsMap.set(post.path, {
+            title: post.title,
+            path: post.path,
+            cover: post.cover || 'var(--default-bg-color)',
+            weight,
+            updated: post.updated,
+            created: post.date
         });
     });
 
@@ -45,7 +44,7 @@ hexo.extend.helper.register('related_posts', function (currentPost, allPosts) {
                 <i class="solitude fas fa-star"></i>
                 <span>${headlineLang}</span>
                 <div class="relatedPosts-link">
-                    <a onclick="event.preventDefault(); toRandomPost();" href="javascript:void(0);" rel="external nofollow" data-pjax-state="">${this._p('random')}</a>
+                    <a onclick="event.preventDefault(); Solitude.randomPost();" href="javascript:void(0);" rel="external nofollow" data-pjax-state="">${this._p('random')}</a>
                 </div>
             </div>
             <div class="relatedPosts-list">`;
@@ -68,10 +67,6 @@ hexo.extend.helper.register('related_posts', function (currentPost, allPosts) {
         </div>`;
     return result;
 });
-
-function isTagRelated(tagName, tags) {
-    return tags.some(tag => tagName === tag.name);
-}
 
 function compare(attr, dateType) {
     return (a, b) => {

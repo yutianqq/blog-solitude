@@ -1,8 +1,12 @@
-div.needEndHide#nav-music
+div.needEndHide#nav-music(data-solitude-action='handleMusicClick' data-solitude-event='true')
   #nav-music-hoverTips
-    i#music-prev.music-control-btn.fas.fa-backward-step(onclick='sco.musicSkipBack()')
-    i#music-pause.music-control-btn.fas.fa-pause(onclick='sco.musicToggle()')
-    i#music-play.music-control-btn.fas.fa-play(onclick='sco.musicToggle()')
-    i#music-next.music-control-btn.fas.fa-forward-step(onclick='sco.musicSkipForward()')
+    button#music-prev.music-control-btn(type='button' title=_p('right_menu.music.back') aria-label=_p('right_menu.music.back') data-solitude-action='musicSkipBack' data-solitude-stop='true')
+      i.fas.fa-backward-step
+    button#music-pause.music-control-btn(type='button' title=_p('right_menu.music.stop') aria-label=_p('right_menu.music.stop') data-solitude-action='musicToggle' data-solitude-stop='true')
+      i.fas.fa-pause
+    button#music-play.music-control-btn(type='button' title=_p('right_menu.music.start') aria-label=_p('right_menu.music.start') data-solitude-action='musicToggle' data-solitude-stop='true')
+      i.fas.fa-play
+    button#music-next.music-control-btn(type='button' title=_p('right_menu.music.forward') aria-label=_p('right_menu.music.forward') data-solitude-action='musicSkipForward' data-solitude-stop='true')
+      i.fas.fa-forward-step
 
   meting-js(id=theme.capsule.id server=theme.capsule.server type=theme.capsule.type mutex="true" preload="none" theme="var(--efu-main)" data-lrctype="0" order="random" volume=theme.capsule.volume)

@@ -1,14 +1,16 @@
 extends includes/layout.pug
 
 block content
-    main.layout#content-inner
-        #category
-            #category-bar
-                include includes/widgets/home/categoryBar
-            .recent-posts#recent-posts
-                each post,index in page.posts.find({ parent: { $exists: false } }).data
-                    include includes/widgets/home/postList
-                include includes/mixins/pagination
-            if theme.comment.hot_tip.enable
-                include ./includes/widgets/third-party/hot/index.pug
-        include includes/widgets/aside/aside
+  main.layout.layout--category#content-inner
+    .home-category-bar.category-in-bar
+      #category-bar
+        include includes/widgets/home/categoryBar
+    .home-layout-row
+      #category
+        .recent-posts#recent-posts
+          each post,index in page.posts.find({ parent: { $exists: false } }).data
+            include includes/widgets/home/postList
+          include includes/mixins/pagination
+        if theme.comment.hot_tip.enable
+          include ./includes/widgets/third-party/hot/index.pug
+      include includes/widgets/aside/aside

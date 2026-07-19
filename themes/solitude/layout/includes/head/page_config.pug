@@ -1,13 +1,22 @@
 - var showToc = !!page.toc && (toc(page.content) !== '' || page.encrypt === true);
 
-script#config-diff.
-    var PAGE_CONFIG = {
-        is_post: !{is_post()},
-        is_page: !{!is_post() && !is_home()},
-        is_home: !{is_home()},
-        page: '!{page.type}',
-        toc: !{showToc},
-        comment: !{!!page.comment},
-        ai_text: !{is_post && theme.post.ai.enable && page.ai_text ? "'"+ page.ai_text+"'" : false},
-        color: !{page.color ? "'"+ page.color+"'" : false},
-    }
+-
+  const pageConfig = {
+    is_post: is_post(),
+    is_page: !is_post() && !is_home(),
+    is_home: is_home(),
+    page: is_post()
+      ? 'post'
+      : (is_home()
+        ? 'solitude'
+        : (is_archive()
+          ? 'archive'
+          : (is_category()
+            ? 'category'
+            : (is_tag() ? 'tag' : (page.type || page.layout || 'page'))))),
+    toc: showToc,
+    comment: !!page.comment,
+    ai_text: is_post() && theme.post.ai.enable && page.ai_text ? page.ai_text : false,
+    color: page.color || false
+  }
+template#config-diff!= JSON.stringify(pageConfig).replace(/</g, '\\u003c')

@@ -18,7 +18,7 @@ const chart = (args, content) => {
         new Chart(ctx, {${content}});
       };
       document.addEventListener("DOMContentLoaded", chart);
-      utils.addEventListenerPjax(document, "pjax:complete", chart);
+      Solitude.addEventListenerPjax(document, "pjax:complete", chart);
     }()
     </script>
   </div>`;

@@ -1,3 +1,4 @@
-.coverdiv#coverdiv
-    img#post-cover.nolazyload(src=url_for(page.cover), alt=page.title)
+.post-cover-aside
+    a.post-cover-aside-link.fancybox(href=url_for(page.cover), target="_blank", rel="noopener", data-fancybox="images", data-caption=page.title, aria-label=page.title)
+        img#post-cover.post-cover-aside-img.nolazyload(src=url_for(page.cover), alt=page.title)
 include ./postInfo

@@ -1,12 +1,12 @@
 .rs_hide
     if theme.rightside.hide.translate
-        button.translate(type='button' title=_p('rightside.hide.translate'))= '简'
+        button.translate(type='button' title=_p('rightside.hide.translate') heotip=_p('rightside.hide.translate'))= '简'
     if theme.rightside.hide.mode 
-        button.mode(type='button' title=_p('rightside.hide.mode') onclick='sco.switchDarkMode()')
+        button.mode(type='button' title=_p('rightside.hide.mode') heotip=_p('rightside.hide.mode') data-solitude-action='toggleTheme')
             i.fas.fa-circle-half-stroke
     if theme.rightside.hide.aside && theme.console.enable
-        button.aside.pc(type='button' title=_p('rightside.hide.aside') onclick='sco.switchHideAside()')
+        button.aside.pc(type='button' title=_p('rightside.hide.aside') heotip=_p('rightside.hide.aside') data-solitude-action='switchHideAside')
             i.fas.fa-arrows-alt-h
     if theme.keyboard.enable
-        button.keyboard.pc(type='button' title=_p('console.switch_keyboard') onclick="sco.switchKeyboard()")
+        button.keyboard.pc(type='button' title=_p('console.switch_keyboard') heotip=_p('console.switch_keyboard') data-solitude-action='switchKeyboard')
             i.fas.fa-keyboard

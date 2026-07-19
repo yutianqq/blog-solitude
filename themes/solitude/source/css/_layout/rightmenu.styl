@@ -3,7 +3,9 @@ if hexo-config('right_menu.enable')
     display none
     position fixed
     padding 0 .25rem
-    width 9rem
+    width max-content
+    min-width 9rem
+    max-width calc(100vw - 24px)
     height fit-content
     top 10%
     left 10%
@@ -17,6 +19,7 @@ if hexo-config('right_menu.enable')
     user-select none
     box-shadow var(--efu-shadow-black)
     transition border .3s
+    box-sizing border-box
 
     &:hover
       border var(--style-border-hover)
@@ -55,6 +58,7 @@ if hexo-config('right_menu.enable')
 
         i
           display inline-block
+          flex 0 0 1.5rem
           text-align center
           line-height 1.5rem
           width 1.5rem
@@ -62,7 +66,12 @@ if hexo-config('right_menu.enable')
           margin 0 .25rem
 
         span
+          min-width 0
+          max-width 14rem
+          overflow hidden
           line-height 1.5rem
+          text-overflow ellipsis
+          white-space nowrap
 
     .rightMenu-line
       border-top 1px dashed var(--efu-theme-op)

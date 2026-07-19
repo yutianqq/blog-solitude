@@ -8,8 +8,24 @@
   .author-title
     font-size 2rem
     font-weight 700
-    margin .5rem 0
+    margin 1rem 0 2rem
     line-height 1
+
+  .author-page-content
+    display flex
+    flex-direction column
+    gap .5rem
+
+  .author-content-item
+    flex 1
+    width 49%
+
+  .create-site-post
+    line-height 2
+
+  +maxWidth768()
+    .author-title
+      margin .5rem 0 1rem
 
 if "tenyear" in $about
   @import "tenyear"

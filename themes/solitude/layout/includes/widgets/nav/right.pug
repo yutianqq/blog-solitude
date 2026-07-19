@@ -1,25 +1,26 @@
 - var custom = theme.nav.right.custom || []
 each item in custom
+    - const itemCommand = (item.onclick || '').replace(/\btoRandomPost\(\)/g, 'randomPost()').replace(/\btravelling\(\)/g, 'travelling()').replace(/\?\.\(/g, '(').replace(/\?\./g, '.')
     .nav-button(id=item.id)
-        a.site-page(href=url_for(item.url) || 'javascript:void(0);', onclick=item.onclick, title=item.title || '')
+        a.site-page(href=url_for(item.url) || 'javascript:void(0);', data-solitude-action=itemCommand ? 'runConfiguredAction' : null, data-solitude-value=itemCommand || null, data-solitude-prevent=itemCommand ? 'true' : null, title=item.title || item.name, heotip=item.title || item.name)
             i.solitude(class=item.icon || '')
 if theme.nav.right.random
     .nav-button#randomPost_button
-        a.site-page(onclick="toRandomPost()", title=_p('nav.randompost'), href="javascript:void(0);")
+        a.site-page(data-solitude-action="randomPost" data-solitude-prevent="true", title=_p('nav.randompost'), heotip=_p('nav.randompost'), href="javascript:void(0);")
             i.solitude.fas.fa-dice-d6
 if theme.search.enable
     .nav-button#search-button
-        a.site-page.social-icon.search(href="javascript:void(0);", title=_p('nav.search'))
+        a.site-page.social-icon.search(href="javascript:void(0);", title=_p('nav.search'), heotip=_p('nav.search'))
             i.solitude.fas.fa-magnifying-glass
 if theme.console.enable
     .nav-button#nav-console
-        a.console_switchbutton(onclick="sco.showConsole()", title=_p('nav.console'), href="javascript:void(0);")
+        a.console_switchbutton(data-solitude-action="toggleConsole" data-solitude-prevent="true", title=_p('nav.console'), heotip=_p('nav.console'), href="javascript:void(0);")
             label
                 i.left
                 i.center
                 i.right
 if !theme.rightside.percent
-    .nav-button#nav-totop(onclick="sco.toTop()")
+    .nav-button#nav-totop(data-solitude-action="toTop" title=_p('nav.backtop') heotip=_p('nav.backtop'))
         a.totopbtn
             i.solitude.fas.fa-arrow-up
             span#percent= "0"

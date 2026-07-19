@@ -1,16 +1,31 @@
 .category-bar-items#category-bar-items(class=is_home() ? 'home' : '')
-    .category-bar-item(class=is_home() ? 'select' : '', id="category-bar-home")
-        a(href=url_for('/'))= __('home.home')
-    .category-bar-item
-        a(href=url_for('/archives/'))= __('home.archives')
-    each item in site.categories.find({ parent: { $exists: false } }).data
-        .category-bar-item(class=select ? (select === item.name ? 'select' : '') : '', id=item.name)
-            a(href=url_for(item.path))= item.name
-div.category-bar-right
-    - let categories = site.categories.find({parent: {$exists: false}})
-    - let word_count = categories.map(category => category.name).join('').length
-    if word_count > 40 || categories.data.length > 10
-        .category-bar-next#category-bar-next(onclick="sco.scrollCategoryBarToRight()")
-            i.solitude.fas.fa-angles-right
-    if theme.page.categories
-        a.category-bar-more(href=url_for('/categories/'))= __('more')
+  .category-bar-item(class=is_home() ? 'select' : '', id='category-bar-home', data-default-order='0')
+    a(href=url_for('/'), title=__('home.home'), heotip=_p('tooltip.home'))
+      span.category-bar-link-icon
+        i.solitude.fas.fa-star
+      span= __('home.home')
+  .category-bar-item(
+    class=is_archive() ? 'select' : ''
+    id='archives'
+    data-default-order='1'
+  )
+    a(href=url_for('/archives/'), title=__('home.archives'), heotip=_p('tooltip.archives'))
+      span.category-bar-link-icon
+        i.solitude.fas.fa-book
+      span= __('home.archives')
+  each item, index in site.categories.find({ parent: { $exists: false } }).data
+    .category-bar-item(
+      class=select ? (select === item.name ? 'select' : '') : ''
+      id=item.name
+      data-default-order=index + 2
+    )
+      a(href=url_for(item.path), title=item.name, heotip=_p('tooltip.category').replace('${name}', item.name))= item.name
+
+- const categories = site.categories.find({ parent: { $exists: false } })
+- const wordCount = categories.map(category => category.name).join('').length
+.category-bar-more-group
+  if wordCount > 40 || categories.data.length > 10
+    button.category-bar-next#category-bar-next(type='button' data-solitude-action='scrollCategoryBarToRight' aria-label=_p('tooltip.category_next') title=_p('tooltip.category_next') heotip=_p('tooltip.category_next'))
+      i.solitude.fas.fa-angles-right
+  if theme.page.categories
+    a.category-bar-more(href=url_for('/categories/'), title=__('more'), heotip=_p('tooltip.categories'))= __('more')

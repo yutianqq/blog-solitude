@@ -1,6 +1,9 @@
 .flink#banners
   margin-bottom: .5rem
 
+body[data-type=links]
+  overflow-x clip
+
 .tags-group-title
   font-size 14px
   color var(--efu-card-bg)
@@ -19,8 +22,195 @@
   opacity 1
   backdrop-filter saturate(180%) blur(20px)
 
+.flink .tags-group-all.nowrapMove .tags-group-wrapper
+  animation rowleft 120s linear infinite
+
 .flink.article-container
   margin-top 1rem
+
+.friend-links-status
+  min-height 96px
+  display flex
+  align-items center
+  justify-content center
+  gap 8px
+  color var(--efu-secondtext)
+  text-align center
+
+  &.is-error
+    flex-direction column
+
+  &.is-compact
+    min-height 0
+    align-items flex-start
+
+  button
+    display inline-flex
+    align-items center
+    gap 6px
+    padding 8px 12px
+    border var(--style-border-always)
+    border-radius 8px
+    color var(--efu-fontcolor)
+    background var(--efu-card-bg)
+    cursor pointer
+
+    &:hover
+      color var(--efu-white)
+      border-color var(--efu-main)
+      background var(--efu-main)
+
+.flink-loading-skeleton
+  display grid
+  grid-template-columns repeat(auto-fill, minmax(280px, 1fr))
+  gap 1rem
+  padding 1rem 0
+
+.flink-loading-item
+  height 120px
+  border-radius 8px
+  opacity .3
+  background linear-gradient(90deg, var(--efu-card-bg) 25%, var(--efu-secondtext) 50%, var(--efu-card-bg) 75%)
+  background-size 200% 100%
+  animation flink-skeleton 1.5s ease-in-out infinite
+
+.flink.article-container
+  .power_title_bar
+    display flex
+    align-items center
+    justify-content flex-start
+
+    .title-h2-a-right
+      margin-left auto
+      font-size 14px
+      color var(--efu-secondtext)
+
+      a
+        padding 0
+        border-bottom none
+        color var(--efu-secondtext)
+        font-weight 700
+        line-height 1
+
+        &:hover
+          color var(--efu-lighttext)
+          background transparent
+
+  .flink-normal-title-row
+    display flex
+    align-items center
+    justify-content space-between
+    gap 12px
+
+  .flink-normal-title-content
+    min-width 0
+    flex 1
+
+    .flink-desc
+      margin 0
+
+  .flink-normal-scroll-controls
+    display flex
+    flex-shrink 0
+    gap 10px
+
+  .flink-normal-sort-btn,
+  .flink-normal-scroll-btn
+    display flex
+    align-items center
+    justify-content center
+    height 44px
+    border var(--style-border-always)
+    border-radius 99px
+    color var(--efu-fontcolor)
+    background var(--efu-card-bg)
+    box-shadow var(--efu-shadow-border)
+    cursor pointer
+    transition .3s
+
+    &:hover
+      color var(--efu-card-bg)
+      border-color var(--efu-lighttext)
+      background var(--efu-lighttext)
+
+  .flink-normal-sort-btn
+    min-width 108px
+    padding 0 14px
+    font-size 14px
+    font-weight 700
+    line-height 1
+
+  .flink-normal-scroll-btn
+    width 44px
+    flex-shrink 0
+    font-size 18px
+    line-height 1
+
+  .flink-list.normal-five-row-horizontal
+    --flink-breakout-side-gap calc(max((100vw - 1400px) / 2, 0px) + 2rem - 12px)
+    display grid
+    grid-auto-flow column
+    grid-template-rows repeat(5, 90px)
+    grid-auto-columns minmax(260px, 320px)
+    gap 12px
+    justify-content flex-start
+    align-content start
+    width 100vw
+    margin 1rem calc(50% - 50vw)
+    padding 0 var(--flink-breakout-side-gap) 10px
+    overflow-x auto
+    overflow-y hidden
+    box-sizing border-box
+    scrollbar-width none
+    scroll-padding-inline var(--flink-breakout-side-gap)
+
+    &::-webkit-scrollbar
+      display none
+
+    > .flink-list-item
+      width auto
+      height 90px
+      margin 0
+      float none
+
+      > a
+        display flex
+        height 100%
+
+    +maxWidth768()
+      width 100%
+      margin 1rem 0
+      padding 0 0 10px
+
+      > .flink-list-item
+        width auto
+        height 90px
+
+        > a
+          flex-direction row
+
+          .flink-item-name
+            width auto
+            padding 0
+            text-align left
+            font-size 19px
+
+          .flink-item-desc
+            display -webkit-box
+
+        .flink-item-info
+          width calc(100% - 90px)
+          align-items flex-start
+
+  +maxWidth768()
+    .flink-normal-scroll-btn
+      display none
+
+@keyframes flink-skeleton
+  0%
+    background-position 200% 0
+  100%
+    background-position -200% 0
 
 .article-container
 

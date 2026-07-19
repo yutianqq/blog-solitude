@@ -51,6 +51,16 @@ Theme design fully authorized by [@Zhang Hong Heo](https://github.com/zhheo)
 
 Visit [Documentation](https://solitude.js.org/) for more information.
 
+## Browser Extension API
+
+The browser runtime uses native ES modules and exposes one stable extension entry point through `window.Solitude`:
+
+- `navigate(url)`, `refresh()`, `copy(text)`, and `toggleTheme()`
+- `loadScript(url, options)` and `loadStyle(url, options)`
+- `on(event, handler)` for `ready`, `beforeNavigate`, `afterNavigate`, and `themeChange`
+
+`on` returns an unsubscribe function. The legacy `sco`, `utils`, `pjax`, `GLOBAL_CONFIG`, and `PAGE_CONFIG` globals are no longer public APIs; custom scripts should migrate to `window.Solitude`.
+
 ## Community
 
 [![Discord](https://img.shields.io/discord/1266610921942548553?logo=discord&label=discord&logoColor=white)](https://discord.gg/HZXAnK4Sut)

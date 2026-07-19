@@ -1,60 +1,80 @@
 #console
   display flex
   position fixed
-  width 100vw
-  height 100vh
+  width 100dvw
+  height 100dvh
   top 0
   left 0
   z-index 9999
   justify-content center
-  opacity 0
-  transition .3s ease-out
   flex-direction column
   align-items center
+  opacity 0
+  transition .3s ease-out
   pointer-events none
   user-select none
 
-  &.show .close-btn i
-    transform rotate(0)
+  &.show
+    opacity 1
+    pointer-events all
+
+    .console-card-group
+      transform translateY(0)
+      opacity 1
+      transition-delay .1s
+
+    .button-group
+      transform translateY(0)
+      opacity 1
+      transition-delay .2s
+
+    .console-content > *
+      pointer-events auto
+
+    .console-mask
+      backdrop-filter saturate(180%) blur(20px)
+      -webkit-backdrop-filter saturate(180%) blur(20px)
+      animation .6s ease 0s 1 normal none running to_show
+
+  .console-content
+    display flex
+    position relative
+    width 100%
+    max-width calc(100% - 32px)
+    max-height 800px
+    justify-content center
+    flex-direction column
+    align-items center
+    gap 16px
+    pointer-events none
 
   if hexo-config('recent_comments.enable') && hexo-config('recent_comments.console')
     .recent-comment-more
-      margin-left auto
       display flex
       align-items center
+      margin-left auto
 
       &:hover
         color var(--efu-main)
 
   .console-card-group
     display flex
+    width 100%
+    height 800px
+    max-height calc(100dvh - 180px)
     justify-content center
     align-items center
+    gap 8px
+    opacity 0
     transform translateY(20px)
     transition .3s
-    gap .5rem
-    max-height calc(100dvh - 180px)
-    max-width 1300px
-
-    +maxWidth1400()
-      justify-content center
-      max-width calc(100% - 64px)
 
     +maxWidth768()
       display none
 
-    +maxHeight800()
-      padding-top 30px
-
-
-  &.show
-    .console-card-group
-      transform translateY(0)
-      opacity 1
-      transition-delay .1s
-
   .console-card-group-left
     width 40%
+    max-width 550px
     height 100%
 
     +maxWidth900()
@@ -62,187 +82,150 @@
 
   .console-card-group-right
     display flex
-    flex-direction column
-    justify-content flex-start
-    height 100%
     width 60%
-    overflow hidden
+    max-width 899px
+    height 100%
+    flex-direction column
+    justify-content center
 
     +maxWidth900()
       width 100%
 
   .console-card
-    background var(--efu-maskbg)
-    border-radius 12px
-    overflow hidden
-    border var(--style-border)
-    box-shadow var(--efu-shadow-border)
-    padding 32px 36px 36px 36px
+    display flex
+    padding 32px 36px 36px
+    flex-direction column
     gap 24px
-    display: flex
-    flex-direction: column
+    background var(--efu-maskbgdeep)
+    border-radius 12px
+    box-shadow var(--efu-shadow-glass)
 
   .console-card.tags
-    flex 1
+    height calc(100% - 163px)
+
+    &:only-child
+      height 100%
+
     +maxHeight800()
       height 100%
 
+    .card-tag-cloud
+      display flex
+      flex-wrap wrap
+      align-content flex-start
+      gap 8px
+      overflow-y auto
+      scrollbar-width none
+
+      &::-webkit-scrollbar
+        display none
+
+      a
+        padding 2px 8px
+        color var(--efu-fontcolor)
+        background var(--efu-card-bg)
+        border var(--style-border)
+        border-radius 8px
+        font-size 14px
+        font-weight 700
+        transition .3s
+
+        &:hover
+          color var(--efu-white)
+          background var(--efu-main)
+
+        sup
+          opacity .6
+
   .console-mask
-    background var(--efu-maskbgdeep)
-    backdrop-filter saturate(180%) blur(20px)
-    -webkit-backdrop-filter blur(20px)
-    width 100vw
-    height 100vh
+    position absolute
+    width 100%
+    height 100%
     top 0
     left 0
-    position absolute
     z-index -1
+    background var(--efu-maskbg)
+    backdrop-filter none
+    -webkit-backdrop-filter none
+    backface-visibility hidden
     -webkit-backface-visibility hidden
-    -webkit-transform-style preserve-3d
     transform translateZ(0)
-
-  &.show
-    .console-mask
-      backdrop-filter saturate(180%) blur(20px)
-      -webkit-backdrop-filter blur(20px)
-      transform translateZ(0)
-      animation .6s ease 0s 1 normal none running to_show
+    transform-style preserve-3d
+    -webkit-transform-style preserve-3d
+    transition backdrop-filter .3s, -webkit-backdrop-filter .3s
 
   .author-content-item-tips
+    margin-bottom 8px
     opacity .8
-    font-size .6rem
-    margin-bottom .5rem
+    font-size 10px
 
   .author-content-item-title
-    font-size 36px
-    font-weight 700
-    line-height 1
     display flex
     align-items center
     justify-content space-between
+    font-size 28px
+    font-weight 700
+    line-height 1
 
   .aside-list
     display flex
     flex-wrap wrap
     flex-direction row
     justify-content space-between
-    margin-top 1.5rem
+    margin-top 24px
 
   .button-group
     display flex
-    margin 1rem auto 0 auto
-    justify-content center
     width fit-content
+    justify-content center
+    gap 8px
+    opacity 0
+    transform translateY(20px)
+    transition .3s
 
     .console-btn-item
       width 80px
       height 40px
-      transition .3s
       cursor pointer
-
-      span.darkmode_switchbutton
-        [data-theme="dark"] &
-          background var(--efu-orange)
-          color var(--efu-white)
-
-  .button-group
-    gap .5rem
-
-    .console-btn-item
-      &:hover
-        span
-          background var(--efu-main)
+      transition .3s
 
       span
+        display flex
         width 100%
         height 100%
-        background var(--efu-card-bg)
-        border var(--style-border)
-        border-radius 60px
-        display flex
         align-items center
         justify-content center
         color var(--efu-fontcolor)
+        background linear-gradient(to bottom, var(--efu-maskbg), var(--efu-maskbgdeep))
+        border var(--style-border)
+        border-radius 60px
+        box-shadow var(--efu-shadow-glass)
         transition .3s
-        box-shadow var(--efu-shadow-border)
 
         i
-          font-size 1rem
+          font-size 16px
 
-      &.on
-        span
+      span.darkmode_switchbutton
+        [data-theme="dark"] &
+          color var(--efu-white)
           background var(--efu-orange)
-          color var(--efu-white)
-          transition .3s
 
-      &:not(.on)
-        span:hover
-          background var(--efu-main)
+      &.on span
+        color var(--efu-white)
+        background var(--efu-orange)
 
-      &:hover
-        span
-          color var(--efu-white)
-
-  .console-card.tags
-    .card-tag-cloud
-      display flex
-      gap .5rem
-      flex-wrap wrap
-      verflow-y: scroll
-
-      a
-        color var(--efu-fontcolor)
-        padding 2px 8px
-        border-radius 8px
-        background var(--efu-card-bg)
-        border var(--style-border)
-        font-size 14px
-        font-weight 700
-
-        &:hover
-          background var(--efu-main)
-          color var(--efu-white)
-
-        sup
-          opacity .6
-
-  .close-btn
-    width 100%
-    height 60px
-    position fixed
-    right max('calc((100% - 1400px) / 2)', someValue)
-    top 0
-    font-size 35px
-    color var(--efu-fontcolor)
-    cursor pointer
-    transition .3s
-    display flex
-    align-items center
-    justify-content center
-    max-width 1400px
-
-    i
-      font-size 24px
-      margin-right 1.5rem
-      padding 6px 8px
-      margin-left auto
-      line-height 1
-      transform rotate(-30deg)
-      transition .6s
-      border-radius 32px
-
-    i:hover
-      color var(--efu-hovertext)
-      background var(--efu-main-op)
+      &:hover span
+        color var(--efu-white)
+        background var(--efu-main)
 
   .console-card.history
+    height 154px
     margin-top 8px
     padding 0
-    background 0 0
-    box-shadow none
+    background transparent
     border none
-    overflow hidden
     border-radius 0
+    box-shadow none
 
     +maxHeight800()
       display none
@@ -250,36 +233,39 @@
     .item-headline
       display none
 
-  .console-card.history
     .card-archive-list
       display flex
+      height 154px
       flex-direction row
       flex-wrap wrap
-      gap .5rem
-      height auto
-      max-height 164px
+      align-content space-between
+      gap 8px
 
       li.item
-        flex 1 1 calc(100% / 4 - 1.5rem)
+        height 72px
+        flex 1 1 calc(25% - 6px)
 
       a
-        border-radius 8px
         display flex
+        height 100%
+        padding 8px 16px
         flex-direction column
         align-content space-between
+        color var(--efu-fontcolor)
+        background linear-gradient(to bottom, var(--efu-maskbg), var(--efu-maskbgdeep))
         border var(--style-border)
-        transition all .3s ease 0s
-        background var(--efu-maskbgdeep)
-        padding 9.5px 16px
+        border-radius 8px
+        box-shadow var(--efu-shadow-glass)
+        transition .3s
 
         &:hover
-          background var(--efu-main)
           color var(--efu-white)
+          background var(--efu-main)
           cursor pointer
 
         .date
-          font-size 14px
           opacity .6
+          font-size 14px
 
         .count-group
           display flex
@@ -287,11 +273,11 @@
 
           .count
             width auto
-            text-align left
-            font-size 1.1rem
-            line-height .9
             margin-right 2px
+            text-align left
+            font-size 18px
             font-weight 700
+            line-height .9
 
           .unit
             width auto
@@ -302,13 +288,7 @@
   #card-newest-comments
     height 100%
 
-  #consoleMusic
-    +maxWidth1300()
-      display none
-
-    +maxHeight800()
-      display none
-
+  #consoleMusic,
   #consoleCommentBarrage
     +maxWidth1300()
       display none

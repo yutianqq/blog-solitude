@@ -2,16 +2,13 @@
 - const select = ['title','#body-wrap','#site-config','meta[name="description"]','.js-pjax','meta[property^="og:"]','#config-diff', '.rs_show', '.rs_hide']
 
 script.
-    let pjax = null;
-
     function initPjax() {
         if (typeof Pjax === 'undefined') {
-            console.warn('Pjax is not loaded yet, retrying...');
             setTimeout(initPjax, 100);
             return;
         }
 
-        pjax = new Pjax({
+        const instance = new Pjax({
             elements: 'a:not([target="_blank"])',
             selectors: !{JSON.stringify(select)},
             cacheBust: false,
@@ -19,8 +16,7 @@ script.
             scrollRestoration: false
         })
 
-        // 将 pjax 实例挂载到全局
-        window.pjax = pjax;
+        Solitude.pjax = instance;
 
         document.querySelectorAll('script[data-pjax]').forEach(item => {
             const newScript = document.createElement('script')
@@ -30,8 +26,15 @@ script.
             item.parentNode.replaceChild(newScript, item)
         })
 
-        document.addEventListener('pjax:complete', () => {
-            window.refreshFn()
+        document.addEventListener('pjax:send', () => {
+            document.dispatchEvent(new CustomEvent('solitude:beforeNavigate'))
+            Solitude.disposePage?.()
+            Object.values(window.globalFn?.pjax || {}).forEach(dispose => dispose())
+            if (window.globalFn) window.globalFn.pjax = {}
+        })
+
+        document.addEventListener('pjax:complete', async () => {
+            await Solitude.refresh()
 
             document.querySelectorAll('script[data-pjax]').forEach(item => {
                 const newScript = document.createElement('script')
@@ -41,13 +44,16 @@ script.
                 item.parentNode.replaceChild(newScript, item)
             })
 
-            GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+            Solitude.config.lazyload.enable && window.lazyLoadInstance?.update()
+            document.dispatchEvent(new CustomEvent('solitude:afterNavigate', {
+                detail: {page: Solitude.page}
+            }))
 
         })
 
         document.addEventListener('pjax:error', (e) => {
             if (e.request.status === 404) {
-                pjax.loadUrl('/404.html')
+                Solitude.navigate('/404.html')
             }
         })
     }

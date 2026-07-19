@@ -10,7 +10,7 @@
         apiKey: '!{apiKey}',
         indexName: '!{indexName}',
         container: '#docsearch',
-        placeholder: '!{ placeholder || _p("search.input_placeholder")}',
+        placeholder: '!{ placeholder || _p("search.placeholder")}',
       }, !{JSON.stringify(option)}))
 
       const handleClick = () => {
@@ -18,7 +18,7 @@
       }
 
       const searchClickFn = () => {
-        utils.addEventListenerPjax(document.querySelector('#search-button > .search'), 'click', handleClick)
+        Solitude.addEventListenerPjax(document.querySelector('#search-button > .search'), 'click', handleClick)
       }
 
       searchClickFn()

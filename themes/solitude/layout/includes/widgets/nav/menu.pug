@@ -5,16 +5,18 @@ if menu
         each value, label in menu
             .menus_item
                 if typeof value !== 'object'
-                    a.site-page(href=url_for(value))
+                    a.site-page(href=url_for(value), title=disableMenuTooltips ? null : label, heotip=disableMenuTooltips ? null : label)
                         span= label
                 else
-                    a.site-page(href="javascript:void(0);")
+                    a.site-page(href="javascript:void(0);", title=disableMenuTooltips ? null : label, heotip=disableMenuTooltips ? null : label)
                         span= label
                     ul.menus_item_child
                         each childValue, childLabel in value
                             li
                                 - var array = childValue.split('||')
-                                a.site-page.child(href=url_for(trim(array[0])))
+                                - var childUrl = trim(array[0])
+                                - var isTravelling = childUrl === 'javascript:travelling()'
+                                a.site-page.child(href=isTravelling ? 'javascript:void(0);' : url_for(childUrl), data-solitude-action=isTravelling ? 'travelling' : null, data-solitude-prevent=isTravelling ? 'true' : null, title=disableMenuTooltips ? null : childLabel, heotip=disableMenuTooltips ? null : childLabel)
                                     if array[1]
                                         i.solitude(class=array[1])
                                     span= childLabel
